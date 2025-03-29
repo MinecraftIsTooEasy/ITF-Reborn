@@ -23,6 +23,7 @@ public class ItemKettle extends Item implements IDamageableItem {
         this.vessel_material = vessel_material;
         this.contents = contents;
         this.setCraftingDifficultyAsComponent(100.0F);
+        this.setMaxStackSize(1);
         this.register();
     }
 

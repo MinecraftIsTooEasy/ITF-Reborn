@@ -11,16 +11,14 @@ public class BlockGrowableOre extends BlockOre {
         super(par1, vein_material, min_harvest_level);
         this.setTickRandomly(true);
     }
+
     @Override
-    public boolean updateTick(World world, int x, int y, int z, Random random)
-    {
-        if (super.updateTick(world, x, y, z, random))
-        {
+    public boolean updateTick(World world, int x, int y, int z, Random random) {
+        if (super.updateTick(world, x, y, z, random)) {
             return true;
-        }
-        else {
+        } else {
             int ran = random.nextInt(512);
-            if(ran == 0 && world.isAirBlock(x, y + 1, z)){
+            if (ran == 0 && world.isAirBlock(x, y + 1, z)) {
                 world.setBlock(x, y + 1, z, Blocks.azuriteCluster.blockID, 0, 2);
             }
             return false;

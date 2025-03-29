@@ -10,6 +10,7 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,7 +33,8 @@ public abstract class BiomeGenBaseMixin {
     @Shadow
     public float rainfall;
 
-    public void RegenAnimals() {
+    @Unique
+    public void regenAnimals() {
         removeEntityFromSpawnableLists(EntityCow.class);
         removeEntityFromSpawnableLists(EntityChicken.class);
         removeEntityFromSpawnableLists(EntitySheep.class);
@@ -45,33 +47,31 @@ public abstract class BiomeGenBaseMixin {
     }
 
     @Inject(method = "<init>(I)V", at = @At("RETURN"))
-    public void injectCtor(CallbackInfo callbackInfo) {
+    public void addSpawnableEntityLivingList(CallbackInfo callbackInfo) {
         this.spawnableMonsterList.add(new SpawnListEntry(EntityRetinueZombie.class, (ITFConfig.TagFallenInMine.getIntegerValue() > 0) ? 35 : 10, 4, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityBoneBodyguard.class, (ITFConfig.TagBattleSuffer.getIntegerValue() > 0) ? 35 : 10, 4, 4));
-        if (ITFConfig.TagDimensionInvade.get()) {
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityLongdead.class, 50, 4, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityLongdeadGuardian.class, 25, 2, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityAncientBoneLord.class, 5, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityCaveSpider.class, 20, 4, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityStalkerCreeper.class, 30, 2, 4));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityInfernalCreeper.class, 20, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityDemonSpider.class, 20, 1, 4));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityHellhound.class, 20, 1, 4));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 2, 1, 4));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityPigZombie.class, 10, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntitySpiderKing.class, 2, 1, 1));
-//            this.spawnableMonsterList.add(new SpawnListEntry(EntityGhast.class, 10, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBoneLord.class, 1, 1, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntitySpirit.class, 5, 1, 1));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanGuard.class, 5, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanLord.class, 1, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 20, 1, 2));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntityFireElemental.class, 2, 1, 2));
-        }
-        if (ITFConfig.TagCreaturesV2.get())
-            RegenAnimals();
+        if (ITFConfig.TagCreaturesV2.getBooleanValue()) regenAnimals();
+        if (!ITFConfig.TagDimensionInvade.getBooleanValue()) return;
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityLongdead.class, 50, 4, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityLongdeadGuardian.class, 25, 2, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityAncientBoneLord.class, 5, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityCaveSpider.class, 20, 4, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityStalkerCreeper.class, 30, 2, 4));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityInfernalCreeper.class, 20, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityDemonSpider.class, 20, 1, 4));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityHellhound.class, 20, 1, 4));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 2, 1, 4));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityPigZombie.class, 10, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntitySpiderKing.class, 2, 1, 1));
+//      this.spawnableMonsterList.add(new SpawnListEntry(EntityGhast.class, 10, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBoneLord.class, 1, 1, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntitySpirit.class, 5, 1, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanGuard.class, 5, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanLord.class, 1, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 20, 1, 2));
+//        this.spawnableMonsterList.add(new SpawnListEntry(EntityFireElemental.class, 2, 1, 2));
     }
 
     @Inject(method = "getSpawnableList", at = @At("HEAD"), cancellable = true)

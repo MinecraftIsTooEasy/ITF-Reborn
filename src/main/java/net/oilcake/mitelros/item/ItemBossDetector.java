@@ -13,6 +13,7 @@ public class ItemBossDetector extends Item implements IDamageableItem {
         super(id, material, texture);
         this.setMaxDamage(72);
         this.setLowestCraftingDifficultyToProduce(0.0F);
+        this.setMaxStackSize(1);
     }
 
     @Override

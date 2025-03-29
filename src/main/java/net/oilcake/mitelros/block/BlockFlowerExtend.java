@@ -1,5 +1,6 @@
 package net.oilcake.mitelros.block;
 
+import moddedmite.rustedironcore.api.util.FabricUtil;
 import net.minecraft.*;
 
 import java.util.Random;
@@ -37,7 +38,8 @@ public class BlockFlowerExtend extends BlockFlower {
         setStepSound(soundGrassFootstep);
         setUnlocalizedName("flower");
         setTextureName("flowers/");
-        setMaxStackSize(32);
+        if (FabricUtil.isModLoaded("vanilla_stack")) setMaxStackSize(64);
+        else setMaxStackSize(32);
     }
 
     public void registerIcons(IconRegister par1IconRegister) {

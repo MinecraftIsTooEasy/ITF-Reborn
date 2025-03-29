@@ -8,8 +8,15 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+static def buildTime() {
+    def df = new SimpleDateFormat("yyyyMMddHHmm")
+    df.setTimeZone(TimeZone.getTimeZone("GMT+8"))
+    return df.format(new Date())
+}
+
 base {
-    archivesName = "[MITF重生]" + project.archives_base_name
+//    archivesName = "[MITF重生]" + project.archives_base_name
+    archivesName = "[MITF重生]" + project.archives_base_name + "-dev-build." + buildTime()
 //    archivesName = "[MITF重生]MITF-Reborn"
 }
 
@@ -43,6 +50,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     implementation files(loom.getFML().toPath())
+
+    implementation("it.unimi.dsi:fastutil:8.5.12")
 
     // these are necessary for running
     implementation(files("${lib_dir}/ManyLib.jar"))
