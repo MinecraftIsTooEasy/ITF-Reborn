@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.api;
+package net.oilcake.mitelros.mixin.interfaces;
 
 public interface ITFEntityMob {
     boolean modified_attribute();

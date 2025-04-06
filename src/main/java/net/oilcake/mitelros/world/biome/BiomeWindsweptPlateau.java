@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.world.biome;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFBiomeDecorator;
+import net.oilcake.mitelros.mixin.interfaces.ITFBiomeDecorator;
 import net.oilcake.mitelros.entity.mob.EntityStray;
 import net.oilcake.mitelros.world.WorldGenStoneCone;
 

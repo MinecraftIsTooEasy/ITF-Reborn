@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.mixins.entity.mob;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFEntityMob;
-import net.oilcake.mitelros.api.ITFWorld;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityMob;
+import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.item.potion.PotionExtend;

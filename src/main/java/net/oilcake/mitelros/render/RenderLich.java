@@ -2,7 +2,7 @@ package net.oilcake.mitelros.render;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.api.ITFEntityLivingBase;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
 import net.oilcake.mitelros.entity.boss.EntityLich;
 import org.lwjgl.opengl.GL11;
 

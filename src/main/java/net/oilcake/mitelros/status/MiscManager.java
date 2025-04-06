@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.status;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.compat.ModCompat;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.item.Items;

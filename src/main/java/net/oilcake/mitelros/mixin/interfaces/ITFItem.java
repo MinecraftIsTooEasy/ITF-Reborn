@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.api;
+package net.oilcake.mitelros.mixin.interfaces;
 
 import java.util.Optional;
 

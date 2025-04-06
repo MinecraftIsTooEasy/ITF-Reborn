@@ -6,7 +6,7 @@ import net.minecraft.BiomeGenBase;
 import net.minecraft.Entity;
 import net.minecraft.Explosion;
 import net.minecraft.World;
-import net.oilcake.mitelros.api.ITFWorld;
+import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.util.EnumSeason;
 import org.spongepowered.asm.mixin.Final;

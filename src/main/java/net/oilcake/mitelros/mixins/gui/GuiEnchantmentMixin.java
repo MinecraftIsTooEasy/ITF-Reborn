@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.gui;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFGuiEnchantment;
+import net.oilcake.mitelros.mixin.interfaces.ITFGuiEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

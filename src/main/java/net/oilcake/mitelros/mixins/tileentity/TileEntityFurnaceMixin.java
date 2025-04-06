@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.tileentity;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFFurnace;
+import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.block.BlockBlastFurnace;
 import net.oilcake.mitelros.block.BlockSmoker;
 import net.oilcake.mitelros.item.Materials;

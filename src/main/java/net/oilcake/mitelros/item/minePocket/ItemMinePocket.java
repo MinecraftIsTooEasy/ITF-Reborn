@@ -4,8 +4,8 @@ import net.minecraft.EntityPlayer;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.Material;
-import net.oilcake.mitelros.api.IItemLocked;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.item.api.IItemLocked;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class ItemMinePocket extends Item implements IItemLocked {
     public ItemMinePocket(int id, Material material, String texture) {

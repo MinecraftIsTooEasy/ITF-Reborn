@@ -3,7 +3,7 @@ package net.oilcake.mitelros.world.biome;
 import net.minecraft.BiomeGenBase;
 import net.minecraft.Block;
 import net.minecraft.WorldGenerator;
-import net.oilcake.mitelros.api.ITFBiomeDecorator;
+import net.oilcake.mitelros.mixin.interfaces.ITFBiomeDecorator;
 
 import java.util.Random;
 

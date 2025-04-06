@@ -54,10 +54,10 @@
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/EntityPlayer": [
-        "net/oilcake/mitelros/api/ITFPlayer"
+        "net/oilcake/mitelros/mixin/interfaces/ITFPlayer"
       ],
       "net/minecraft/Enchantment": [
-        "net/oilcake/mitelros/api/ITFEnchantment"
+        "net/oilcake/mitelros/mixin/interfaces/ITFEnchantment"
       ]
     }
   }

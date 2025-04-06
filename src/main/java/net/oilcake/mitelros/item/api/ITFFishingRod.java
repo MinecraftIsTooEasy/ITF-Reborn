@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.api;
+package net.oilcake.mitelros.item.api;
 
 import moddedmite.rustedironcore.api.item.FishingRodItem;
 import net.minecraft.Icon;

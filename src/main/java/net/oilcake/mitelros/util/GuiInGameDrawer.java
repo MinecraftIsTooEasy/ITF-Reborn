@@ -2,7 +2,7 @@ package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.api.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.item.potion.PotionExtend;
 
 public class GuiInGameDrawer {

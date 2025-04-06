@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.api;
+package net.oilcake.mitelros.block.api;
 
 import net.minecraft.BlockAnvil;
 import net.minecraft.Icon;

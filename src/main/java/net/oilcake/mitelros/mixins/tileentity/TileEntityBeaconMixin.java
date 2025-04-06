@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.tileentity;
 import net.minecraft.Potion;
 import net.minecraft.TileEntity;
 import net.minecraft.TileEntityBeacon;
-import net.oilcake.mitelros.api.ITFTileEntityBeacon;
+import net.oilcake.mitelros.mixin.interfaces.ITFTileEntityBeacon;
 import net.oilcake.mitelros.item.potion.PotionExtend;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;

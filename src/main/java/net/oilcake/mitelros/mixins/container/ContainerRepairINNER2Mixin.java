@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.container;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFContainerRepair;
+import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

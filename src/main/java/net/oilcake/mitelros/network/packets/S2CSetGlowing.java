@@ -3,7 +3,7 @@ package net.oilcake.mitelros.network.packets;
 import moddedmite.rustedironcore.network.Packet;
 import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFEntityLivingBase;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class S2CSetGlowing implements Packet {

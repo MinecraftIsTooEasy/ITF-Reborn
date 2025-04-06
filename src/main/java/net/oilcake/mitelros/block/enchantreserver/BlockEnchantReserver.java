@@ -2,6 +2,7 @@ package net.oilcake.mitelros.block.enchantreserver;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class BlockEnchantReserver extends BlockContainer {
     private Icon TEXTURE_TOP;
@@ -61,7 +62,7 @@ public class BlockEnchantReserver extends BlockContainer {
         if (player.onServer()) {
             TileEntityEnchantReserver tile_entity = (TileEntityEnchantReserver) world.getBlockTileEntity(x, y, z);
             if (tile_entity != null && !tile_entity.isUsing()) {
-                player.itf$DisplayGUIEnchantReserver(x, y, z, tile_entity.getInventory());
+                ((ITFPlayer) player).itf$DisplayGUIEnchantReserver(x, y, z, tile_entity.getInventory());
             } else {
                 return false;
             }

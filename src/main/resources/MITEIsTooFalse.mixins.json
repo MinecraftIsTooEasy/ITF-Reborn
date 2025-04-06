@@ -122,5 +122,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "net.oilcake.mitelros.compat.MixinPlugin"
+  "plugin": "net.oilcake.mitelros.mixin.MixinPlugin"
 }

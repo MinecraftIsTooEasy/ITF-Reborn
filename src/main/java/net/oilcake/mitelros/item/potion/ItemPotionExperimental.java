@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.item.potion;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFItem;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class ItemPotionExperimental extends Item {
     public ItemPotionExperimental(int id) {

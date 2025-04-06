@@ -1,25 +1,34 @@
 package net.oilcake.mitelros.block.api;
 
+import moddedmite.rustedironcore.api.block.WorkbenchBlock;
+import net.minecraft.Block;
+import net.minecraft.Icon;
+import net.minecraft.IconRegister;
 import net.minecraft.Material;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.ITFStart;
 
-public class ITFWorkbench {
-    public static float getCraftingSpeedModifier(Material benchMaterial) {
-        if (benchMaterial == Material.flint || benchMaterial == Material.obsidian) {
-            return 0.25F;
-        } else if (benchMaterial == Material.copper || benchMaterial == Material.silver || benchMaterial == Material.gold) {
-            return 0.4F;
-        } else if (benchMaterial == Material.iron || benchMaterial == Materials.nickel) {
-            return 0.5F;
-        } else if (benchMaterial == Material.ancient_metal) {
-            return 0.75F;
-        } else if (benchMaterial == Material.mithril) {
-            return 1.0F;
-        } else if (benchMaterial == Materials.tungsten) {
-            return 1.5F;
-        } else if (benchMaterial == Material.adamantium) {
-            return 2.5F;
+public class ITFWorkbench extends WorkbenchBlock {
+    public ITFWorkbench(int id, Material material, float speedModifier, Material checkAgainst) {
+        super(id, material, speedModifier, checkAgainst);
+    }
+
+    private Icon my_workbench_icon_top;
+    protected Icon my_front_icon;
+    protected Icon my_side_icon;
+
+    public Icon getIcon(int side, int metadata) {
+        if (side == 0) {
+            return Block.planks.getBlockTextureFromSide(side);
+        } else if (side == 1) {
+            return this.my_workbench_icon_top;
+        } else {
+            return side != 2 && side != 3 ? this.my_side_icon : this.my_front_icon;
         }
-        return 0.0F;
+    }
+
+    public void registerIcons(IconRegister par1IconRegister) {
+        this.my_workbench_icon_top = par1IconRegister.registerIcon("crafting_table_top");// vanilla top face texture
+        this.my_front_icon = par1IconRegister.registerIcon(ITFStart.ResourceDomainColon + "crafting_table/" + this.getMaterial().name + "/front");
+        this.my_side_icon = par1IconRegister.registerIcon(ITFStart.ResourceDomainColon + "crafting_table/" + this.getMaterial().name + "/side");
     }
 }

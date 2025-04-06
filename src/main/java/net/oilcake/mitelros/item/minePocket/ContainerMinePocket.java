@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.item.minePocket;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.IItemLocked;
+import net.oilcake.mitelros.item.api.IItemLocked;
 import net.oilcake.mitelros.item.ItemPieces;
 
 /**

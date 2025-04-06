@@ -4,7 +4,7 @@ import net.minecraft.BlockBeacon;
 import net.minecraft.TileEntity;
 import net.minecraft.TileEntityBeacon;
 import net.minecraft.World;
-import net.oilcake.mitelros.api.ITFTileEntityBeacon;
+import net.oilcake.mitelros.mixin.interfaces.ITFTileEntityBeacon;
 
 public class BlockUruBeacon extends BlockBeacon {
     public BlockUruBeacon(int par1) {

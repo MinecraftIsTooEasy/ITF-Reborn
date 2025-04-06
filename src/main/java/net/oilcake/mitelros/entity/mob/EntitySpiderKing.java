@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.entity.mob;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFSpider;
+import net.oilcake.mitelros.mixin.interfaces.ITFSpider;
 import net.oilcake.mitelros.compat.ITECompatUtil;
 import net.oilcake.mitelros.sound.Sounds;
 

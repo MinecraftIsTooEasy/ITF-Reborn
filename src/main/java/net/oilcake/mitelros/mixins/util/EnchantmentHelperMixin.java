@@ -8,7 +8,7 @@ import net.minecraft.Enchantment;
 import net.minecraft.EnchantmentHelper;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.api.ITFEnchantment;
+import net.oilcake.mitelros.mixin.interfaces.ITFEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -3,7 +3,7 @@ package net.oilcake.mitelros.event.listener;
 import moddedmite.rustedironcore.api.event.listener.IEntityMobListener;
 import net.minecraft.EntityMob;
 import net.minecraft.NBTTagCompound;
-import net.oilcake.mitelros.api.ITFEntityMob;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityMob;
 
 public class EntityMobListener implements IEntityMobListener {
     @Override

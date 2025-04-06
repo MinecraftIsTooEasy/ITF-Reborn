@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFItem;
+import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import net.oilcake.mitelros.item.Items;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import org.spongepowered.asm.mixin.Final;

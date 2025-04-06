@@ -2,7 +2,7 @@ package net.oilcake.mitelros.mixins.entity.player;
 
 import moddedmite.rustedironcore.network.Network;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.block.enchantreserver.ContainerEnchantReserver;
 import net.oilcake.mitelros.block.enchantreserver.EnchantReserverInventory;
 import net.oilcake.mitelros.config.ITFConfig;

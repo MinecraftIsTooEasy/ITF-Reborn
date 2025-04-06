@@ -3,7 +3,7 @@ package net.oilcake.mitelros.item;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.util.FoodDataList;
 
 import javax.annotation.Nonnull;

@@ -1,9 +1,9 @@
 package net.oilcake.mitelros.mixins.util;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFFoodStats;
-import net.oilcake.mitelros.api.ITFItem;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.item.potion.PotionExtend;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.C2SDecreaseWater;

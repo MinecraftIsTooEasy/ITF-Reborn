@@ -2,7 +2,7 @@ package net.oilcake.mitelros.mixins.item;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFFurnace;
+import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

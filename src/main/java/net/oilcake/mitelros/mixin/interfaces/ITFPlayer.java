@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.api;
+package net.oilcake.mitelros.mixin.interfaces;
 
 import net.minecraft.IInventory;
 import net.oilcake.mitelros.block.enchantreserver.EnchantReserverInventory;
