@@ -2,7 +2,7 @@ package net.oilcake.mitelros.util;
 
 import net.minecraft.Item;
 import net.minecraft.WeightedRandomChestContent;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 
 import java.util.function.Supplier;
 

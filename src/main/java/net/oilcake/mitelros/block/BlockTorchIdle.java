@@ -4,11 +4,12 @@ import net.minecraft.BlockBreakInfo;
 import net.minecraft.BlockTorch;
 import net.minecraft.World;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 import java.util.Random;
 
 public class BlockTorchIdle extends BlockTorch {
-    protected BlockTorchIdle(int par1) {
+    public BlockTorchIdle(int par1) {
         super(par1);
         this.setHardness(0.0F);
     }

@@ -1,6 +1,8 @@
 package net.oilcake.mitelros.item;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class ItemBowlClay extends ItemBowl {
     public ItemBowlClay(int id, Material contents, String texture) {

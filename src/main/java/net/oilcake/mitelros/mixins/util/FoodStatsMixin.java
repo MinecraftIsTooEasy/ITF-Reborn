@@ -3,8 +3,9 @@ package net.oilcake.mitelros.mixins.util;
 import net.minecraft.*;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.C2SDecreaseWater;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
@@ -136,7 +137,7 @@ public class FoodStatsMixin implements ITFFoodStats {
                 this.starve_progress--;
                 this.hunger_for_nutrition_only = 0.0F;
             }
-        } else if (this.player.itf$GetWater() == 0) {
+        } else if (((ITFEntityPlayer) this.player).itf$GetWater() == 0) {
             this.heal_progress = 0.0F;
             this.dehydration_progress += 0.002F;
             if (this.dehydration_progress >= 1.0F) {
@@ -144,7 +145,7 @@ public class FoodStatsMixin implements ITFFoodStats {
                 this.dehydration_progress--;
                 this.water_for_nutrition_only = 0.0F;
             }
-        } else if (((ITFPlayer) par1EntityPlayer).itf$IsMalnourishedFinal()) {
+        } else if (((ITFEntityPlayer) par1EntityPlayer).itf$IsMalnourishedFinal()) {
             this.heal_progress = 0.0F;
             this.malnourished_progress += 0.002F;
             if (this.malnourished_progress >= 1.0F) {
@@ -152,7 +153,7 @@ public class FoodStatsMixin implements ITFFoodStats {
                 this.malnourished_progress--;
             }
         } else {
-            int malnourishedLevel = ((ITFPlayer) par1EntityPlayer).itf$MalnourishedLevel();
+            int malnourishedLevel = ((ITFEntityPlayer) par1EntityPlayer).itf$MalnourishedLevel();
             float factor = malnourishedLevel > 1 ? 0.0F : (malnourishedLevel == 1 ? 0.25F : 1.0F);
             this.heal_progress += (4.0E-4F + this.nutrition * 2.0E-5F)
                     * factor

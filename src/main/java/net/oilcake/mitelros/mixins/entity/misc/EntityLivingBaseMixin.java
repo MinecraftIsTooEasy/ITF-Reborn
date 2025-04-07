@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.*;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.status.MiscManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

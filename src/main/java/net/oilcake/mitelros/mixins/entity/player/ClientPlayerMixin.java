@@ -1,11 +1,12 @@
 package net.oilcake.mitelros.mixins.entity.player;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.api.CraftingSpeedTweaker;
-import net.oilcake.mitelros.block.enchantreserver.EnchantReserverInventory;
-import net.oilcake.mitelros.block.enchantreserver.GuiEnchantReserver;
-import net.oilcake.mitelros.item.minePocket.GuiMinePocketInventory;
+import net.oilcake.mitelros.inventory.EnchantReserverInventory;
+import net.oilcake.mitelros.client.gui.GuiEnchantReserver;
+import net.oilcake.mitelros.client.gui.GuiMinePocketInventory;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

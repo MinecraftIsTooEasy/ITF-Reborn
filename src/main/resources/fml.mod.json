@@ -21,10 +21,9 @@
     "Xy_Lose"
   ],
   "contact": {
-    "homepage": "https://github.com/De6ris/ITF-Reborn",
-    "issues": "https://github.com/De6ris/ITF-Reborn",
-    "sources": "https://github.com/De6ris/ITF-Reborn",
-    "qq": "2838369930",
+    "homepage": "https://github.com/MinecraftIsTooEasy/ITF-Reborn",
+    "issues": "https://github.com/MinecraftIsTooEasy/ITF-Reborn/issues",
+    "sources": "https://github.com/MinecraftIsTooEasy/ITF-Reborn",
     "qqGroup": "661223990"
   },
   "entrypoints": {
@@ -54,7 +53,7 @@
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/EntityPlayer": [
-        "net/oilcake/mitelros/mixin/interfaces/ITFPlayer"
+        "net/oilcake/mitelros/mixin/interfaces/ITFEntityPlayer"
       ],
       "net/minecraft/Enchantment": [
         "net/oilcake/mitelros/mixin/interfaces/ITFEnchantment"

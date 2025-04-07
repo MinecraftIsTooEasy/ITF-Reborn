@@ -3,9 +3,10 @@ package net.oilcake.mitelros.network.packets;
 import moddedmite.rustedironcore.network.Packet;
 import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.*;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.inventory.EnchantReserverInventory;
+import net.oilcake.mitelros.inventory.MinePocketInventory;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
-import net.oilcake.mitelros.block.enchantreserver.EnchantReserverInventory;
-import net.oilcake.mitelros.item.minePocket.MinePocketInventory;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class S2COpenWindow implements Packet {

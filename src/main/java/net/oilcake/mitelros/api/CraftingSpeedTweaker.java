@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.api;
 
 import net.minecraft.Material;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 
 public class CraftingSpeedTweaker {
     public static float get(Material benchMaterial) {

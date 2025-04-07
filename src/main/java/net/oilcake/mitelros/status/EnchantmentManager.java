@@ -3,7 +3,7 @@ package net.oilcake.mitelros.status;
 import moddedmite.rustedironcore.random.RandomUtil;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 
 import java.util.Arrays;
 import java.util.List;

@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.world;
 import net.minecraft.BiomeDecorator;
 import net.minecraft.World;
 import net.oilcake.mitelros.mixin.interfaces.ITFBiomeDecorator;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.world.WorldGenFlowersExtend;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;

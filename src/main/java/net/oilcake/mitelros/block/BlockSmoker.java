@@ -3,9 +3,10 @@ package net.oilcake.mitelros.block;
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 public class BlockSmoker extends BlockFurnace {
-    protected BlockSmoker(int par1, boolean par2) {
+    public BlockSmoker(int par1, boolean par2) {
         super(par1, Material.stone, par2);
     }
 

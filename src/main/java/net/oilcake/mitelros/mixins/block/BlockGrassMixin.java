@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.block;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.*;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -19,9 +19,11 @@ public abstract class BlockGrassMixin extends Block {
     private boolean itfFlower(World instance, int var7, int var8, int var9, int blockId, Operation<Boolean> original) {
         Random random = new Random();
         if (random.nextBoolean()) return original.call(instance, var7, var8, var9, blockId);
-        int subtype = Blocks.flowerextend.getRandomSubtypeThatCanOccurAt(instance, var7, var8, var9);
+        int subtype;
         if (random.nextBoolean()) {
             subtype = -1;
+        } else {
+            subtype = Blocks.flowerextend.getRandomSubtypeThatCanOccurAt(instance, var7, var8, var9);
         }
         if (subtype >= 0) {
             return instance.setBlock(var7, var8, var9, Blocks.flowerextend.blockID, subtype, 3);

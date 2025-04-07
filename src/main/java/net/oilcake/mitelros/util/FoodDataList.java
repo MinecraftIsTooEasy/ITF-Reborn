@@ -2,9 +2,9 @@ package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.item.Materials;
-import net.oilcake.mitelros.item.api.IWateryMaterial;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.material.IWateryMaterial;
+import net.oilcake.mitelros.potion.PotionExtend;
 
 import java.util.Random;
 

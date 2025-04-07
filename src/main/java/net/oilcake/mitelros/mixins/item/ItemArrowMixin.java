@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.item;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

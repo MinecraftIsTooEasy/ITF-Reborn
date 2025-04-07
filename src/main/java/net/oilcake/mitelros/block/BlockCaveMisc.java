@@ -2,12 +2,13 @@ package net.oilcake.mitelros.block;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 
 import java.util.Random;
 
 public class BlockCaveMisc extends Block {
-    protected BlockCaveMisc(int id, Material material) {
+    public BlockCaveMisc(int id, Material material) {
         this(id, material, (new BlockConstants()).setNeverHidesAdjacentFaces().setNotAlwaysLegal());
         this.setTickRandomly(true);
     }

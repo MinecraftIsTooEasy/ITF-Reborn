@@ -3,7 +3,10 @@ package net.oilcake.mitelros.item;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.*;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.util.FoodDataList;
 
 import javax.annotation.Nonnull;
@@ -117,7 +120,7 @@ public class ItemKettle extends Item implements IDamageableItem {
     @Override
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
         if (player.onServer()) {
-            player.itf$AddWater(2);
+            ITFEntityPlayer.cast(player).itf$AddWater(2);
             FoodDataList.onWaterDrunk(item_stack.getItem(), player);
             player.getHeldItemStack().tryDamageItem(world, drinkUnit, true);
         }

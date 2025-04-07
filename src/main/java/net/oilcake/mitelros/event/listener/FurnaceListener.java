@@ -7,7 +7,7 @@ import net.minecraft.TileEntityFurnace;
 import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.block.BlockBlastFurnace;
 import net.oilcake.mitelros.block.BlockSmoker;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class FurnaceListener implements IFurnaceUpdateListener {
     @Override

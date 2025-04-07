@@ -4,7 +4,7 @@ import net.minecraft.Potion;
 import net.minecraft.TileEntity;
 import net.minecraft.TileEntityBeacon;
 import net.oilcake.mitelros.mixin.interfaces.ITFTileEntityBeacon;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -5,7 +5,7 @@ import net.minecraft.ItemArmor;
 import net.minecraft.Material;
 import net.minecraft.ResourceLocation;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 
 import java.util.HashMap;
 import java.util.Map;

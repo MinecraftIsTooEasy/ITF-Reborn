@@ -2,10 +2,9 @@ package net.oilcake.mitelros.event.listener;
 
 import moddedmite.rustedironcore.api.event.listener.ILootTableRegisterListener;
 import net.minecraft.WeightedRandomChestContent;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.ITFLootTables;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class LootTableRegistry implements ILootTableRegisterListener {

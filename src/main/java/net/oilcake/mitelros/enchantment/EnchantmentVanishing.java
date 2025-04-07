@@ -4,7 +4,7 @@ import net.minecraft.CreativeTabs;
 import net.minecraft.Enchantment;
 import net.minecraft.EnumRarity;
 import net.minecraft.Item;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 
 public class EnchantmentVanishing extends Enchantment {
   protected EnchantmentVanishing(int id, EnumRarity rarity, int difficulty) {

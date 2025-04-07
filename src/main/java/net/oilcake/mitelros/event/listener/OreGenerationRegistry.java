@@ -3,7 +3,7 @@ package net.oilcake.mitelros.event.listener;
 import moddedmite.rustedironcore.api.event.events.OreGenerationRegisterEvent;
 import moddedmite.rustedironcore.api.world.Dimension;
 import moddedmite.rustedironcore.api.world.MinableWorldGen;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 import java.util.function.Consumer;
 

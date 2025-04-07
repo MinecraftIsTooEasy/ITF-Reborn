@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.Item;
 import net.minecraft.ItemRenderer;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.item.wand.ItemWand;
+import net.oilcake.mitelros.item.ItemWand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

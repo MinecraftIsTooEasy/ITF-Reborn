@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.entity.mob;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class EntityUnknown extends EntityZombie {
     public EntityUnknown(World par1World) {

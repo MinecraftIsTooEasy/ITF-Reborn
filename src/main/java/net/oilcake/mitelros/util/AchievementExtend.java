@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.block.Blocks;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 
 public class AchievementExtend {

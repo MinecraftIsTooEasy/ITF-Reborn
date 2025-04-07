@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.util.quality.EnumEffectEntry;
 import net.oilcake.mitelros.util.quality.EnumToolType;
 import org.spongepowered.asm.mixin.Final;

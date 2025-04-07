@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.block;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.config.ITFConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

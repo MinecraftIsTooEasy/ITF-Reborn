@@ -6,7 +6,7 @@ import net.minecraft.EntityPlayer;
 import net.minecraft.GuiScreen;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
-import net.oilcake.mitelros.block.enchantreserver.GuiEnchantReserver;
+import net.oilcake.mitelros.client.gui.GuiEnchantReserver;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class S2CEnchantReserverInfo implements Packet {

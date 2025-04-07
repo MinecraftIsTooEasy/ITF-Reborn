@@ -2,7 +2,7 @@ package net.oilcake.mitelros.mixins.entity.ai;
 
 import net.minecraft.EntityAIBase;
 import net.minecraft.EntityAISeekLitTorch;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;

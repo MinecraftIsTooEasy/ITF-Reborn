@@ -4,7 +4,7 @@ import net.minecraft.BlockLeaves;
 import net.minecraft.BlockLeavesBase;
 import net.minecraft.Item;
 import net.minecraft.Material;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;

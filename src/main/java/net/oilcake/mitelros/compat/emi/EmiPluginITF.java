@@ -9,8 +9,8 @@ import net.minecraft.Item;
 import net.minecraft.ItemCoin;
 import net.minecraft.ItemRock;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.block.Blocks;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.text.Text;
 

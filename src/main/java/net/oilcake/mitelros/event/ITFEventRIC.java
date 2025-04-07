@@ -5,8 +5,10 @@ import moddedmite.rustedironcore.api.event.handler.GravelDropHandler;
 import moddedmite.rustedironcore.api.event.listener.IArrowRegisterListener;
 import net.minecraft.Material;
 import net.oilcake.mitelros.event.listener.*;
-import net.oilcake.mitelros.item.Items;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.potion.PotionExtend;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.registry.potion.PotionRegistry;
 
 import java.util.function.Consumer;
 
@@ -62,5 +64,7 @@ public class ITFEventRIC extends Handlers {
         ArmorModel.register(new ArmorModelListener());
 
         BiomeDecoration.register(new BiomeDecorationRegistry());
+
+        PotionRegistry.register(net.oilcake.mitelros.registry.potion.PotionRegistry::register);
     }
 }

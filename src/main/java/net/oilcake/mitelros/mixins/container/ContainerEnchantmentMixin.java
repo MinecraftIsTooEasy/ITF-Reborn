@@ -1,10 +1,10 @@
 package net.oilcake.mitelros.mixins.container;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.item.ItemGoldenAppleLegend;
-import net.oilcake.mitelros.item.Items;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.S2CEnchantmentInfo;
 import net.oilcake.mitelros.util.AchievementExtend;

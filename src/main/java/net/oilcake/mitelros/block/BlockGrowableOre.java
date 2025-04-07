@@ -3,6 +3,7 @@ package net.oilcake.mitelros.block;
 import net.minecraft.BlockOre;
 import net.minecraft.Material;
 import net.minecraft.World;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 import java.util.Random;
 
