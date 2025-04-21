@@ -10,16 +10,13 @@ import net.oilcake.mitelros.block.*;
 import net.oilcake.mitelros.block.api.ITFAnvil;
 import net.oilcake.mitelros.block.api.ITFRunestone;
 import net.oilcake.mitelros.block.api.ITFWorkbench;
-import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.material.Materials;
-import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.registry.item.Items;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 
 public class Blocks {
     private static int getNextBlockID() {
-        if (!ITFConfig.FixedID.getBooleanValue()) return IdUtil.getNextBlockID();
-        return Constant.nextBlockID--;
+        return IdUtil.getNextBlockID();
     }
 
     public static final Block blastFurnaceStoneIdle = (new BlockBlastFurnace(getNextBlockID(), Material.stone, false)).setHardness(4.8F).setResistance(20.0F).setStepSound(Block.soundStoneFootstep);

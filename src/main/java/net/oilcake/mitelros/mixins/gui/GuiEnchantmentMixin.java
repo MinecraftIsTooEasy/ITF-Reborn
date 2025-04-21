@@ -1,6 +1,10 @@
 package net.oilcake.mitelros.mixins.gui;
 
-import net.minecraft.*;
+import net.minecraft.Container;
+import net.minecraft.EnumChatFormatting;
+import net.minecraft.GuiContainer;
+import net.minecraft.GuiEnchantment;
+import net.oilcake.mitelros.feat.EnchantPrediction;
 import net.oilcake.mitelros.mixin.interfaces.ITFGuiEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -22,7 +26,7 @@ public abstract class GuiEnchantmentMixin extends GuiContainer implements ITFGui
         if (this.info == null) return;
         if (!this.inventorySlots.getSlot(0).getHasStack()) return;
         for (int line = 0; line < 3; line++) {
-            String var13 = this.readInfo(this.info, line);
+            String var13 = EnchantPrediction.readInfo(this.info, line);
             if (var13 == null) continue;
             var13 += "...?";
             int var4 = (this.width - this.xSize) / 2;
@@ -33,15 +37,6 @@ public abstract class GuiEnchantmentMixin extends GuiContainer implements ITFGui
                 this.drawCreativeTabHoveringText(EnumChatFormatting.AQUA + var13, par2, par3);
             }
         }
-    }
-
-    @Unique
-    public String readInfo(int[] info, int line) {
-        if (info[4 * line] == -1) return null;
-        String enchant1 = Enchantment.get(info[4 * line]).toString() + info[4 * line + 1];
-        if (info[4 * line + 2] == -1) return enchant1;
-        String enchant2 = Enchantment.get(info[4 * line + 2]).toString() + info[4 * line + 3];
-        return enchant1 + ", " + enchant2;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package net.oilcake.mitelros.mixins.container;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +26,7 @@ public abstract class ContainerRepairINNER2Mixin extends Slot {
 
     @Inject(method = "onPickupFromSlot", at = @At("HEAD"))
     private void modifyXP(EntityPlayer par1EntityPlayer, ItemStack after, CallbackInfo ci) {
+        if (!ITFConfig.ITFAnvilSystem.getBooleanValue()) return;
         if (this.field_135071_a.isRemote) return;
         int xpDifference = ((ITFContainerRepair) this.repairContainer).itf$GetXPDifference();
         if (xpDifference == 0) return;

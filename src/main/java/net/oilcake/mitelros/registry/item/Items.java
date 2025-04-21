@@ -5,14 +5,11 @@ import moddedmite.rustedironcore.api.item.FishingRodItem;
 import moddedmite.rustedironcore.api.item.NuggetItem;
 import net.minecraft.*;
 import net.oilcake.mitelros.item.*;
-import net.oilcake.mitelros.item.api.ITFFishingRod;
+import net.oilcake.mitelros.item.api.*;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import net.oilcake.mitelros.registry.block.Blocks;
-import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.item.api.*;
 import net.oilcake.mitelros.sound.Sounds;
-import net.oilcake.mitelros.util.Constant;
 import net.oilcake.mitelros.util.ITFLootTables;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.fml.util.ReflectHelper;
@@ -497,8 +494,7 @@ public class Items extends Item {
     public static final ItemKettle uruKettle = new ItemKettle(getNextItemID(), 13, Materials.pure_water, Materials.uru).setPurify();
 
     private static int getNextItemID() {
-        if (!ITFConfig.FixedID.getBooleanValue()) return IdUtil.getNextItemID();
-        return Constant.nextItemID++;
+        return IdUtil.getNextItemID();
     }
 
     static {

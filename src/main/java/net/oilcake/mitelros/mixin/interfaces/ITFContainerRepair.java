@@ -4,5 +4,6 @@ import net.oilcake.mitelros.api.AnvilStatus;
 
 public interface ITFContainerRepair {
     int itf$GetXPDifference();
+
     AnvilStatus itf$GetAnvilStatus();
 }

@@ -1,6 +1,7 @@
 package net.oilcake.mitelros.mixins.container;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.feat.EnchantPrediction;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.item.ItemGoldenAppleLegend;
 import net.oilcake.mitelros.registry.item.Items;
@@ -10,7 +11,6 @@ import net.oilcake.mitelros.network.packets.S2CEnchantmentInfo;
 import net.oilcake.mitelros.util.AchievementExtend;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -18,9 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 @Mixin(ContainerEnchantment.class)
@@ -61,52 +58,7 @@ public abstract class ContainerEnchantmentMixin extends Container {
         boolean predicated = (this.world.getBlock(this.posX, this.posY - 1, this.posZ) == Blocks.blockEnchantPredicator) || this.world.getBlock(this.posX, this.posY, this.posZ) == Blocks.magicTable;
         if (!predicated) return;
         boolean extended = itemStack.getMaterialForRepairs() == Materials.uru;
-        int[] result = this.predict(this.rand, itemStack, this.enchantLevels, extended);
-        ITFNetwork.sendToClient((ServerPlayer) this.player, new S2CEnchantmentInfo(result));
-    }
-
-    @Unique
-    public int[] predict(Random random, ItemStack itemStack, int[] levels, boolean extended) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream;
-        try {
-            objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(random);
-            objectOutputStream.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        int[] results = new int[12];
-        Arrays.fill(results, -1);
-
-        Random copiedRandom;
-        for (int line = 0; line < 3; line++) {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-            ObjectInputStream objectInputStream;
-            try {
-                objectInputStream = new ObjectInputStream(byteArrayInputStream);
-                copiedRandom = (Random) objectInputStream.readObject();
-                objectInputStream.close();
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-            List enchantmentList = EnchantmentHelper.buildEnchantmentList(copiedRandom, itemStack, levels[line]);
-            if (enchantmentList == null) continue;
-
-            boolean isBook = itemStack.itemID == Item.book.itemID;
-            int onlyEnchantment = isBook ? copiedRandom.nextInt(enchantmentList.size()) : -1;
-            if (isBook) {
-                enchantmentList = List.of(enchantmentList.get(onlyEnchantment));
-            }
-
-            for (int index = 0; (index < enchantmentList.size()) && (index < (extended ? 2 : 1)); ++index) {
-                EnchantmentData enchantmentData = (EnchantmentData) enchantmentList.get(index);
-                results[line * 4 + 2 * index] = enchantmentData.enchantmentobj.effectId;
-                results[line * 4 + 2 * index + 1] = enchantmentData.enchantmentLevel;
-            }
-        }
-        return results;
+        ITFNetwork.sendToClient((ServerPlayer) this.player, new S2CEnchantmentInfo(EnchantPrediction.predict(this.rand, itemStack, this.enchantLevels, extended)));
     }
 
     @Inject(method = "enchantItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemAppleGold;isUnenchantedGoldenApple(Lnet/minecraft/ItemStack;)Z"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)

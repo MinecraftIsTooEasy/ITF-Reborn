@@ -44,6 +44,9 @@
     ],
     "baubles": [
       "net.oilcake.mitelros.compat.BaublesPluginImpl"
+    ],
+    "shop": [
+      "net.oilcake.mitelros.compat.ShopPluginImpl"
     ]
   },
   "mixins": [
