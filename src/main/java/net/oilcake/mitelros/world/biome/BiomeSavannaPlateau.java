@@ -3,7 +3,6 @@ package net.oilcake.mitelros.world.biome;
 import net.minecraft.BiomeGenBase;
 import net.minecraft.Block;
 import net.minecraft.WorldGenerator;
-import net.oilcake.mitelros.mixin.interfaces.ITFBiomeDecorator;
 
 import java.util.Random;
 
@@ -13,7 +12,6 @@ public class BiomeSavannaPlateau extends BiomeGenBase {
         this.theBiomeDecorator.treesPerChunk = 1;
         this.theBiomeDecorator.flowersPerChunk = 3;
         this.theBiomeDecorator.grassPerChunk = 10;
-        ((ITFBiomeDecorator) this.theBiomeDecorator).itf$setFlowersExtendPerChunk(1);
         setBiomeName("SavannaPlateau");
         setColor(16421912);
         setDisableRain();

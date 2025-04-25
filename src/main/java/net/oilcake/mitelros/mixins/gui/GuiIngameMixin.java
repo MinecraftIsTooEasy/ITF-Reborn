@@ -4,7 +4,7 @@ import net.minecraft.Gui;
 import net.minecraft.GuiIngame;
 import net.minecraft.Minecraft;
 import net.oilcake.mitelros.compat.ModCompat;
-import net.oilcake.mitelros.util.GuiInGameDrawer;
+import net.oilcake.mitelros.client.gui.GuiInGameDrawer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

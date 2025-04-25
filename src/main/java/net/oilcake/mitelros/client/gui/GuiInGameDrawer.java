@@ -1,17 +1,15 @@
-package net.oilcake.mitelros.util;
+package net.oilcake.mitelros.client.gui;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.ITFStart;
+import net.oilcake.mitelros.client.texture.Textures;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.potion.PotionExtend;
 
 public class GuiInGameDrawer {
-    public static final ResourceLocation icons_itf = new ResourceLocation(ITFStart.ResourceDomain, "textures/gui/itf_icons.png");
-
     public static void drawWater(Gui gui, Minecraft mc, int par1, int par2) {
         int var12 = par1 / 2 + 91;
         FoodStats foodStats = mc.thePlayer.getFoodStats();
-        mc.getTextureManager().bindTexture(icons_itf);
+        mc.getTextureManager().bindTexture(Textures.icons_itf);
         mc.mcProfiler.endStartSection("water");
         int waterLimit = ((ITFFoodStats) mc.thePlayer.getFoodStats()).itf$GetWaterLimit();
         int water = ((ITFFoodStats) foodStats).itf$GetWater();
