@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.mixins.gui;
+package net.oilcake.mitelros.mixins.client.gui;
 
 import net.minecraft.Gui;
 import net.minecraft.GuiIngame;

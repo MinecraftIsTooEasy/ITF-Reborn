@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.mixins.gui;
+package net.oilcake.mitelros.mixins.client.gui;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.GuiBeaconButtonPower;

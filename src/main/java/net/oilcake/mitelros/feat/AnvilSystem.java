@@ -7,6 +7,10 @@ import net.oilcake.mitelros.mixin.interfaces.ITFEnchantment;
 import java.util.Map;
 
 public class AnvilSystem {
+    public static boolean isActive() {
+        return ITFConfig.ITFAnvilSystem.getBooleanValue();
+    }
+
     public static int calcXPDiffOnEnchanting(ItemStack item_stack_in_first_slot, NBTTagList enchantmentsOfBook) {
         int xpDifference = 0;
         Map<?, ?> enchantmentOnItem = EnchantmentHelper.getEnchantmentsMap(item_stack_in_first_slot);

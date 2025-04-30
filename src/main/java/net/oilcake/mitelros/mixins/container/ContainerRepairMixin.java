@@ -41,12 +41,12 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
 
     @WrapOperation(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;isEnchantable()Z"))
     private boolean allowEnchantedItem(ItemStack instance, Operation<Boolean> original) {
-        return original.call(instance) || (ITFConfig.ITFAnvilSystem.getBooleanValue() && instance.isItemEnchanted());
+        return original.call(instance) || (AnvilSystem.isActive() && instance.isItemEnchanted());
     }
 
     @WrapOperation(method = "updateRepairOutput", at = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/ItemStack;isItemEnchanted()Z"))
     public boolean allowEnchantedItem1(ItemStack instance, Operation<Boolean> original) {
-        if (ITFConfig.ITFAnvilSystem.getBooleanValue()) {
+        if (AnvilSystem.isActive()) {
             return false;
         }
         return original.call(instance);
@@ -54,7 +54,7 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
 
     @ModifyExpressionValue(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/EnchantmentHelper;hasValidEnchantmentForItem(Lnet/minecraft/NBTTagList;Lnet/minecraft/Item;)Z"))
     private boolean itfValidEnchantment(boolean original, @Local NBTTagList enchantmentsOfBook) {
-        if (!ITFConfig.ITFAnvilSystem.getBooleanValue()) return original;
+        if (!AnvilSystem.isActive()) return original;
         if (!original) {
             this.anvilStatus = AnvilStatus.NoAvailableEnchantment;
             return false;
@@ -78,7 +78,7 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
 
     @ModifyExpressionValue(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;canEnchantItem(Lnet/minecraft/Item;)Z"))
     private boolean checkConflict(boolean original, @Local Enchantment enchantment) {
-        if (ITFConfig.ITFAnvilSystem.getBooleanValue()) {
+        if (AnvilSystem.isActive()) {
             return original && AnvilSystem.canApplyTogether(EnchantmentHelper.getEnchantmentsMap(this.inputSlots.getStackInSlot(0)), enchantment);
         }
         return original;
@@ -86,7 +86,7 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
 
     @Inject(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;clearEnchantTagList()V"))
     private void rewardXP(CallbackInfo ci) {
-        if (ITFConfig.ITFAnvilSystem.getBooleanValue()) {
+        if (AnvilSystem.isActive()) {
             this.xpDifference = AnvilSystem.calcXPDiffOnDisenchanting(this.inputSlots.getStackInSlot(0));
         }
     }

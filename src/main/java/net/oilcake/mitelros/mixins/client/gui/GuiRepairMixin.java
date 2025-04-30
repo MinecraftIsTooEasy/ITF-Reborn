@@ -1,8 +1,7 @@
-package net.oilcake.mitelros.mixins.gui;
+package net.oilcake.mitelros.mixins.client.gui;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.api.AnvilStatus;
-import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.feat.AnvilSystem;
 import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +21,7 @@ public abstract class GuiRepairMixin extends GuiContainer {
 
     @Inject(method = "drawScreen", at = @At("TAIL"))
     private void itfRepair(int mouse_x, int mouse_y, float par3, CallbackInfo ci) {
-        if (!ITFConfig.ITFAnvilSystem.getBooleanValue()) return;
+        if (!AnvilSystem.isActive()) return;
         ItemStack itemStack = this.repairContainer.getSlot(1).getStack();
         if (itemStack == null) return;
         if (itemStack.itemID != Item.enchantedBook.itemID && itemStack.itemID != Item.bottleOfDisenchanting.itemID)

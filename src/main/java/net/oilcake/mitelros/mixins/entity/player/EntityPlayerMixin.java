@@ -5,8 +5,8 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.status.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
@@ -148,7 +148,7 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
     @Unique
     private FeastManager feastManager = new FeastManager(ReflectHelper.dyCast(this));
 
-    @Unique
+    @Override
     public FeastManager itf$GetFeastManager() {
         return feastManager;
     }

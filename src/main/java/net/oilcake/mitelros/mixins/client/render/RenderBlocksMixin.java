@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.mixins.render;
+package net.oilcake.mitelros.mixins.client.render;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;

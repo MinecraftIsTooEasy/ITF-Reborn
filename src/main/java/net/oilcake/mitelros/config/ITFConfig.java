@@ -5,14 +5,12 @@ import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.ConfigTab;
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.SimpleConfigs;
-import fi.dy.masa.malilib.config.options.ConfigBase;
-import fi.dy.masa.malilib.config.options.ConfigBoolean;
-import fi.dy.masa.malilib.config.options.ConfigHotkey;
-import fi.dy.masa.malilib.config.options.ConfigInteger;
+import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.JsonUtils;
 import net.minecraft.GuiScreen;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.world.biome.BiomeMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,8 @@ public class ITFConfig extends SimpleConfigs {
 
 
     //misc
-    public static final ConfigBoolean ITFAnvilSystem = new ConfigBoolean("ITF铁砧机制", true);
+    public static final ConfigBoolean ITFAnvilSystem = new ConfigBoolean("ITF铁砧机制", true, "此设置还会影响战利品箱子中附魔书的生成");
+    public static final ConfigEnum<BiomeMode> ITFBiomeMode = new ConfigEnum<>("群系机制", BiomeMode.NORMAL, "compat代表兼容模式, 与原版大致相同");
 
     public static final List<ConfigBase<?>> challenge;
     public static final List<ConfigBase<?>> spite;
@@ -91,7 +90,7 @@ public class ITFConfig extends SimpleConfigs {
 
         experimental = List.of(TagCreaturesV2, TagBenchingV2, FinalChallenge);
         args = List.of(AnvilXPMultiplier, AnvilXPMultiplierInit, AnvilXPMultiplierReward, AnvilXPMultiplierTreasure, TotemKnowledgeLimit, CancelItemRockUse);
-        misc = List.of(ITFAnvilSystem);
+        misc = List.of(ITFAnvilSystem, ITFBiomeMode);
 
 
         values = new ArrayList<>();

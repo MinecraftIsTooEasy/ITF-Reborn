@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.mixins.tileentity;
+package net.oilcake.mitelros.mixins.block.entity;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;

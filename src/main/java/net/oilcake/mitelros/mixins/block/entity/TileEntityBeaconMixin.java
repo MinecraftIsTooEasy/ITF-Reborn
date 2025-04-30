@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.mixins.tileentity;
+package net.oilcake.mitelros.mixins.block.entity;
 
 import net.minecraft.Potion;
 import net.minecraft.TileEntity;
