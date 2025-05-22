@@ -1,9 +1,9 @@
 package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.registry.ITFRegistryImpl;
 
 import java.util.Map;
 import java.util.Random;
@@ -14,20 +14,15 @@ public class OreDropHelper {
     }
 
     public static int getRawPieceItemID(BlockOre blockOre, int metadata) {
-        if (blockOre == Block.oreGold) return metadata == 2 ? Items.pieceGoldNether.itemID : Items.pieceGold.itemID;
-        Map<Block, Integer> map = ITFRegistryImpl.PIECE_MAP;
-        if (map.containsKey(blockOre)) {
-            return map.get(blockOre);
+        if (blockOre == Block.oreGold) {
+            int type = metadata & 0b10;
+            return type == 0b10 ? Items.pieceGoldNether.itemID : Items.pieceGold.itemID;
         }
-        return 0;
+        return ITFRegistryImpl.PIECE_MAP.getOrDefault(blockOre, 0);
     }
 
     public static int getMeltPieceItemID(BlockOre blockOre) {
-        Map<Block, Integer> map = ITFRegistryImpl.MELTING_MAP;
-        if (map.containsKey(blockOre)) {
-            return map.get(blockOre);
-        }
-        return 0;
+        return ITFRegistryImpl.MELTING_MAP.getOrDefault(blockOre, 0);
     }
 
     public static boolean canAbsorb(BlockOre blockOre) {

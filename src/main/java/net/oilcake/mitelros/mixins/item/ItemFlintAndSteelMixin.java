@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemFlintAndSteel.class)
 public class ItemFlintAndSteelMixin extends Item {
 
-    @Inject(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/RaycastCollision;getBlockHit()Lnet/minecraft/Block;"))
+    @Inject(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/RaycastCollision;getBlockHit()Lnet/minecraft/Block;"), cancellable = true)
     private void activateFurnace(EntityPlayer player, float partial_tick, boolean ctrl_is_down, CallbackInfoReturnable<Boolean> cir, @Local RaycastCollision rc) {
         if (rc.getBlockHit() instanceof BlockFurnace) {
             TileEntityFurnace furnace = (TileEntityFurnace) rc.world.getBlockTileEntity(rc.block_hit_x, rc.block_hit_y, rc.block_hit_z);
@@ -22,6 +22,7 @@ public class ItemFlintAndSteelMixin extends Item {
                 rc.world.playSoundAtEntity(player, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 player.tryDamageHeldItem(DamageSource.generic, 1);
             }
+            cir.setReturnValue(true);
         }
     }
 }

@@ -56,6 +56,7 @@ dependencies {
     compileOnly(files("${lib_dir}/Baubles.jar"))
     compileOnly(files("${lib_dir}/Shop.jar"))
     compileOnly(files("${lib_dir}/RWG.jar"))
+    compileOnly(files("${lib_dir}/Extreme.jar"))
 
     // some useful mods I use
     implementation files("${lib_dir}/ModernMite.jar")

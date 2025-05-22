@@ -5,7 +5,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.IChunkProvider;
 import net.minecraft.World;
 import net.minecraft.WorldGenerator;
-import net.oilcake.mitelros.Reference;
+import net.oilcake.mitelros.ModReference;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.world.WorldGenFlowersExtend;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +18,7 @@ import rwg.world.ChunkGeneratorRealistic;
 
 import java.util.Random;
 
-@Restriction(require = @Condition(Reference.RWG))
+@Restriction(require = @Condition(ModReference.RWG))
 @Mixin(ChunkGeneratorRealistic.class)
 public class RWGChunkGeneratorMixin {
     @Shadow

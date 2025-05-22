@@ -6,7 +6,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import moddedmite.emi.recipe.EmiFoodRecipe;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;
-import net.oilcake.mitelros.Reference;
+import net.oilcake.mitelros.ModReference;
 import net.oilcake.mitelros.client.texture.Textures;
 import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(Reference.EMI))
+@Restriction(require = @Condition(ModReference.EMI))
 @Mixin(EmiFoodRecipe.class)
 public abstract class EmiFoodRecipeMixin {
     @Shadow
