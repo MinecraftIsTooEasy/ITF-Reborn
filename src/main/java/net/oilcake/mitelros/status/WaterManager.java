@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.status;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.potion.PotionExtend;
 
 public class WaterManager {
@@ -18,6 +18,7 @@ public class WaterManager {
     }
 
     public void update() {
+        if (this.player.isPlayerInCreative()) return;
         BiomeGenBase biome = player.worldObj.getBiomeGenForCoords(player.getBlockPosX(), player.getBlockPosZ());
         if (player.getBlockAtFeet() != null && (player.getBlockAtFeet()).blockMaterial == Material.water && player.isSneaking()) {
             this.water_duration++;

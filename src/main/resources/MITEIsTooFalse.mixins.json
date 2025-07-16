@@ -35,7 +35,7 @@
     "entity.animal.EntityWolfMixin",
     "entity.misc.EntityArrowMixin",
     "entity.misc.EntityFishHookMixin",
-    "entity.misc.EntityInsentientMixin",
+    "entity.misc.EntityLivingMixin",
     "entity.misc.EntityItemMixin",
     "entity.misc.EntityLivingBaseMixin",
     "entity.mob.EntityArachnidMixin",
