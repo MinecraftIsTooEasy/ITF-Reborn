@@ -1,4 +1,131 @@
 package net.oilcake.mitelros.mixins.item.recipes;
 
-public class RecipesArmorMixin {
+import cn.wensc.mitemod.extreme.util.Constant;
+import net.minecraft.*;
+import net.xiaoyu233.fml.reload.transform.util.CraftingManagerInvoker;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+
+@Mixin(value = RecipesArmor.class, priority = 9999)
+public abstract class RecipesArmorMixin {
+    @Shadow private CraftingManager crafting_manager;
+    @Shadow protected abstract void addBootsRecipe(Item boots, Item component);
+    @Shadow protected abstract void addCuirassRecipe(Item cuirass, Item component);
+    @Shadow protected abstract void addHelmetRecipe(Item helmet, Item component);
+    @Shadow protected abstract void addLeggingsRecipe(Item leggings, Item component);
+
+    @Overwrite
+    public void addRecipes(CraftingManager par1CraftingManager) {
+        this.crafting_manager = par1CraftingManager;
+        Item[] components = new Item[]{Item.leather, Item.chainCopper, Item.chainSilver, Item.chainGold, Item.chainRustedIron, Item.chainIron, Item.chainMithril, Item.chainAdamantium, Item.chainAncientMetal, Item.ingotCopper, Item.ingotSilver, Item.ingotGold};
+
+        for (Item component : components) {
+            if (component.materials.size() != 1) {
+                Minecraft.setErrorMessage("addRecipes: armor components can have only 1 material (" + component + ")");
+            }
+            this.addHelmetRecipe(ItemArmor.getMatchingArmor(ItemHelmet.class, component.getExclusiveMaterial(), component instanceof ItemChain), component);
+            this.addCuirassRecipe(ItemArmor.getMatchingArmor(ItemCuirass.class, component.getExclusiveMaterial(), component instanceof ItemChain), component);
+            this.addLeggingsRecipe(ItemArmor.getMatchingArmor(ItemLeggings.class, component.getExclusiveMaterial(), component instanceof ItemChain), component);
+            this.addBootsRecipe(ItemArmor.getMatchingArmor(ItemBoots.class, component.getExclusiveMaterial(), component instanceof ItemChain), component);
+        }
+
+        //Mithril -> Adamantium
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.helmetAdamantium),true,
+                "AHA",
+                "A A",
+                'A',Item.ingotAdamantium,
+                'H',Item.helmetMithril).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateAdamantium),true,
+                "A A",
+                "APA",
+                "AAA",
+                'A',Item.ingotAdamantium,
+                'P',Item.plateMithril).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsAdamantium),true,
+                "ALA",
+                "A A",
+                "A A",
+                'A',Item.ingotAdamantium,
+                'L',Item.legsMithril).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsAdamantium),true,
+                "B A",
+                "A A",
+                'A',Item.ingotAdamantium,
+                'B',Item.bootsMithril).func_92100_c();
+
+        //Ancient -> Mithril
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.helmetMithril),true,
+                "AAA",
+                "AHA",
+                'A',Item.ingotMithril,
+                'H',Item.helmetAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateMithril),true,
+                "APA",
+                "AAA",
+                "AAA",
+                'A',Item.ingotMithril,
+                'P',Item.plateAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsMithril),true,
+                "AAA",
+                "ALA",
+                "A A",
+                'A',Item.ingotMithril,
+                'L',Item.legsAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsMithril),true,
+                "ABA",
+                "A A",
+                'A',Item.ingotMithril,
+                'B',Item.bootsAncientMetal).func_92100_c();
+
+        //Iron -> Ancient
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.helmetAncientMetal),true,
+                "AAA",
+                "AHA",
+                'A',Item.ingotAncientMetal,
+                'H',Item.helmetIron).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateAncientMetal),true,
+                "APA",
+                "AAA",
+                "AAA",
+                'A',Item.ingotAncientMetal,
+                'P',Item.plateIron).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsAncientMetal),true,
+                "AAA",
+                "ALA",
+                "A A",
+                'A',Item.ingotAncientMetal,
+                'L',Item.legsIron).func_92100_c();
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsAncientMetal),true,
+                "ABA",
+                "A A",
+                'A',Item.ingotAncientMetal,
+                'B',Item.bootsIron).func_92100_c();
+
+        int plank_subtype, i;
+        for(i = 0; i < Block.workbench.getNumSubBlocks(); ++i) {
+            Material tool_material = BlockWorkbench.getToolMaterial(i);
+            if (tool_material == Material.flint) {
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"K", "#", 'K', Item.knifeFlint, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"FS", "s#", 'F', Item.flint, 'S', Item.silk, 's', Item.stick, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"FS", "s#", 'F', Item.flint, 'S', Item.sinew, 's', Item.stick, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.knifeFlint, 1), false, new Object[]{"#", '#', new ItemStack(Block.workbench, 1, i)}).setDifficulty(25.0F);
+            } else if (tool_material == Material.obsidian) {
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"K", "#", 'K', Item.knifeObsidian, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"OS", "s#", 'O', Block.obsidian, 'S', Item.silk, 's', Item.stick, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"OS", "s#", 'O', Block.obsidian, 'S', Item.sinew, 's', Item.stick, '#', Constant.getBlockComponentWithNewWood(i)});
+                ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.knifeObsidian, 1), false, new Object[]{"#", '#', new ItemStack(Block.workbench, 1, i)}).setDifficulty(25.0F);
+            } else {
+                for(plank_subtype = 4; plank_subtype < 8; ++plank_subtype) {
+                    ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Block.workbench, 1, i), true, new Object[]{"IL", "s#", 'I', ItemIngot.getMatchingItem(ItemIngot.class, tool_material), 'L', Item.leather, 's', Item.stick, '#', new ItemStack(Block.planks, 1, plank_subtype)});
+                }
+            }
+        }
+
+        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsAncientMetal),true,
+                "ABA",
+                "A A",
+                'A',Item.ingotAncientMetal,
+                'B',Item.bootsIron).func_92100_c();
+    }
 }

@@ -52,11 +52,11 @@ dependencies {
     implementation files("${lib_dir}/conditional-mixin.jar")
 
     // compile needed, runtime not needed
-    compileOnly(files("${lib_dir}/MITE-ITE.jar"))
+    implementation(files("${lib_dir}/MITE-ITE.jar"))
     compileOnly(files("${lib_dir}/Baubles.jar"))
-    compileOnly(files("${lib_dir}/Shop.jar"))
+    implementation(files("${lib_dir}/Shop.jar"))
     compileOnly(files("${lib_dir}/RWG.jar"))
-    compileOnly(files("${lib_dir}/Extreme.jar"))
+    implementation(files("${lib_dir}/Extreme.jar"))
 
     // some useful mods I use
     implementation files("${lib_dir}/ModernMite.jar")
