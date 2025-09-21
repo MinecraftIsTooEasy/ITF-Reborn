@@ -5,11 +5,10 @@ import com.google.common.collect.Table;
 import net.minecraft.*;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
-import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.util.FoodDataList;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemKettle extends Item implements IDamageableItem {
     private static final int drinkUnit = 3;
@@ -120,7 +119,7 @@ public class ItemKettle extends Item implements IDamageableItem {
     @Override
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
         if (player.onServer()) {
-            ITFEntityPlayer.cast(player).itf$AddWater(2);
+            player.itf$AddWater(2);
             FoodDataList.onWaterDrunk(item_stack.getItem(), player);
             player.getHeldItemStack().tryDamageItem(world, drinkUnit, true);
         }
@@ -131,7 +130,7 @@ public class ItemKettle extends Item implements IDamageableItem {
         if (item_stack.getItemDamage() + drinkUnit > item_stack.getMaxDamage()) {
             return null;
         }
-        ITFFoodStats foodStats = (ITFFoodStats) player.getFoodStats();
+        net.oilcake.mitelros.mixin.interfaces.ITFFoodStats foodStats = (ITFFoodStats) player.getFoodStats();
         if (foodStats.itf$GetWater() >= foodStats.itf$GetWaterLimit()) {
             return null;
         }
@@ -197,5 +196,15 @@ public class ItemKettle extends Item implements IDamageableItem {
             }
         }
         return false;
+    }
+
+    @Override
+    public void addInformation(ItemStack item_stack, EntityPlayer player, List info, boolean extended_info, Slot slot) {
+        super.addInformation(item_stack, player, info, extended_info, slot);
+        if (extended_info) {
+            if (item_stack.getItemDamage() > 0) {
+                info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.add", 2));
+            }
+        }
     }
 }
