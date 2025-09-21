@@ -1,7 +1,8 @@
 package net.oilcake.mitelros.command;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class CommandStatus extends CommandBase {
     @Override
@@ -33,7 +34,7 @@ public class CommandStatus extends CommandBase {
         String stringBuilder = "胰岛素抗性: " + player.getInsulinResistance() +
                 ", 蛋白质: " + player.getProtein() +
                 ", 植物营养素: " + player.getPhytonutrients() +
-                ", 水分: " + ((ITFPlayer) player).itf$GetWater();
+                ", 水分: " + ITFEntityPlayer.cast(player).itf$GetWater();
         iCommandSender.sendChatToPlayer(ChatMessageComponent.createFromText(stringBuilder));
     }
 }

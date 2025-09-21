@@ -7,8 +7,6 @@ import net.oilcake.mitelros.config.ITFConfig;
 
 public class Constant {
     public static int ultimateDifficulty;
-    public static int nextItemID;
-    public static int nextBlockID;
 
     public static float HungerWaterPerTick = 0.002F;
     public static float global_water_rate = 1.0F;

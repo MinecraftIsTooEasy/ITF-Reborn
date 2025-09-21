@@ -10,7 +10,7 @@ public class BlockEnchantPredicator extends Block {
 
     private Icon TEXTURE_SIDE;
 
-    protected BlockEnchantPredicator(int par1) {
+    public BlockEnchantPredicator(int par1) {
         super(par1, Material.anvil, new BlockConstants());
         setMaxStackSize(1);
         setLightOpacity(0);

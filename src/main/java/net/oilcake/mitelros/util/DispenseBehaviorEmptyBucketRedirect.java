@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 
 public final class DispenseBehaviorEmptyBucketRedirect extends BehaviorDefaultDispenseItem {
     public ItemBucket item_bucket;

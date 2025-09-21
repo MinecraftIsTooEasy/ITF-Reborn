@@ -4,7 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.IBaublePlugin;
 import net.minecraft.EntityLivingBase;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.item.totem.ItemTotem;
+import net.oilcake.mitelros.item.ItemTotem;
 
 public class BaublesPluginImpl implements IBaublePlugin {
     @Override

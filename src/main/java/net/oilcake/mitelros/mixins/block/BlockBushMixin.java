@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.BlockBush;
 import net.minecraft.BlockGrowingPlant;
 import net.minecraft.World;
-import net.oilcake.mitelros.api.ITFWorld;
+import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.util.EnumSeason;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;

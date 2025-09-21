@@ -8,16 +8,8 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-static def buildTime() {
-    def df = new SimpleDateFormat("yyyyMMddHHmm")
-    df.setTimeZone(TimeZone.getTimeZone("GMT+8"))
-    return df.format(new Date())
-}
-
 base {
-//    archivesName = "[MITF重生]" + project.archives_base_name
-    archivesName = "[MITF重生]" + project.archives_base_name + "-dev-build." + buildTime()
-//    archivesName = "[MITF重生]MITF-Reborn"
+    archivesName = "[MITF重生]" + project.archives_base_name
 }
 
 repositories {
@@ -54,20 +46,22 @@ dependencies {
     implementation("it.unimi.dsi:fastutil:8.5.12")
 
     // these are necessary for running
-    implementation(files("${lib_dir}/ManyLib.jar"))
+    implementation files("${lib_dir}/ManyLib.jar")
     implementation files("${lib_dir}/RustedIronCore.jar")
     implementation files("${lib_dir}/RustedIronCore-sources.jar")
+    implementation files("${lib_dir}/conditional-mixin.jar")
 
     // compile needed, runtime not needed
     compileOnly(files("${lib_dir}/MITE-ITE.jar"))
     compileOnly(files("${lib_dir}/Baubles.jar"))
+    compileOnly(files("${lib_dir}/Shop.jar"))
+    compileOnly(files("${lib_dir}/RWG.jar"))
+    compileOnly(files("${lib_dir}/Extreme.jar"))
 
     // some useful mods I use
     implementation files("${lib_dir}/ModernMite.jar")
     implementation files("${lib_dir}/ommc.jar")
-//    implementation files("${lib_dir}/MITEDevHackMod-FML3.0.0.jar")
     implementation files("${lib_dir}/Neodymium.jar")
-    implementation files("${lib_dir}/FPSPlus.jar")
     implementation files("${lib_dir}/Hwite.jar")
     implementation files("${lib_dir}/MixinConflictHelper.jar")
     implementation files("${lib_dir}/EMI.jar")
@@ -76,11 +70,14 @@ dependencies {
     implementation files("${lib_dir}/ExtraGui.jar")
 }
 
+def canonical_version = project.mod_version
+project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
+
 processResources {
     inputs.property "version", project.version
 
     filesMatching("fml.mod.json") {
-        expand "version": project.version
+        expand "version": canonical_version
     }
 }
 
@@ -92,7 +89,6 @@ tasks.withType(JavaCompile).configureEach {
 java {
     withSourcesJar()
 
-    version += "-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date())
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }

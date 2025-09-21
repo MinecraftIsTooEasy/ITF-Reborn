@@ -5,21 +5,17 @@ import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.ConfigTab;
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.SimpleConfigs;
-import fi.dy.masa.malilib.config.options.ConfigBase;
-import fi.dy.masa.malilib.config.options.ConfigBoolean;
-import fi.dy.masa.malilib.config.options.ConfigHotkey;
-import fi.dy.masa.malilib.config.options.ConfigInteger;
+import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.JsonUtils;
 import net.minecraft.GuiScreen;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.world.biome.BiomeMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class
-ITFConfig extends SimpleConfigs {
-
+public class ITFConfig extends SimpleConfigs {
     /* stuckTags */
     public static final ConfigBooleanChallenge TagHeatStroke = new ConfigBooleanChallenge("酷暑代价", "水分自然消耗的速度提升100%", 1);
     public static final ConfigBooleanChallenge TagDryDilemma = new ConfigBooleanChallenge("旱地", "降低非碗类食物回复含水量的能力，高于1的减1，等于1的降低概率", 1);
@@ -64,9 +60,9 @@ ITFConfig extends SimpleConfigs {
 
 
     //misc
-    public static final ConfigBoolean FixedID = new ConfigBoolean("固定ID", false, "(整合包作者需考虑)固定物品ID以及方块ID");
-    public static final ConfigInteger ItemIDStart = new ConfigInteger("物品ID起始点", 4000, 4000, 10000, false, "明显需要重启, 且有崩档风险, 操作前请备份!");
-    public static final ConfigInteger BlockIDStart = new ConfigInteger("方块ID起始点", 4095, 255, 4095, false, "明显需要重启, 且有崩档风险, 操作前请备份!");
+    public static final ConfigBoolean ITFAnvilSystem = new ConfigBoolean("ITF铁砧机制", true, "此设置还会影响战利品箱子中附魔书的生成");
+    public static final ConfigEnum<BiomeMode> ITFBiomeMode = new ConfigEnum<>("群系机制", BiomeMode.NORMAL, "compat代表兼容模式, 与原版大致相同");
+    public static final ConfigBoolean OreCompat = new ConfigBoolean("矿物兼容", true, "融毁和吸收等附魔对别的模组奏效");
 
     public static final List<ConfigBase<?>> challenge;
     public static final List<ConfigBase<?>> spite;
@@ -95,7 +91,7 @@ ITFConfig extends SimpleConfigs {
 
         experimental = List.of(TagCreaturesV2, TagBenchingV2, FinalChallenge);
         args = List.of(AnvilXPMultiplier, AnvilXPMultiplierInit, AnvilXPMultiplierReward, AnvilXPMultiplierTreasure, TotemKnowledgeLimit, CancelItemRockUse);
-        misc = List.of(FixedID, ItemIDStart, BlockIDStart);
+        misc = List.of(ITFAnvilSystem, ITFBiomeMode, OreCompat);
 
 
         values = new ArrayList<>();
@@ -152,11 +148,6 @@ ITFConfig extends SimpleConfigs {
         return new ITFConfigScreen(parentScreen, this);
     }
 
-    //    @Override
-//    public GuiScreen getConfigScreen(GuiScreen parentScreen) {
-//        return new ITFConfigScreen(parentScreen, this);
-//    }
-
     @Override
     public void save() {
         JsonObject root = new JsonObject();
@@ -185,10 +176,6 @@ ITFConfig extends SimpleConfigs {
                 ConfigUtils.readConfigBase(root, "实验性玩法", experimental);
                 ConfigUtils.readConfigBase(root, "参数配置", args);
                 ConfigUtils.readConfigBase(root, "杂项", misc);
-            }
-            if (FixedID.getBooleanValue()) {
-                Constant.nextItemID = ItemIDStart.getIntegerValue();
-                Constant.nextBlockID = BlockIDStart.getIntegerValue();
             }
         }
     }

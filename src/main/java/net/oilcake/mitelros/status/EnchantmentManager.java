@@ -3,7 +3,7 @@ package net.oilcake.mitelros.status;
 import moddedmite.rustedironcore.random.RandomUtil;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,9 +25,12 @@ public class EnchantmentManager {
 
     public void thresh(EntityLivingBase entity_living_base) {
         if (entity_living_base instanceof EntityLiving entity_living) {
-            if (player.rand.nextFloat() > EnchantmentHelper.getEnchantmentLevelFraction(Enchantments.enchantmentThresher, player.getHeldItemStack()))
+            if (player.rand.nextFloat() > EnchantmentHelper.getEnchantmentLevelFraction(Enchantments.enchantmentThresher, player.getHeldItemStack())) {
                 return;
-            ItemStack randomArmor = RandomUtil.getRandom(List.of(entity_living_base.getWornItems()), player.rand);
+            }
+            List<ItemStack> list = Arrays.stream(entity_living_base.getWornItems()).filter(Objects::nonNull).toList();
+            if (list.isEmpty()) return;
+            ItemStack randomArmor = RandomUtil.getRandom(list, player.rand);
             if (randomArmor != null && this.shouldThresh(randomArmor)) {
                 entity_living.dropItemStack(randomArmor, entity_living.height / 2.0F);
                 entity_living.clearMatchingEquipmentSlot(randomArmor);
@@ -80,14 +83,14 @@ public class EnchantmentManager {
 
     public void mendingUpdate() {
         ItemStack holding = player.getHeldItemStack();
-        if (holding != null && this.willRepair(holding) &&
+        if (holding != null && this.canMendNormal(holding) &&
                 (float) holding.getRemainingDurability() / holding.getMaxDamage() < 0.5F && player.getExperienceLevel() >= 10 + 15 * holding.getItem().getHardestMetalMaterial().min_harvest_level) {
             player.addExperience(-holding.getMaxDamage() / 8, false, true);
             holding.setItemDamage(holding.getItemDamage() - holding.getMaxDamage() / 8);
         }
         ItemStack[] item_stack_to_repair = player.getWornItems();
         for (ItemStack itemStack : item_stack_to_repair) {
-            if (itemStack != null && willRepair(itemStack) &&
+            if (itemStack != null && canMendNormal(itemStack) &&
                     (float) itemStack.getRemainingDurability() / itemStack.getMaxDamage() < 0.5F && player.getExperienceLevel() >= 10 + 15 * itemStack.getItem().getHardestMetalMaterial().min_harvest_level) {
                 player.addExperience(-12, false, true);
                 itemStack.setItemDamage(itemStack.getItemDamage() - 1);
@@ -96,30 +99,31 @@ public class EnchantmentManager {
     }
 
     public void lightMendingUpdate() {
-        if (this.player.isInSunlight()) {
-            ItemStack holding = this.player.getHeldItemStack();
-            if (holding != null && holding.getItemDamage() > 0 && this.sunlight(holding) && !this.player.isBlocking()) {
+        EntityPlayer entityPlayer = this.player;
+        if (entityPlayer.isInSunlight()) {
+            ItemStack holding = entityPlayer.getHeldItemStack();
+            if (holding != null && holding.getItemDamage() > 0 && this.canMendInSunlight(holding) && !entityPlayer.isBlocking()) {
                 holding.setItemDamage(holding.getItemDamage() - 1);
             }
-            ItemStack[] armors = this.player.getWornItems();
+            ItemStack[] armors = entityPlayer.getWornItems();
             for (ItemStack armor : armors) {
-                if (armor != null && armor.getItemDamage() > 0 && this.sunlight(armor) && this.player.rand.nextInt(200) == 0) {
+                if (armor != null && armor.getItemDamage() > 0 && this.canMendInSunlight(armor) && entityPlayer.rand.nextInt(200) == 0) {
                     armor.setItemDamage(armor.getItemDamage() - 1);
                 }
             }
         } else {
-            World world = this.player.worldObj;
-            int x = MathHelper.floor_double(this.player.posX);
-            int y = MathHelper.floor_double(this.player.posY);
-            int z = MathHelper.floor_double(this.player.posZ);
+            World world = entityPlayer.worldObj;
+            int x = MathHelper.floor_double(entityPlayer.posX);
+            int y = MathHelper.floor_double(entityPlayer.posY);
+            int z = MathHelper.floor_double(entityPlayer.posZ);
             if (!world.isDaytime() && world.canBlockSeeTheSky(x, y, z)) {
-                ItemStack holding = this.player.getHeldItemStack();
-                if (holding != null && holding.getItemDamage() > 1 && this.moonlight(holding) && !this.player.isBlocking()) {
+                ItemStack holding = entityPlayer.getHeldItemStack();
+                if (holding != null && holding.getItemDamage() > 1 && this.canMendInMoonlight(holding) && !entityPlayer.isBlocking()) {
                     holding.setItemDamage(holding.getItemDamage() - 2);
                 }
-                ItemStack[] armors = this.player.getWornItems();
+                ItemStack[] armors = entityPlayer.getWornItems();
                 for (ItemStack armor : armors) {
-                    if (armor != null && armor.getItemDamage() > 1 && this.moonlight(armor) && this.player.rand.nextInt(200) == 0) {
+                    if (armor != null && armor.getItemDamage() > 1 && this.canMendInMoonlight(armor) && entityPlayer.rand.nextInt(200) == 0) {
                         armor.setItemDamage(armor.getItemDamage() - 2);
                     }
                 }
@@ -133,7 +137,7 @@ public class EnchantmentManager {
         } else {
             int before = amount;
             ItemStack holding = player.getHeldItemStack();
-            if (holding != null && this.willRepair(holding))
+            if (holding != null && this.canMendNormal(holding))
                 for (; player.getHeldItemStack().getItemDamage() >= 16 && amount > 0; amount--)
                     player.getHeldItemStack().setItemDamage(holding.getItemDamage() - 16);
             player.addScore(before - amount);
@@ -141,15 +145,15 @@ public class EnchantmentManager {
         }
     }
 
-    public boolean sunlight(ItemStack holding) {
+    public boolean canMendInSunlight(ItemStack holding) {
         return EnchantmentHelper.hasEnchantment(holding, Enchantments.enchantmentSunlightMending);
     }
 
-    public boolean moonlight(ItemStack holding) {
+    public boolean canMendInMoonlight(ItemStack holding) {
         return EnchantmentHelper.hasEnchantment(holding, Enchantments.enchantmentMoonlightMending);
     }
 
-    public boolean willRepair(ItemStack holding) {
+    public boolean canMendNormal(ItemStack holding) {
         return EnchantmentHelper.hasEnchantment(holding, Enchantments.enchantmentMending);
     }
 

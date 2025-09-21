@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.command;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFFoodStats;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class CommandSetStatus extends CommandBase {
             }
             case "water" -> {
                 ((ITFFoodStats) player.getFoodStats()).itf$SetWater(parseInt(iCommandListener, strings[1]), true);
-                iCommandListener.sendChatToPlayer(ChatMessageComponent.createFromText("水分值现在为" + ((ITFPlayer) player).itf$GetWater()).setColor(EnumChatFormatting.WHITE));
+                iCommandListener.sendChatToPlayer(ChatMessageComponent.createFromText("水分值现在为" + ITFEntityPlayer.cast(player).itf$GetWater()).setColor(EnumChatFormatting.WHITE));
             }
             default -> throw new WrongUsageException("commands.setStatus.usage");
         }

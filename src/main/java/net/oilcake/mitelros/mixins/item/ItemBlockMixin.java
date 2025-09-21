@@ -4,7 +4,7 @@ import net.minecraft.Block;
 import net.minecraft.Item;
 import net.minecraft.ItemBlock;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

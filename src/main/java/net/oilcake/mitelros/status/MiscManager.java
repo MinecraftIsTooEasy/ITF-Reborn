@@ -1,12 +1,12 @@
 package net.oilcake.mitelros.status;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.compat.ModCompat;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.item.Items;
-import net.oilcake.mitelros.item.Materials;
-import net.oilcake.mitelros.item.totem.ItemTotem;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.item.ItemTotem;
 import net.oilcake.mitelros.unsafe.BaublesAccessor;
 import net.oilcake.mitelros.util.AchievementExtend;
 import net.oilcake.mitelros.util.Constant;
@@ -39,7 +39,7 @@ public class MiscManager {
     }
 
     public static MiscManager getInstance(EntityPlayer player) {
-        return ((ITFPlayer) player).itf_GetMiscManager();
+        return ITFEntityPlayer.cast(player).itf_GetMiscManager();
     }
 
     public float getNickelArmorCoverage() {

@@ -6,7 +6,7 @@ import net.minecraft.IconRegister;
 import net.oilcake.mitelros.ITFStart;
 
 public class BlockBeetrootsDead extends BlockCropsDead {
-    protected BlockBeetrootsDead(int block_id) {
+    public BlockBeetrootsDead(int block_id) {
         super(block_id, 4);
     }
 

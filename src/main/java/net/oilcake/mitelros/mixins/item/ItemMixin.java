@@ -6,8 +6,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.*;
-import net.oilcake.mitelros.api.ITFItem;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -52,16 +52,18 @@ public abstract class ItemMixin implements ITFItem {
         cir.setReturnValue(this.reach_bonus);
     }
 
-    @Inject(method = "addInformation", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getNutrition()I"))
+    @Inject(method = "addInformation", at = @At("TAIL"))
     private void itfFoodInfo(ItemStack item_stack, EntityPlayer player, List info, boolean extended_info, Slot slot, CallbackInfo ci) {
-        Float v = ITFRegistryImpl.waterChanceMap.get(item_stack.getItem());
-        if (v != null) {
-            info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.chance", Math.round(100.0f * v)));
-        }
-        if (this.foodWater > 0) {
-            info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.add", this.foodWater));
-        } else if (this.foodWater < 0) {
-            info.add(EnumChatFormatting.YELLOW + Translator.getFormatted("item.tooltip.water.minus", this.foodWater));
+        if (extended_info) {
+            Float v = ITFRegistryImpl.waterChanceMap.get(item_stack.getItem());
+            if (v != null) {
+                info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.chance", Math.round(100.0f * v)));
+            }
+            if (this.foodWater > 0) {
+                info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.add", this.foodWater));
+            } else if (this.foodWater < 0) {
+                info.add(EnumChatFormatting.YELLOW + Translator.getFormatted("item.tooltip.water.minus", this.foodWater));
+            }
         }
     }
 

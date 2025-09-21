@@ -5,7 +5,7 @@ import net.minecraft.Item;
 import net.minecraft.ItemMultiTextureTile;
 import net.minecraft.ItemRunestone;
 import net.oilcake.mitelros.block.BlockFlowerExtend;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

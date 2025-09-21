@@ -4,7 +4,7 @@ import net.minecraft.DamageSource;
 import net.minecraft.EntityEnderman;
 import net.minecraft.EntityMob;
 import net.minecraft.World;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

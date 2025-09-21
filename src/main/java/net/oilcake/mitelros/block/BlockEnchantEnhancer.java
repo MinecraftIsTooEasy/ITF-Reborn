@@ -10,7 +10,7 @@ public class BlockEnchantEnhancer extends Block {
 
     private Icon TEXTURE_SIDE;
 
-    protected BlockEnchantEnhancer(int par1) {
+    public BlockEnchantEnhancer(int par1) {
         super(par1, Material.anvil, new BlockConstants());
         setMaxStackSize(1);
         setLightOpacity(0);

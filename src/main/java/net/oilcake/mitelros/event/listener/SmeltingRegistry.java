@@ -4,8 +4,8 @@ import moddedmite.rustedironcore.api.event.events.SmeltingRecipeRegisterEvent;
 import moddedmite.rustedironcore.api.event.handler.SmeltingHandler;
 import net.minecraft.*;
 import net.oilcake.mitelros.item.ItemKettle;
-import net.oilcake.mitelros.item.Items;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.item.api.ItemMorningStar;
 
 import javax.annotation.Nonnull;
@@ -13,8 +13,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static net.oilcake.mitelros.block.Blocks.*;
-import static net.oilcake.mitelros.item.Items.*;
+import static net.oilcake.mitelros.registry.block.Blocks.*;
+import static net.oilcake.mitelros.registry.item.Items.*;
 
 public class SmeltingRegistry implements Consumer<SmeltingRecipeRegisterEvent> {
     @Override

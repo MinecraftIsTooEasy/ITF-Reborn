@@ -1,0 +1,12 @@
+package net.oilcake.mitelros.mixin.interfaces;
+
+import net.minecraft.Potion;
+import net.minecraft.TileEntityBeacon;
+
+public interface ITFTileEntityBeacon {
+    TileEntityBeacon itf$SetIsAdvanced(boolean isAdvanced);
+
+    boolean itf$GetIsAdvanced();
+
+    Potion[][] itf$GetITFEffectList();
+}

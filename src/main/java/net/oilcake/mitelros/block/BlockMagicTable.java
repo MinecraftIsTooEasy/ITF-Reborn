@@ -13,7 +13,7 @@ public class BlockMagicTable extends BlockEnchantmentTable {
 
     private Icon TEXTURE_SIDE;
 
-    protected BlockMagicTable(int par1) {
+    public BlockMagicTable(int par1) {
         super(par1, Material.diamond);
         this.setHardness(2.4F);
         this.setResistance(20.0F);

@@ -1,14 +1,20 @@
 package net.oilcake.mitelros.registry;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.ModReference;
 import net.oilcake.mitelros.api.ITFPlugin;
 import net.oilcake.mitelros.api.ITFRegistry;
-import net.oilcake.mitelros.block.Blocks;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.unsafe.ExtremeAccessor;
+import net.oilcake.mitelros.unsafe.ITEAccessor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VanillaPlugin implements ITFPlugin {
-    @SuppressWarnings("unchecked")
+    private static final Logger LOGGER = LogManager.getLogger(VanillaPlugin.class);
+
     @Override
     public void register(ITFRegistry registry) {
         registry.registerItemWater(Item.carrot, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
@@ -29,15 +35,6 @@ public class VanillaPlugin implements ITFPlugin {
         registry.registerMeatAnimal(EntitySheep.class);
         registry.registerMeatAnimal(EntityPig.class);
         registry.registerMeatAnimal(EntityHorse.class);
-
-//        if (FishModLoader.hasMod("bettermite")) {
-//            try {
-//                registry.registerMeatAnimal((Class<? extends Entity>) Class.forName("com.github.FlyBird.BetterMite.entity.EntityRabbit"));
-//            } catch (ClassNotFoundException | ClassCastException e) {
-//                ManyLib.logger.warn("itf reborn compat: failed to register rabbit for meat animals");
-//                e.printStackTrace();
-//            }
-//        }
 
 
         registry.registerOrePiece(Block.oreCopper, Items.pieceCopper.itemID);
@@ -70,5 +67,15 @@ public class VanillaPlugin implements ITFPlugin {
         registry.registerOreAbsorbing(Block.oreEmerald, new ItemStack(Item.emerald));
         registry.registerOreAbsorbing(Block.oreNetherQuartz, new ItemStack(Item.netherQuartz));
         registry.registerOreAbsorbing(Block.oreLapis, new ItemStack(Item.dyePowder, 1, 4));
+
+        if (ITFConfig.OreCompat.getBooleanValue()) {
+            try {
+                if (ModReference.hasMod(ModReference.ITE)) ITEAccessor.register(registry);
+                if (ModReference.hasMod(ModReference.EXTREME)) ExtremeAccessor.register(registry);
+            } catch (RuntimeException e) {
+                LOGGER.warn("exception while compat registry", e);
+            }
+        }
+
     }
 }

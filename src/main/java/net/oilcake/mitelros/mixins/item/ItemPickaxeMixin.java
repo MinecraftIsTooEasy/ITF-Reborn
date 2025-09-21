@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.item;
 import net.minecraft.ItemPickaxe;
 import net.minecraft.ItemTool;
 import net.minecraft.Material;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

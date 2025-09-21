@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.item;
 import net.minecraft.ItemBucketMilk;
 import net.minecraft.ItemVessel;
 import net.minecraft.Material;
-import net.oilcake.mitelros.api.ITFItem;
+import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -5,7 +5,8 @@
   "depends": {
     "fishmodloader": ">=3.4.1",
     "many-lib": ">=2.2.1",
-    "rusted_iron_core": ">=1.3.9"
+    "rusted_iron_core": ">=1.4.0",
+    "conditional-mixin": "*"
   },
   "suggests": {
     "emi": ">=1.0.8"
@@ -21,10 +22,9 @@
     "Xy_Lose"
   ],
   "contact": {
-    "homepage": "https://github.com/De6ris/ITF-Reborn",
-    "issues": "https://github.com/De6ris/ITF-Reborn",
-    "sources": "https://github.com/De6ris/ITF-Reborn",
-    "qq": "2838369930",
+    "homepage": "https://github.com/MinecraftIsTooEasy/ITF-Reborn",
+    "issues": "https://github.com/MinecraftIsTooEasy/ITF-Reborn/issues",
+    "sources": "https://github.com/MinecraftIsTooEasy/ITF-Reborn",
     "qqGroup": "661223990"
   },
   "entrypoints": {
@@ -45,6 +45,9 @@
     ],
     "baubles": [
       "net.oilcake.mitelros.compat.BaublesPluginImpl"
+    ],
+    "shop": [
+      "net.oilcake.mitelros.compat.ShopPluginImpl"
     ]
   },
   "mixins": [
@@ -54,10 +57,10 @@
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/EntityPlayer": [
-        "net/oilcake/mitelros/api/ITFPlayer"
+        "net/oilcake/mitelros/mixin/interfaces/ITFEntityPlayer"
       ],
       "net/minecraft/Enchantment": [
-        "net/oilcake/mitelros/api/ITFEnchantment"
+        "net/oilcake/mitelros/mixin/interfaces/ITFEnchantment"
       ]
     }
   }

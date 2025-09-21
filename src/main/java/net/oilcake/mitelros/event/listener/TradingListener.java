@@ -4,7 +4,7 @@ import moddedmite.rustedironcore.api.event.events.TradingRegisterEvent;
 import moddedmite.rustedironcore.api.util.IdUtilExtra;
 import moddedmite.rustedironcore.villager.VillagerSettings;
 import net.minecraft.*;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 
 import java.util.function.Consumer;
 

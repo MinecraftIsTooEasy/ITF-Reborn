@@ -4,7 +4,7 @@ import net.minecraft.*;
 import net.oilcake.mitelros.compat.ITECompatUtil;
 import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.entity.mob.EntityLichShadow;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.AchievementExtend;
 
 import java.util.ArrayList;

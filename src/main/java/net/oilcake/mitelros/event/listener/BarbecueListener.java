@@ -4,7 +4,7 @@ import moddedmite.rustedironcore.api.event.listener.IBarbecueListener;
 import net.minecraft.BlockLog;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class BarbecueListener implements IBarbecueListener {
     @Override

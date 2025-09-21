@@ -3,11 +3,12 @@ package net.oilcake.mitelros.block;
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 public class BlockBlastFurnace extends BlockFurnace {
     private final Material material;
 
-    protected BlockBlastFurnace(int par1, Material par2, boolean par3) {
+    public BlockBlastFurnace(int par1, Material par2, boolean par3) {
         super(par1, par2, par3);
         this.material = par2;
     }

@@ -26,13 +26,13 @@ public class BlockFlowerExtend extends BlockFlower {
 
     private Icon[] icons;
 
-    private static int[] candidates = new int[types.length];
+    private static final int[] candidates = new int[types.length];
 
     protected BlockFlowerExtend(int id, Material material) {
         super(id, material);
     }
 
-    protected BlockFlowerExtend(int id) {
+    public BlockFlowerExtend(int id) {
         this(id, Material.plants);
         setHardness(0.0F);
         setStepSound(soundGrassFootstep);
@@ -96,12 +96,14 @@ public class BlockFlowerExtend extends BlockFlower {
     }
 
     public int getRandomSubtypeForBiome(Random random, BiomeGenBase biome) {
-        if (random.nextInt(2) == 0)
+        if (random.nextInt(2) == 0) {
             return 7;
+        }
         int num_candidates = 0;
         for (int i = 0; i < types.length; i++) {
-            if (types[i] != null && isBiomeSuitable(biome, i))
+            if (types[i] != null && isBiomeSuitable(biome, i)) {
                 candidates[num_candidates++] = i;
+            }
         }
         return (num_candidates == 0) ? -1 : candidates[random.nextInt(num_candidates)];
     }
@@ -109,16 +111,21 @@ public class BlockFlowerExtend extends BlockFlower {
     public int getRandomSubtypeThatCanOccurAt(World world, int x, int y, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
         int subtype = getRandomSubtypeForBiome(world.rand, biome);
-        if (subtype < 0)
+        if (subtype < 0) {
             return -1;
-        while (!canOccurAt(world, x, y, z, subtype))
+        }
+        while (!canOccurAt(world, x, y, z, subtype)) {
             subtype = getRandomSubtypeForBiome(world.rand, biome);
+            if (subtype < 0) {
+                return -1;
+            }
+        }
         return subtype;
     }
 
     public boolean isBiomeSuitable(BiomeGenBase biome, int metadata) {
         if (!isValidMetadata(metadata)) {
-            Minecraft.setErrorMessage("isBiomeSuitable: invalid metadata " + metadata);
+            Minecraft.setErrorMessage("flower extend: isBiomeSuitable: invalid metadata " + metadata);
             return false;
         }
         int subtype = getBlockSubtype(metadata);

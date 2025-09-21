@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.enchantment;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.Enchantment;
 import net.minecraft.EnumRarity;
-import net.oilcake.mitelros.api.ITFEnchantment;
+import net.oilcake.mitelros.mixin.interfaces.ITFEnchantment;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

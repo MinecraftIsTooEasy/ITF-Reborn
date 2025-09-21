@@ -2,7 +2,8 @@ package net.oilcake.mitelros.block;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class BlockBeetroots extends BlockCrops {
     public BlockBeetroots(int par1) {

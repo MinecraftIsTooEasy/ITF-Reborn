@@ -5,9 +5,9 @@ import net.minecraft.Block;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.TileEntityBeacon;
-import net.oilcake.mitelros.api.ITFTileEntityBeacon;
-import net.oilcake.mitelros.block.Blocks;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.mixin.interfaces.ITFTileEntityBeacon;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class BeaconListener implements IBeaconUpdateHandler {
     @Override

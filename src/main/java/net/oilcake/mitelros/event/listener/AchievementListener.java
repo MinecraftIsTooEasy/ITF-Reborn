@@ -2,9 +2,9 @@ package net.oilcake.mitelros.event.listener;
 
 import moddedmite.rustedironcore.api.event.listener.IAchievementListener;
 import net.minecraft.*;
-import net.oilcake.mitelros.block.Blocks;
+import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.item.ItemBowlClay;
-import net.oilcake.mitelros.item.Items;
+import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.AchievementExtend;
 import net.oilcake.mitelros.util.Constant;
 

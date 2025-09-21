@@ -4,6 +4,7 @@ import net.minecraft.BlockBreakInfo;
 import net.minecraft.BlockFlowerPot;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
+import net.oilcake.mitelros.registry.block.Blocks;
 
 public class BlockFlowerPotExtend extends BlockFlowerPot {
     public BlockFlowerPotExtend(int par1) {

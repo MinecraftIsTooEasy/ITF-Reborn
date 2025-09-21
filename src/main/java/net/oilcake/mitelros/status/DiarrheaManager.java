@@ -2,7 +2,7 @@ package net.oilcake.mitelros.status;
 
 import net.minecraft.EntityPlayer;
 import net.minecraft.Item;
-import net.oilcake.mitelros.item.potion.PotionExtend;
+import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.util.AchievementExtend;
 
 public class DiarrheaManager {

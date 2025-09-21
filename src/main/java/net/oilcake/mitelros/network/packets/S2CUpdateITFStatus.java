@@ -4,7 +4,7 @@ import moddedmite.rustedironcore.network.Packet;
 import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.EntityPlayer;
 import net.minecraft.ResourceLocation;
-import net.oilcake.mitelros.api.ITFFoodStats;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class S2CUpdateITFStatus implements Packet {

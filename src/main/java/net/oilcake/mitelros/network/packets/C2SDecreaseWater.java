@@ -4,7 +4,8 @@ import moddedmite.rustedironcore.network.Packet;
 import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.EntityPlayer;
 import net.minecraft.ResourceLocation;
-import net.oilcake.mitelros.api.ITFPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class C2SDecreaseWater implements Packet {
@@ -25,7 +26,7 @@ public class C2SDecreaseWater implements Packet {
 
     @Override
     public void apply(EntityPlayer entityPlayer) {
-        ((ITFPlayer) entityPlayer).itf$DecreaseWaterServerSide(this.hungerWater);
+        ((ITFEntityPlayer) entityPlayer).itf$DecreaseWaterServerSide(this.hungerWater);
     }
 
     @Override

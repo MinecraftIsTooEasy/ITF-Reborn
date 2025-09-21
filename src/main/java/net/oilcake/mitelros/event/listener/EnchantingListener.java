@@ -2,7 +2,7 @@ package net.oilcake.mitelros.event.listener;
 
 import moddedmite.rustedironcore.api.event.listener.IEnchantingListener;
 import net.minecraft.ItemStack;
-import net.oilcake.mitelros.item.Materials;
+import net.oilcake.mitelros.material.Materials;
 
 import java.util.Random;
 
