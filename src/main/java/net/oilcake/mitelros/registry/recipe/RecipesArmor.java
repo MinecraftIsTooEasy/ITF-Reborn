@@ -71,26 +71,26 @@ public class RecipesArmor extends Items {
 
 
     private static void registerITEArmorRecipe(CraftingRecipeRegisterEvent register) {
-        register.registerShapedRecipe(new ItemStack(Item.helmetIron), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.helmetCopper});
-        register.registerShapedRecipe(new ItemStack(Item.plateIron), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.plateCopper});
-        register.registerShapedRecipe(new ItemStack(Item.legsIron), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.legsCopper});
-        register.registerShapedRecipe(new ItemStack(Item.bootsIron), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.bootsCopper});
-        register.registerShapedRecipe(new ItemStack(Items.nickelHelmet), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.helmetSilver});
-        register.registerShapedRecipe(new ItemStack(Items.nickelChestplate), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.plateSilver});
-        register.registerShapedRecipe(new ItemStack(Items.nickelLeggings), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.legsSilver});
-        register.registerShapedRecipe(new ItemStack(Items.nickelBoots), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.bootsSilver});
-        register.registerShapedRecipe(new ItemStack(Item.helmetAncientMetal), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelHelmet});
-        register.registerShapedRecipe(new ItemStack(Item.plateAncientMetal), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelChestplate});
-        register.registerShapedRecipe(new ItemStack(Item.legsAncientMetal), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelLeggings});
-        register.registerShapedRecipe(new ItemStack(Item.bootsAncientMetal), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelBoots});
-        register.registerShapedRecipe(new ItemStack(Items.tungstenHelmet), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.helmetAncientMetal});
-        register.registerShapedRecipe(new ItemStack(Items.tungstenChestplate), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.plateAncientMetal});
-        register.registerShapedRecipe(new ItemStack(Items.tungstenLeggings), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.legsAncientMetal});
-        register.registerShapedRecipe(new ItemStack(Items.tungstenBoots), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.bootsAncientMetal});
-        register.registerShapedRecipe(new ItemStack(Item.helmetAdamantium), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenHelmet});
-        register.registerShapedRecipe(new ItemStack(Item.plateAdamantium), false, new Object[]{"X X", "XYX", "XXX", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenChestplate});
-        register.registerShapedRecipe(new ItemStack(Item.legsAdamantium), false, new Object[]{"XYX", "X X", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenLeggings});
-        register.registerShapedRecipe(new ItemStack(Item.bootsAdamantium), false, new Object[]{"X Y", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenBoots});
+        register.registerShapedRecipe(new ItemStack(Item.helmetIron), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.helmetCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.plateIron), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.plateCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.legsIron), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.legsCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.bootsIron), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.bootsCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.nickelHelmet), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.helmetSilver}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.nickelChestplate), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.plateSilver}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.nickelLeggings), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.legsSilver}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.nickelBoots), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.bootsSilver}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.helmetAncientMetal), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelHelmet}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.plateAncientMetal), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelChestplate}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.legsAncientMetal), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelLeggings}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.bootsAncientMetal), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotAncientMetal, Character.valueOf('Y'), Items.nickelBoots}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.tungstenHelmet), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.helmetAncientMetal}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.tungstenChestplate), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.plateAncientMetal}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.tungstenLeggings), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.legsAncientMetal}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Items.tungstenBoots), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Items.tungstenIngot, Character.valueOf('Y'), Item.bootsAncientMetal}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.helmetAdamantium), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenHelmet}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.plateAdamantium), false, new Object[]{"X X", "XYX", "XXX", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenChestplate}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.legsAdamantium), false, new Object[]{"XYX", "X X", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenLeggings}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.bootsAdamantium), false, new Object[]{"X Y", "X X", Character.valueOf('X'), Item.ingotAdamantium, Character.valueOf('Y'), Items.tungstenBoots}).extendsNBT();
     }
 
     private static void registerUruMetalRecipes(CraftingRecipeRegisterEvent register) {
