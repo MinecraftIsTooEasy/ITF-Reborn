@@ -18,7 +18,7 @@ public abstract class RecipesArmorMixin {
     @Overwrite
     public void addRecipes(CraftingManager par1CraftingManager) {
         this.crafting_manager = par1CraftingManager;
-        Item[] components = new Item[]{Item.leather, Item.chainCopper, Item.chainSilver, Item.chainGold, Item.chainRustedIron, Item.chainIron, Item.chainMithril, Item.chainAdamantium, Item.chainAncientMetal, Item.ingotCopper, Item.ingotSilver, Item.ingotGold};
+        Item[] components = new Item[]{Item.leather, Item.chainCopper, Item.chainSilver, Item.chainGold, Item.chainRustedIron, Item.chainIron, Item.chainMithril, Item.chainAdamantium, Item.chainAncientMetal, Item.ingotSilver, Item.ingotGold};
 
         for (Item component : components) {
             if (component.materials.size() != 1) {

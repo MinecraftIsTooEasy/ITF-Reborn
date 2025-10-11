@@ -1,5 +1,7 @@
 package net.oilcake.mitelros.registry.recipe;
 
+import com.xylose.custom.xhttweaks.XHTRegister;
+import com.xylose.custom.xhttweaks.XHTTweaks;
 import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
 import net.oilcake.mitelros.registry.item.Items;
@@ -71,10 +73,14 @@ public class RecipesArmor extends Items {
 
 
     private static void registerITEArmorRecipe(CraftingRecipeRegisterEvent register) {
-        register.registerShapedRecipe(new ItemStack(Item.helmetIron), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.helmetCopper}).extendsNBT();
-        register.registerShapedRecipe(new ItemStack(Item.plateIron), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.plateCopper}).extendsNBT();
-        register.registerShapedRecipe(new ItemStack(Item.legsIron), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.legsCopper}).extendsNBT();
-        register.registerShapedRecipe(new ItemStack(Item.bootsIron), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), Item.bootsCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.helmetCopper), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), XHTRegister.helmetObsidian}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.plateCopper), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), XHTRegister.plateObsidian}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.legsCopper), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), XHTRegister.legsObsidian}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.bootsCopper), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotCopper, Character.valueOf('Y'), XHTRegister.bootsObsidian}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.helmetIron), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), Item.helmetCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.plateIron), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), Item.plateCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.legsIron), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), Item.legsCopper}).extendsNBT();
+        register.registerShapedRecipe(new ItemStack(Item.bootsIron), false, new Object[]{"XYX", "X X", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), Item.bootsCopper}).extendsNBT();
         register.registerShapedRecipe(new ItemStack(Items.nickelHelmet), false, new Object[]{"XXX", "XYX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.helmetSilver}).extendsNBT();
         register.registerShapedRecipe(new ItemStack(Items.nickelChestplate), false, new Object[]{"XYX", "XXX", "XXX", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.plateSilver}).extendsNBT();
         register.registerShapedRecipe(new ItemStack(Items.nickelLeggings), false, new Object[]{"XXX", "XYX", "X X", Character.valueOf('X'), Items.nickelIngot, Character.valueOf('Y'), Item.legsSilver}).extendsNBT();

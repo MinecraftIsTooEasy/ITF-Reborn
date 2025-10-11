@@ -50,6 +50,7 @@ dependencies {
     implementation files("${lib_dir}/RustedIronCore.jar")
     implementation files("${lib_dir}/RustedIronCore-sources.jar")
     implementation files("${lib_dir}/conditional-mixin.jar")
+    implementation files("${lib_dir}/XHTTweaks-1.0.4.jar")
 
     // compile needed, runtime not needed
     implementation(files("${lib_dir}/MITE-ITE.jar"))
