@@ -4,9 +4,9 @@ import moddedmite.rustedironcore.api.event.listener.IFurnaceUpdateListener;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.TileEntityFurnace;
-import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.block.BlockBlastFurnace;
 import net.oilcake.mitelros.block.BlockSmoker;
+import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.registry.item.Items;
 
 public class FurnaceListener implements IFurnaceUpdateListener {

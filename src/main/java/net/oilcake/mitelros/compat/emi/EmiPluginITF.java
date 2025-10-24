@@ -5,10 +5,9 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
-import net.minecraft.Item;
-import net.minecraft.ItemCoin;
-import net.minecraft.ItemRock;
-import net.minecraft.ItemStack;
+import dev.emi.emi.data.EmiRemoveFromIndex;
+import net.minecraft.*;
+import net.oilcake.mitelros.feat.MetalRecycle;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
 import shims.java.com.unascribed.retroemi.RetroEMI;
@@ -21,6 +20,8 @@ public class EmiPluginITF implements EmiPlugin {
     public void register(EmiRegistry registry) {
         registry.addCategory(RecipeCategory.EnchantReserverIn);
         registry.addCategory(RecipeCategory.EnchantReserverOut);
+        registry.addCategory(RecipeCategory.MetalRecycle);
+
         registry.addWorkstation(RecipeCategory.EnchantReserverIn, EmiStack.of(Blocks.blockEnchantReserver));
         registry.addWorkstation(RecipeCategory.EnchantReserverOut, EmiStack.of(Blocks.blockEnchantReserver));
 
@@ -32,8 +33,15 @@ public class EmiPluginITF implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(Blocks.blastFurnaceNetherrackIdle));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(Blocks.blockSmokerIdle));
 
+        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceStoneIdle));
+        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceObsidianIdle));
+        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceNetherrackIdle));
+
         this.addInfoRecipes(registry);
         this.addEnchantReserverRecipes(registry);
+        MetalRecycle.registerEmi(registry);
+
+        this.hideTechnical();
     }
 
     private void addInfoRecipes(EmiRegistry registry) {
@@ -77,5 +85,16 @@ public class EmiPluginITF implements EmiPlugin {
 
     private void info(EmiRegistry registry, Item item, String info) {
         registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(item)), List.of(Text.translatable(info)), null));
+    }
+
+    private void hideTechnical() {
+        this.hide(Blocks.blastFurnaceStoneBurning);
+        this.hide(Blocks.blastFurnaceObsidianBurning);
+        this.hide(Blocks.blastFurnaceNetherrackBurning);
+        this.hide(Blocks.blockSmokerBurning);
+    }
+
+    private void hide(Block block) {
+        EmiRemoveFromIndex.removed.add(EmiStack.of(block));
     }
 }

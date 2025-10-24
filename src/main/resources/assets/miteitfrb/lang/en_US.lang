@@ -444,6 +444,7 @@ itf.item.emerald.info=In mitf, you have to collect them in the snowy biomes
 
 emi.category.itf.enchant_reserver.in=Transform
 emi.category.itf.enchant_reserver.out=Reserve
+emi.category.itf.metal_recycle=Metal Recycle
 itf.exp.provides=Transforms into %d xp
 itf.exp.consumes=Consumes %d xp
 

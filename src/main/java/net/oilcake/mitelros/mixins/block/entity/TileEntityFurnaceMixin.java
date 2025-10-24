@@ -1,10 +1,10 @@
 package net.oilcake.mitelros.mixins.block.entity;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.block.BlockBlastFurnace;
 import net.oilcake.mitelros.block.BlockSmoker;
 import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,9 +15,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TileEntityFurnace.class)
 public abstract class TileEntityFurnaceMixin extends TileEntity implements ISidedInventory, ITFFurnace {
+    @Shadow
+    private ItemStack[] furnaceItemStacks;
 
     @Shadow
-    private ItemStack[] furnaceItemStacks = new ItemStack[3];
+    public abstract BlockFurnace getFurnaceBlock();
+
+    @Shadow
+    public abstract ItemStack getInputItemStack();
+
+    @Shadow
+    public abstract int getFuelHeatLevel();
 
     @Unique
     private boolean activated = false;
@@ -84,11 +92,6 @@ public abstract class TileEntityFurnaceMixin extends TileEntity implements ISide
         return (this.activated && this.furnaceItemStacks[1] != null);
     }
 
-    @Shadow
-    public int getFuelHeatLevel() {
-        return 1;
-    }
-
     @Inject(method = "readFromNBT", at = @At("RETURN"))
     public void injectReadNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo callbackInfo) {
         this.activated = par1NBTTagCompound.getBoolean("activated");
@@ -97,16 +100,6 @@ public abstract class TileEntityFurnaceMixin extends TileEntity implements ISide
     @Inject(method = "writeToNBT", at = @At("RETURN"))
     public void injectWriteNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo callbackInfo) {
         par1NBTTagCompound.setBoolean("activated", this.activated);
-    }
-
-    @Shadow
-    public BlockFurnace getFurnaceBlock() {
-        return null;
-    }
-
-    @Shadow
-    public ItemStack getInputItemStack() {
-        return this.furnaceItemStacks[0];
     }
 
 }

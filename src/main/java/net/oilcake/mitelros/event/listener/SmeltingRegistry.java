@@ -2,15 +2,12 @@ package net.oilcake.mitelros.event.listener;
 
 import moddedmite.rustedironcore.api.event.events.SmeltingRecipeRegisterEvent;
 import moddedmite.rustedironcore.api.event.handler.SmeltingHandler;
-import net.minecraft.*;
+import net.minecraft.ItemFood;
+import net.minecraft.ItemStack;
+import net.oilcake.mitelros.feat.MetalRecycle;
 import net.oilcake.mitelros.item.ItemKettle;
 import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.material.Materials;
-import net.oilcake.mitelros.item.api.ItemMorningStar;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static net.oilcake.mitelros.registry.block.Blocks.*;
@@ -46,12 +43,13 @@ public class SmeltingRegistry implements Consumer<SmeltingRecipeRegisterEvent> {
         event.register(oreNickel.blockID, new ItemStack(Items.nickelIngot));
         event.register(oreUru.blockID, new ItemStack(Items.uruIngot));
 
-        registerBlastFurnaceRecipes(event);
+        this.registerSpecialRecipes(event);
+    }
 
+    private void registerSpecialRecipes(SmeltingRecipeRegisterEvent event) {
         event.registerSpecial((itemStack, heatLevel) -> {
-            Class<? extends Item> clazz = itemStack.getItem().getClass();
-            if (tools.contains(clazz) || armors.contains(clazz)) {
-                return SmeltingHandler.result(recycleArmors(itemStack, (Item & IDamageableItem) itemStack.getItem()));
+            if (MetalRecycle.canApply(itemStack)) {
+                return SmeltingHandler.result(MetalRecycle.recycleMetal(itemStack));
             }
             return null;
         });
@@ -70,61 +68,4 @@ public class SmeltingRegistry implements Consumer<SmeltingRecipeRegisterEvent> {
         });
     }
 
-
-    private static final List<Class<? extends IDamageableItem>> tools = List.of(
-            ItemSword.class, ItemAxe.class, ItemPickaxe.class, ItemHoe.class, ItemShovel.class,
-            ItemWarHammer.class, ItemBattleAxe.class, ItemScythe.class, ItemDagger.class, ItemKnife.class,
-            ItemMorningStar.class, ItemHatchet.class, ItemShears.class, ItemMattock.class);
-
-    private static final List<Class<? extends IDamageableItem>> armors = List.of(
-            ItemHelmet.class, ItemCuirass.class, ItemLeggings.class, ItemBoots.class
-    );
-
-    private static void registerBlastFurnaceRecipes(SmeltingRecipeRegisterEvent event) {
-        Material[] available_material = {Material.copper, Material.silver, Material.gold, Material.iron, Materials.nickel, Materials.tungsten, Material.ancient_metal, Material.rusted_iron};
-
-        for (Material material : available_material) {
-            for (Class<?> tool : tools) {
-                Item toolItem = Item.getMatchingItem(tool, material);
-                registerRecipeSafe(event, toolItem, armorItemStack(material, 1, toolItem.getRepairItem()));
-            }
-            for (Class<?> armor : armors) {
-                ItemArmor matchingArmor = ItemArmor.getMatchingArmor(armor, material, false);
-                registerRecipeSafe(event, matchingArmor, armorItemStack(material, 1, matchingArmor.getRepairItem()));
-                ItemArmor matchingArmorChain = ItemArmor.getMatchingArmor(armor, material, true);
-                registerRecipeSafe(event, matchingArmorChain, armorItemStack(material, 1, matchingArmorChain.getRepairItem()));
-            }
-        }
-    }
-
-    private static void registerRecipeSafe(SmeltingRecipeRegisterEvent event, Item item, ItemStack itemStack) {
-        if (item != null && itemStack != null) {
-            event.register(item.itemID, itemStack);
-        }
-    }
-
-    @Nullable
-    public static <T extends Item & IDamageableItem> ItemStack recycleArmors(ItemStack input_item_stack, T armor) {
-        Item repairItem = armor.getRepairItem();
-        if (repairItem == null) return null;
-        float ingotToNugget = input_item_stack.getItem().isChainMail() ? 4.0F : 9.0F;
-        float durabilityRatio = (input_item_stack.getMaxDamage() - input_item_stack.getItemDamage()) / (float) input_item_stack.getMaxDamage();
-        float component = armor.getNumComponentsForDurability();
-        int quantity = (int) (durabilityRatio * component * ingotToNugget / 3.0F);
-        return armorItemStack(armor.getHardestMetalMaterial(), quantity, repairItem);
-    }
-
-    private static ItemStack armorItemStack(Material hardestMaterial, int quantity, @Nonnull Item repairItem) {
-        ItemStack output;
-        if (hardestMaterial == Material.rusted_iron) {
-            quantity /= 3;
-            output = new ItemStack(repairItem, quantity);
-        } else {
-            output = new ItemStack(repairItem, quantity);
-        }
-        if (quantity == 0) {
-            output.setStackSize(1);
-        }
-        return output;
-    }
 }

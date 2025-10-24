@@ -4,10 +4,10 @@ import moddedmite.rustedironcore.api.item.DoorItem;
 import moddedmite.rustedironcore.api.item.FishingRodItem;
 import moddedmite.rustedironcore.api.item.NuggetItem;
 import net.minecraft.*;
+import net.oilcake.mitelros.feat.ExtraInfo;
 import net.oilcake.mitelros.item.*;
 import net.oilcake.mitelros.item.api.*;
 import net.oilcake.mitelros.material.Materials;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.sound.Sounds;
 import net.oilcake.mitelros.util.ITFLootTables;
@@ -498,10 +498,10 @@ public class Items extends Item {
     }
 
     static {
-        ((ITFItem) totemOfKnowledge).itf$SetExtraInfo("itf.item.totem_of_knowledge.info");
-        ((ITFItem) totemOfFlattening).itf$SetExtraInfo("itf.item.totem_of_flattening.info");
-        ((ITFItem) frostRod).itf$SetExtraInfo("itf.item.frost_rod.info");
-        ((ITFItem) enderRod).itf$SetExtraInfo("itf.item.ender_rod.info");
+        ExtraInfo.register(totemOfKnowledge, "itf.item.totem_of_knowledge.info");
+        ExtraInfo.register(totemOfFlattening, "itf.item.totem_of_knowledge.info");
+        ExtraInfo.register(frostRod, "itf.item.frost_rod.info");
+        ExtraInfo.register(enderRod, "itf.item.ender_rod.info");
 
         forgingNote.setLowestCraftingDifficultyToProduce(0.0F);
         clayBowlEmpty.setLowestCraftingDifficultyToProduce(0.0F);

@@ -72,12 +72,12 @@ public abstract class WorldMixin implements ITFWorld {
 
     @ModifyConstant(method = "canSnowAt", constant = @Constant(floatValue = 0.15F))
     private float itfSnow(float constant) {
-        return (this.itf$GetWorldSeason() == EnumSeason.AUTUMN) ? 1.0F : 0.15F;
+        return (this.itf$GetWorldSeason() == EnumSeason.WINTER) ? 1.0F : 0.15F;
     }
 
     @Inject(method = "isFreezing", at = @At("HEAD"), cancellable = true)
     private void itfFreezing(int x, int z, CallbackInfoReturnable<Boolean> cir) {
-        if (getBiomeGenForCoords(x, z).temperature <= ((itf$GetWorldSeason() == EnumSeason.AUTUMN) ? 1.0F : 0.15F))
+        if (getBiomeGenForCoords(x, z).temperature <= ((itf$GetWorldSeason() == EnumSeason.WINTER) ? 1.0F : 0.15F))
             cir.setReturnValue(true);
     }
 

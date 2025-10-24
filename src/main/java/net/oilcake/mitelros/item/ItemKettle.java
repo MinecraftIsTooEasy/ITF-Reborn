@@ -3,6 +3,7 @@ package net.oilcake.mitelros.item;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.*;
+import net.oilcake.mitelros.localization.TooltipKeys;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.util.FoodDataList;
@@ -11,8 +12,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemKettle extends Item implements IDamageableItem {
-    private static final int drinkUnit = 3;
-    private static final int douseUnit = 1;
+    private static final int drinkDamageUnit = 3;
+    private static final int douseDamageUnit = 1;
+    private static final int waterOnDrink = 2;
     private final Material vessel_material;
     private final Material contents;
     private boolean purify = false;
@@ -51,30 +53,6 @@ public class ItemKettle extends Item implements IDamageableItem {
 
     public static ItemKettle getPeer(Material vessel_material, Material contents) {
         return KettleTable.get(vessel_material, contents);
-//        if (vessel_material == Material.leather) {
-//            if (contents == Materials.water) {
-//                return Items.leatherKettle;
-//            }
-//            if (contents == Materials.pure_water) {
-//                return Items.leatherKettlePure;
-//            }
-//        } else if (vessel_material == Material.hardened_clay) {
-//            if (contents == Materials.water) {
-//                return Items.hardenedClayJug;
-//            }
-//            if (contents == Materials.pure_water) {
-//                return Items.hardenedClayJugPure;
-//            }
-//        } else if (vessel_material == Materials.uru) {
-//            if (contents == Material.water) {
-//                LOGGER.warn("why get water peer for uru kettle");
-//                return Items.uruKettle;
-//            }
-//            if (contents == Materials.pure_water) {
-//                return Items.uruKettle;
-//            }
-//        }
-//        return null;
     }
 
     public boolean canBoil() {
@@ -119,21 +97,19 @@ public class ItemKettle extends Item implements IDamageableItem {
     @Override
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
         if (player.onServer()) {
-            player.itf$AddWater(2);
+            player.itf$AddWater(waterOnDrink);
             FoodDataList.onWaterDrunk(item_stack.getItem(), player);
-            player.getHeldItemStack().tryDamageItem(world, drinkUnit, true);
+            player.getHeldItemStack().tryDamageItem(world, drinkDamageUnit, true);
         }
     }
 
     @Override
     public EnumItemInUseAction getItemInUseAction(ItemStack item_stack, EntityPlayer player) {
-        if (item_stack.getItemDamage() + drinkUnit > item_stack.getMaxDamage()) {
-            return null;
-        }
-        net.oilcake.mitelros.mixin.interfaces.ITFFoodStats foodStats = (ITFFoodStats) player.getFoodStats();
-        if (foodStats.itf$GetWater() >= foodStats.itf$GetWaterLimit()) {
-            return null;
-        }
+        if (!canDrink(item_stack)) return null;
+
+        ITFFoodStats foodStats = (ITFFoodStats) player.getFoodStats();
+        if (foodStats.itf$GetWater() >= foodStats.itf$GetWaterLimit()) return null;
+
         return EnumItemInUseAction.DRINK;
     }
 
@@ -167,10 +143,10 @@ public class ItemKettle extends Item implements IDamageableItem {
                 return true;
             }
         } else {
-            if (rc.getNeighborOfBlockHit() == Block.fire && item_stack.getItemDamage() + douseUnit < item_stack.getMaxDamage()) {
+            if (rc.getNeighborOfBlockHit() == Block.fire && item_stack.getItemDamage() + douseDamageUnit < item_stack.getMaxDamage()) {
                 if (player.onServer()) {
                     rc.world.douseFire(rc.neighbor_block_x, rc.neighbor_block_y, rc.neighbor_block_z, (Entity) null);
-                    player.getHeldItemStack().tryDamageItem(player.worldObj, douseUnit, true);
+                    player.getHeldItemStack().tryDamageItem(player.worldObj, douseDamageUnit, true);
                 }
 
                 return true;
@@ -189,7 +165,7 @@ public class ItemKettle extends Item implements IDamageableItem {
                 }
                 if (block == Block.tilledField && face_hit == EnumFace.TOP && BlockFarmland.fertilize(rc.world, x, y, z, player.getHeldItemStack(), player)) {
                     if (player.onServer() && !player.inCreativeMode()) {
-                        player.getHeldItemStack().tryDamageItem(player.worldObj, douseUnit, true);
+                        player.getHeldItemStack().tryDamageItem(player.worldObj, douseDamageUnit, true);
                     }
                     return true;
                 }
@@ -202,9 +178,13 @@ public class ItemKettle extends Item implements IDamageableItem {
     public void addInformation(ItemStack item_stack, EntityPlayer player, List info, boolean extended_info, Slot slot) {
         super.addInformation(item_stack, player, info, extended_info, slot);
         if (extended_info) {
-            if (item_stack.getItemDamage() > 0) {
-                info.add(EnumChatFormatting.AQUA + Translator.getFormatted("item.tooltip.water.add", 2));
+            if (canDrink(item_stack)) {
+                info.add(EnumChatFormatting.AQUA + TooltipKeys.WATER_ADD.translate(waterOnDrink));
             }
         }
+    }
+
+    private static boolean canDrink(ItemStack itemStack) {
+        return itemStack.getItemDamage() + drinkDamageUnit < itemStack.getMaxDamage();
     }
 }
