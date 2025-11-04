@@ -1,9 +1,13 @@
 package net.oilcake.mitelros.mixin.interfaces;
 
+import net.minecraft.EntityPlayer;
+import net.minecraft.ItemStack;
 import net.oilcake.mitelros.api.AnvilStatus;
 
 public interface ITFContainerRepair {
-    int itf$GetXPDifference();
+    int itf$getXPDifference();
 
-    AnvilStatus itf$GetAnvilStatus();
+    AnvilStatus itf$getAnvilStatus();
+
+    void itf$onTakeOutput(EntityPlayer player, ItemStack stack);
 }

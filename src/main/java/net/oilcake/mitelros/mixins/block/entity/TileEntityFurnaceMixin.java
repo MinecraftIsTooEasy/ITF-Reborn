@@ -84,7 +84,7 @@ public abstract class TileEntityFurnaceMixin extends TileEntity implements ISide
 
     @Override
     public void itf$setActive(boolean activated) {
-        this.activated = true;
+        this.activated = activated;
     }
 
     @Override

@@ -27,14 +27,14 @@ public abstract class GuiRepairMixin extends GuiContainer {
         if (itemStack.itemID != Item.enchantedBook.itemID && itemStack.itemID != Item.bottleOfDisenchanting.itemID)
             return;
         if (this.isMouseOverSlot(this.repairContainer.getSlot(2), mouse_x, mouse_y)) {
-            AnvilStatus anvilStatus = ((ITFContainerRepair) this.repairContainer).itf$GetAnvilStatus();
+            AnvilStatus anvilStatus = ((ITFContainerRepair) this.repairContainer).itf$getAnvilStatus();
             String text = switch (anvilStatus) {
                 case NoAvailableEnchantment -> I18n.getString("gui.repair.no_available_enchantment");
                 case EnchantmentConflict -> I18n.getString("gui.repair.enchantment_conflict");
                 case Satisfied ->
-                        AnvilSystem.getString(this.repairContainer.player, ((ITFContainerRepair) this.repairContainer).itf$GetXPDifference());
+                        AnvilSystem.getString(this.repairContainer.player, ((ITFContainerRepair) this.repairContainer).itf$getXPDifference());
                 case LackExp ->
-                        I18n.getStringParams("gui.repair.lack_xp", this.repairContainer.player.getExperienceLevel(-((ITFContainerRepair) this.repairContainer).itf$GetXPDifference()));
+                        I18n.getStringParams("gui.repair.lack_xp", this.repairContainer.player.getExperienceLevel(-((ITFContainerRepair) this.repairContainer).itf$getXPDifference()));
             };
             this.drawCreativeTabHoveringText(text, mouse_x, mouse_y);
         }

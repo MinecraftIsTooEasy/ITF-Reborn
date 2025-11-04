@@ -6,7 +6,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.oilcake.mitelros.api.AnvilStatus;
-import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.feat.AnvilSystem;
 import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,13 +25,23 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     private AnvilStatus anvilStatus = AnvilStatus.EnchantmentConflict;
 
     @Override
-    public int itf$GetXPDifference() {
+    public int itf$getXPDifference() {
         return this.xpDifference;
     }
 
     @Override
-    public AnvilStatus itf$GetAnvilStatus() {
+    public AnvilStatus itf$getAnvilStatus() {
         return this.anvilStatus;
+    }
+
+    @Override
+    public void itf$onTakeOutput(EntityPlayer player, ItemStack stack) {
+        if (!AnvilSystem.isActive()) return;
+        if (this.world.isRemote) return;
+        int xpDifference = this.xpDifference;
+        if (xpDifference == 0) return;
+        player.addExperience(xpDifference);
+        this.xpDifference = 0;
     }
 
     public ContainerRepairMixin(EntityPlayer player) {
