@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(BiomeGenHills.class)
-public class BiomeBigHillsMixin extends BiomeGenBase {
-    protected BiomeBigHillsMixin(int par1) {
+public class BiomeGenHillsMixin extends BiomeGenBase {
+    protected BiomeGenHillsMixin(int par1) {
         super(par1);
     }
 

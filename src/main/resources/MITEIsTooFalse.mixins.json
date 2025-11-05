@@ -110,14 +110,10 @@
     "world.WorldMixin",
     "world.WorldProviderUnderworldMixin",
     "world.WorldServerMixin",
-    "world.biome.BiomeBigHillsMixin",
-    "world.biome.BiomeDesertMixin",
-    "world.biome.BiomeForestMixin",
+    "world.biome.BiomeGenHillsMixin",
     "world.biome.BiomeGenBaseMixin",
     "world.biome.BiomeGenUnderworldMixin",
     "world.biome.BiomeHellMixin",
-    "world.biome.BiomeIcePlainsMixin",
-    "world.biome.BiomeTaigaMixin",
     "world.biome.BiomeTheEndMixin"
   ],
   "injectors": {

@@ -4,8 +4,12 @@ import moddedmite.rustedironcore.api.event.events.BiomeDecorationRegisterEvent;
 import moddedmite.rustedironcore.api.event.handler.BiomeDecorationHandler;
 import moddedmite.rustedironcore.api.world.Dimension;
 import net.minecraft.BiomeGenBase;
+import net.minecraft.BiomeGenDesert;
+import net.minecraft.BiomeGenSnow;
+import net.minecraft.BiomeGenTaiga;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.world.ITFBiomes;
+import net.oilcake.mitelros.world.WorldGenEmerald;
 import net.oilcake.mitelros.world.WorldGenFlowersExtend;
 import net.oilcake.mitelros.world.WorldGenSulphur;
 
@@ -17,8 +21,26 @@ public class BiomeDecorationRegistry implements Consumer<BiomeDecorationRegister
         event.register(Dimension.NETHER, new WorldGenSulphur())
                 .setChance(256)
                 .setHeightSupplier(BiomeDecorationHandler.HeightSupplier.SURFACE);
+
         event.register(Dimension.OVERWORLD, new WorldGenFlowersExtend(Blocks.flowerextend.blockID))
                 .setFrequency(context -> getFlowerFrequency(context.biome()));
+
+        event.register(Dimension.OVERWORLD, new WorldGenEmerald())
+                .setFrequency(BiomeDecorationRegistry::getEmeraldFrequency)
+                .setHeightSupplier((context, x1, z1) -> 4 + context.rand().nextInt(28));
+
+        event.register(Dimension.OVERWORLD, new WorldGenSulphur())
+                .setChance(144)
+                .requiresBiome(biome -> biome instanceof BiomeGenDesert)
+                .setHeightSupplier((ctx, x, z) -> ctx.world().getHeightValue(x, z) + 1);
+    }
+
+    private static int getEmeraldFrequency(BiomeDecorationHandler.Context context) {
+        BiomeGenBase biome = context.biome();
+        if (biome instanceof BiomeGenSnow || biome instanceof BiomeGenTaiga) {
+            return 3 + context.rand().nextInt(6);
+        }
+        return 0;
     }
 
     private static int getFlowerFrequency(BiomeGenBase biome) {

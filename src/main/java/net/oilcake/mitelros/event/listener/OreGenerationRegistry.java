@@ -28,10 +28,10 @@ public class OreGenerationRegistry implements Consumer<OreGenerationRegisterEven
                 .setMaxVeinHeight((world, minableWorldGen) -> 96)
                 .setRandomVeinHeight(MinableWorldGen.Common);
 
-        event.register(Dimension.OVERWORLD, nickelGen, 10, true);
+        event.register(Dimension.OVERWORLD, nickelGen, 15, true);
         event.register(Dimension.OVERWORLD, azuriteGen, 30, true);
 
-        event.register(Dimension.UNDERWORLD, nickelGen, 30, true);
+        event.register(Dimension.UNDERWORLD, nickelGen, 25, true);
         event.register(Dimension.UNDERWORLD, tungstenGen, 5, true);
     }
 }

@@ -1,13 +1,14 @@
 package net.oilcake.mitelros.world;
 
 import net.minecraft.BiomeGenBase;
+import net.oilcake.mitelros.feat.SpawnEntryControl;
 import net.oilcake.mitelros.world.biome.BiomeSavanna;
 import net.oilcake.mitelros.world.biome.BiomeSavannaPlateau;
 import net.oilcake.mitelros.world.biome.BiomeUnderworldInFreeze;
 import net.oilcake.mitelros.world.biome.BiomeWindsweptPlateau;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 
-public class ITFBiomes extends BiomeGenBase {
+public class ITFBiomes {
     private static int getNextBiomeID() {
         return IdUtil.getNextBiomeId();
     }
@@ -20,7 +21,7 @@ public class ITFBiomes extends BiomeGenBase {
 
     public static final BiomeGenBase BIOME_SAVANNA_PLEATU = new BiomeSavannaPlateau(getNextBiomeID());
 
-    protected ITFBiomes(int par1) {
-        super(par1);
+    static {
+        SpawnEntryControl.postBiomeInit();
     }
 }
