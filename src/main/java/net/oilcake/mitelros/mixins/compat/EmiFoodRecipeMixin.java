@@ -1,5 +1,6 @@
 package net.oilcake.mitelros.mixins.compat;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -16,14 +17,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(ModReference.EMI))
+@Restriction(require = @Condition(value = ModReference.EMI, versionPredicates = ">=1.1.24"))
 @Mixin(EmiFoodRecipe.class)
 public abstract class EmiFoodRecipeMixin {
     @Shadow
-    private int y;
-
-    @Shadow
-    public abstract void checkY(int value);
+    protected abstract void drawFoodValueBar(WidgetHolder widgets, int amount, int fullU1, int fullU2, int halfU, int v, ResourceLocation texture);
 
     @Unique
     private int water;
@@ -33,21 +31,22 @@ public abstract class EmiFoodRecipeMixin {
         this.water = ((ITFItem) foodStack.getItem()).itf$GetFoodWater();
     }
 
-    @Inject(method = "addWidgets", at = @At(value = "INVOKE", target = "Lmoddedmite/emi/recipe/EmiFoodRecipe;checkY(I)V", ordinal = 4, shift = At.Shift.AFTER))
+    @Inject(
+            method = "addWidgets",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lmoddedmite/emi/recipe/EmiFoodRecipe;drawFoodValueBar(Ldev/emi/emi/api/widget/WidgetHolder;IIIIILnet/minecraft/ResourceLocation;)V",
+                    ordinal = 3,
+                    shift = At.Shift.AFTER
+            )
+    )
     private void addWater(WidgetHolder widgets, CallbackInfo ci) {
-        ResourceLocation iconsItf = Textures.icons_itf;
-        int i, haunchXCoord;
-        for (i = 0; i < this.water / 2; ++i) {
-            widgets.addTexture(iconsItf, 10 * i + 25, this.y, 9, 9, 16, 54);
-            widgets.addTexture(iconsItf, 10 * i + 25, this.y, 9, 9, 16 + 9, 54);
-        }
+        this.drawFoodValueBar(widgets, this.water, 16, 16 + 9, 16 + 18, 54, Textures.icons_itf);
+    }
 
-        if (this.water % 2 != 0) {
-            haunchXCoord = 10 * i + 25;
-            widgets.addTexture(iconsItf, haunchXCoord, this.y, 9, 9, 16, 54);
-            widgets.addTexture(iconsItf, haunchXCoord, this.y, 9, 9, 16 + 18, 54);
-        }
-
-        this.checkY(this.water);
+    @ModifyReturnValue(method = "getVisibleRowCount", at = @At("RETURN"))
+    private int addWater(int original) {
+        if (this.water > 0) original++;
+        return original;
     }
 }
