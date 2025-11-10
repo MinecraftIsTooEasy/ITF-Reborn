@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.item.food;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.util.FoodDataList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +14,7 @@ public class ItemFoodMixin extends Item {
     private void injectInit(int id, Material material, int satiation, int nutrition, int sugar_content, boolean has_protein, boolean has_essential_fats, boolean has_phytonutrients, String texture, CallbackInfo callbackInfo) {
         int water = FoodDataList.foodWater(id, material);
         if (water != 0) {
-            ((ITFItem) this).itf$SetFoodWater(water);
+            ITFApi.setItemWater(this, water);
         }
     }
 

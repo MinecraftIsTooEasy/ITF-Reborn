@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.util.quality;
+package net.oilcake.mitelros.feat.quality;
 
 public record RecordEntryMultiplier(EnumEffectEntry effectEntry, float multiplier) {
     public RecordEntryMultiplier(EnumEffectEntry effectEntry) {

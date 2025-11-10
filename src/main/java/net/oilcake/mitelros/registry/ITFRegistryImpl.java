@@ -30,18 +30,14 @@ public class ITFRegistryImpl implements ITFRegistry {
         meatAnimals.add(clazz);
     }
 
-    public static final Map<Block, Integer> PIECE_MAP = new HashMap<>();
-
     @Override
     public void registerOrePiece(Block blockOre, int dropItemID) {
-        PIECE_MAP.put(blockOre, dropItemID);
+        ITFProperties.ORE_PIECE_MAP.register(blockOre, dropItemID);
     }
-
-    public static final Map<Block, Integer> MELTING_MAP = new HashMap<>();
 
     @Override
     public void registerOreMelting(Block blockOre, int dropItemID) {
-        MELTING_MAP.put(blockOre, dropItemID);
+        ITFProperties.ORE_MELTING_MAP.register(blockOre, dropItemID);
     }
 
     public static final Map<Block, ItemStack> ABSORBING_MAP = new HashMap<>();

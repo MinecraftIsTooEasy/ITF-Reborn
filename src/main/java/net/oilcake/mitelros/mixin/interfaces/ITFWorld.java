@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixin.interfaces;
 import net.minecraft.Entity;
 import net.minecraft.Explosion;
 import net.minecraft.World;
-import net.oilcake.mitelros.util.EnumSeason;
+import net.oilcake.mitelros.feat.EnumSeason;
 
 public interface ITFWorld {
     EnumSeason itf$GetWorldSeason();

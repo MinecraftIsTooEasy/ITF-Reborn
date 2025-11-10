@@ -5,7 +5,7 @@ import net.minecraft.EntityPlayer;
 import net.minecraft.IInventory;
 import net.minecraft.ItemStack;
 
-public class BaublesAccessor {
+public class BaublesAccess {
     public static ItemStack getStackInAmulet(EntityPlayer player) {
         IInventory baubles = BaublesApi.getBaubles(player);
         return baubles.getStackInSlot(0);

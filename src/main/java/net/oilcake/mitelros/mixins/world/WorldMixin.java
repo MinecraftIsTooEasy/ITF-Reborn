@@ -8,7 +8,7 @@ import net.minecraft.Explosion;
 import net.minecraft.World;
 import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.util.EnumSeason;
+import net.oilcake.mitelros.feat.EnumSeason;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

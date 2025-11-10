@@ -7,11 +7,11 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.item.ItemTotem;
-import net.oilcake.mitelros.unsafe.BaublesAccessor;
+import net.oilcake.mitelros.unsafe.BaublesAccess;
 import net.oilcake.mitelros.util.AchievementExtend;
 import net.oilcake.mitelros.util.Constant;
-import net.oilcake.mitelros.util.quality.EnumEffectEntry;
-import net.oilcake.mitelros.util.quality.EnumToolType;
+import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
+import net.oilcake.mitelros.feat.quality.EnumToolType;
 
 import java.util.List;
 
@@ -124,10 +124,10 @@ public class MiscManager {
         }
 
         if (ModCompat.HAS_BAUBLES) {
-            ItemStack itemStack = BaublesAccessor.getStackInAmulet(player);
+            ItemStack itemStack = BaublesAccess.getStackInAmulet(player);
             if (itemStack != null && itemStack.getItem() instanceof ItemTotem totem) {
                 totem.trigger(this.player, false);
-                BaublesAccessor.clearAmulet(player);
+                BaublesAccess.clearAmulet(player);
                 return true;
             }
         }

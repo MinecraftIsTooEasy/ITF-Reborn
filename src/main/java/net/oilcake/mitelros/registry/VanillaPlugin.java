@@ -7,8 +7,8 @@ import net.oilcake.mitelros.api.ITFRegistry;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.unsafe.ExtremeAccessor;
-import net.oilcake.mitelros.unsafe.ITEAccessor;
+import net.oilcake.mitelros.unsafe.ExtremeAccess;
+import net.oilcake.mitelros.unsafe.ITEAccess;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -70,8 +70,8 @@ public class VanillaPlugin implements ITFPlugin {
 
         if (ITFConfig.OreCompat.getBooleanValue()) {
             try {
-                if (ModReference.hasMod(ModReference.ITE)) ITEAccessor.register(registry);
-                if (ModReference.hasMod(ModReference.EXTREME)) ExtremeAccessor.register(registry);
+                if (ModReference.hasMod(ModReference.ITE)) ITEAccess.register(registry);
+                if (ModReference.hasMod(ModReference.EXTREME)) ExtremeAccess.register(registry);
             } catch (RuntimeException e) {
                 LOGGER.warn("exception while compat registry", e);
             }

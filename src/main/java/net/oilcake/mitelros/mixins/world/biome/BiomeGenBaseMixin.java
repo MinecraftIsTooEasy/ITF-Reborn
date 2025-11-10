@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.entity.mob.*;
+import net.oilcake.mitelros.feat.SpawnEntryControl;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import net.oilcake.mitelros.world.ITFBiomes;
 import org.objectweb.asm.Opcodes;
@@ -86,8 +87,7 @@ public abstract class BiomeGenBaseMixin {
     }
 
     @Shadow
-    public void removeEntityFromSpawnableLists(Class _class) {
-    }
+    public abstract void removeEntityFromSpawnableLists(Class _class);
 
     @Shadow
     public abstract void removeEntityFromSpawnableList(List list, Class _class);
@@ -102,5 +102,10 @@ public abstract class BiomeGenBaseMixin {
     @ModifyExpressionValue(method = "canSpawnLightningBolt", at = @At(value = "FIELD", target = "Lnet/minecraft/BiomeGenBase;enableRain:Z", opcode = Opcodes.GETFIELD))
     private boolean inject(boolean original) {
         return original && this.rainfall != 0.0F;
+    }
+
+    @Inject(method = "<clinit>", at = @At("RETURN"))
+    private static void onClinit(CallbackInfo ci) {
+        SpawnEntryControl.postBiomeInit();
     }
 }

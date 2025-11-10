@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.util;
+package net.oilcake.mitelros.feat;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.Minecraft;

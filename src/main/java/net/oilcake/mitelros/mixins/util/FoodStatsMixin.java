@@ -1,13 +1,12 @@
 package net.oilcake.mitelros.mixins.util;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.C2SDecreaseWater;
 import net.oilcake.mitelros.potion.PotionExtend;
-import net.oilcake.mitelros.registry.property.ITFProperties;
 import net.oilcake.mitelros.util.Constant;
 import net.oilcake.mitelros.util.DamageSourceExtend;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,10 +52,10 @@ public class FoodStatsMixin implements ITFFoodStats {
 
     @Inject(method = "addFoodValue", at = @At("HEAD"))
     private void inject(Item item, CallbackInfo ci) {
-        int foodWater = ((ITFItem) item).itf$GetFoodWater();
+        int foodWater = ITFApi.getItemWater(item);
         this.itf$AddWater(foodWater);
-        Float v = ITFProperties.WATER_CHANCE.get(item);
-        if (v != null && this.player.rand.nextFloat() < v) {
+        float chance = ITFApi.getItemWaterChance(item);
+        if (this.player.rand.nextFloat() < chance) {
             this.itf$AddWater(1);
         }
     }

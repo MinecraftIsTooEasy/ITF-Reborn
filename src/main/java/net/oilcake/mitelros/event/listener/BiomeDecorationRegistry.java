@@ -30,8 +30,9 @@ public class BiomeDecorationRegistry implements Consumer<BiomeDecorationRegister
                 .setHeightSupplier((context, x1, z1) -> 4 + context.rand().nextInt(28));
 
         event.register(Dimension.OVERWORLD, new WorldGenSulphur())
-                .setChance(144)
-                .requiresBiome(biome -> biome instanceof BiomeGenDesert)
+                .setFrequency(BiomeDecorationRegistry::getSulphurFrequency)
+//                .setChance(144)
+//                .requiresBiome(biome -> biome instanceof BiomeGenDesert)
                 .setHeightSupplier((ctx, x, z) -> ctx.world().getHeightValue(x, z) + 1);
     }
 
@@ -48,5 +49,12 @@ public class BiomeDecorationRegistry implements Consumer<BiomeDecorationRegister
         if (biome == ITFBiomes.BIOME_SAVANNA_PLEATU) return 1;
         if (biome == ITFBiomes.BIOME_WINDSWEPT_PLEATU) return 0;
         return 2;
+    }
+
+    private static int getSulphurFrequency(BiomeDecorationHandler.Context context) {
+        if (context.biome() instanceof BiomeGenDesert) {
+            return context.rand().nextInt(144) == 0 ? 1 : 0;
+        }
+        return 0;
     }
 }

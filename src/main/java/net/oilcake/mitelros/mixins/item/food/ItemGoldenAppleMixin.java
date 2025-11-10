@@ -3,7 +3,7 @@ package net.oilcake.mitelros.mixins.item.food;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemGoldenAppleMixin extends ItemFood {
     @Inject(method = "<init>(IIILjava/lang/String;)V", at = @At("RETURN"))
     public void injectCtor(CallbackInfo callbackInfo) {
-        ((ITFItem) this).itf$SetFoodWater(-3);
+        ITFApi.setItemWater(this, -3);
         this.setPotionEffect(Potion.regeneration.id, 30, 0, 1.0F);
         this.setPotionEffect("+0+1+2-3+13&4-4");
     }

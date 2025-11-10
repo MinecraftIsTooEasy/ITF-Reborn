@@ -8,8 +8,8 @@ import moddedmite.emi.recipe.EmiFoodRecipe;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;
 import net.oilcake.mitelros.ModReference;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.client.texture.Textures;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,7 +28,7 @@ public abstract class EmiFoodRecipeMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectInit(ItemStack foodStack, CallbackInfo ci) {
-        this.water = ((ITFItem) foodStack.getItem()).itf$GetFoodWater();
+        this.water = ITFApi.getItemWater(foodStack.getItem());
     }
 
     @Inject(

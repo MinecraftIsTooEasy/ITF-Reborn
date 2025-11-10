@@ -2,7 +2,7 @@ package net.oilcake.mitelros.mixins.item.food;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.util.FoodDataList;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemBowl.class)
-public abstract class ItemBowlMixin extends ItemVessel implements ITFItem {
+public abstract class ItemBowlMixin extends ItemVessel {
     @Inject(method = "<init>(ILnet/minecraft/Material;Ljava/lang/String;)V", at = @At("RETURN"))
     private void injectCtor(CallbackInfo callback) {
-        this.itf$SetFoodWater(FoodDataList.bowlFoodWater(this.getContents()));
+        ITFApi.setItemWater(this, FoodDataList.bowlFoodWater(this.getContents()));
     }
 
     @Inject(method = "onItemUseFinish", at = @At("HEAD"))

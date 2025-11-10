@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.util.quality;
+package net.oilcake.mitelros.feat.quality;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;

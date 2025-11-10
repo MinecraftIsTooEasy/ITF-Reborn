@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.item;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 
 public class ItemPotionExperimental extends Item {
@@ -9,7 +9,7 @@ public class ItemPotionExperimental extends Item {
         super(id, Material.glass, "experimental_potion");
         setMaxStackSize(1);
         setCraftingDifficultyAsComponent(25.0F);
-        ((ITFItem) this).itf$SetFoodWater(3);
+        ITFApi.setItemWater(this, 3);
     }
 
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
@@ -23,7 +23,7 @@ public class ItemPotionExperimental extends Item {
                 player.addPotionEffect(new PotionEffect(Potion.resistance.id, 800, 0));
             if (rand > 0.9D)
                 player.addPotionEffect(new PotionEffect(Potion.poison.id, 400, 0));
-            ITFEntityPlayer.cast(player).itf$AddWater(((ITFItem) this).itf$GetFoodWater());
+            ITFEntityPlayer.cast(player).itf$AddWater(ITFApi.getItemWater(this));
         }
         super.onItemUseFinish(item_stack, world, player);
     }

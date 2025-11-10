@@ -1,7 +1,6 @@
 package net.oilcake.mitelros.world;
 
 import net.minecraft.BiomeGenBase;
-import net.oilcake.mitelros.feat.SpawnEntryControl;
 import net.oilcake.mitelros.world.biome.BiomeSavanna;
 import net.oilcake.mitelros.world.biome.BiomeSavannaPlateau;
 import net.oilcake.mitelros.world.biome.BiomeUnderworldInFreeze;
@@ -20,8 +19,4 @@ public class ITFBiomes {
     public static final BiomeGenBase BIOME_SAVANNA = new BiomeSavanna(getNextBiomeID());
 
     public static final BiomeGenBase BIOME_SAVANNA_PLEATU = new BiomeSavannaPlateau(getNextBiomeID());
-
-    static {
-        SpawnEntryControl.postBiomeInit();
-    }
 }

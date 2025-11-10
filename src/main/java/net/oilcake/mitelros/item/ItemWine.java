@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.item;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.potion.PotionExtend;
 
@@ -12,7 +12,7 @@ public class ItemWine extends Item {
         super(id, Material.glass, "alcohol");
         setMaxStackSize(1);
         setCraftingDifficultyAsComponent(512.0F);
-        ((ITFItem) this).itf$SetFoodWater(2);
+        ITFApi.setItemWater(this, 2);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ItemWine extends Item {
             ITFEntityPlayer.cast(player).itf$GetDrunkManager().setHasDrunk(true);
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
             player.addPotionEffect(new PotionEffect(PotionExtend.thirsty.id, 2560, 0));
-            ITFEntityPlayer.cast(player).itf$AddWater(((ITFItem) this).itf$GetFoodWater());
+            ITFEntityPlayer.cast(player).itf$AddWater(ITFApi.getItemWater(this));
         }
         super.onItemUseFinish(item_stack, world, player);
     }

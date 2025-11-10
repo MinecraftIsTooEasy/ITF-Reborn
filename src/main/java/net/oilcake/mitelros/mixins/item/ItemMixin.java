@@ -6,9 +6,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.*;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.feat.ExtraInfo;
 import net.oilcake.mitelros.localization.TooltipKeys;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.registry.property.ITFProperties;
 import org.spongepowered.asm.mixin.Final;
@@ -23,7 +23,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 @Mixin(Item.class)
-public abstract class ItemMixin implements ITFItem {
+public abstract class ItemMixin {
     @Shadow
     private float reach_bonus;
     @Shadow
@@ -49,13 +49,14 @@ public abstract class ItemMixin implements ITFItem {
     @Inject(method = "addInformation", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getNutrition()I"))
     private void itfFoodInfo(ItemStack item_stack, EntityPlayer player, List info, boolean extended_info, Slot slot, CallbackInfo ci) {
         if (extended_info) {
-            int water = this.itf$GetFoodWater();
+            Item item = item_stack.getItem();
+            int water = ITFApi.getItemWater(item);
             if (water > 0) {
                 info.add(EnumChatFormatting.AQUA + TooltipKeys.WATER_ADD.translate(water));
             } else if (water < 0) {
                 info.add(EnumChatFormatting.YELLOW + TooltipKeys.WATER_MINUS.translate(water));
             }
-            Float v = ITFProperties.WATER_CHANCE.get(item_stack.getItem());
+            Float v = ITFProperties.WATER_CHANCE.get(item);
             if (v != null) {
                 info.add(EnumChatFormatting.AQUA + TooltipKeys.WATER_CHANCE.translate(Math.round(100.0f * v)));
             }
@@ -68,14 +69,6 @@ public abstract class ItemMixin implements ITFItem {
             ExtraInfo.getExtraInfo(item_stack.getItem())
                     .ifPresent(string -> info.add(EnumChatFormatting.LIGHT_GRAY + StringUtils.getTranslatedOrFallback(string, string)));
         }
-    }
-
-    public int itf$GetFoodWater() {
-        return ITFProperties.WATER.getOrDefault((Item) (Object) this);
-    }
-
-    public void itf$SetFoodWater(int water) {
-        ITFProperties.WATER.register((Item) (Object) this, water);
     }
 
     @WrapOperation(method = "getExclusiveMaterial", at = @At(value = "INVOKE", target = "Lnet/minecraft/Minecraft;setErrorMessage(Ljava/lang/String;)V", ordinal = 1))

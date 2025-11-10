@@ -5,7 +5,7 @@ import net.minecraft.BlockBush;
 import net.minecraft.BlockGrowingPlant;
 import net.minecraft.World;
 import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
-import net.oilcake.mitelros.util.EnumSeason;
+import net.oilcake.mitelros.feat.EnumSeason;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;

@@ -5,8 +5,8 @@ import net.minecraft.EnchantmentHelper;
 import net.minecraft.ItemStack;
 import net.minecraft.Material;
 import net.oilcake.mitelros.material.Materials;
-import net.oilcake.mitelros.util.quality.EnumEffectEntry;
-import net.oilcake.mitelros.util.quality.EnumToolType;
+import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
+import net.oilcake.mitelros.feat.quality.EnumToolType;
 
 public class BowAttributeTweaker {
     public static int overridePullSpeed(ItemStack item_stack) {

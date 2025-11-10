@@ -7,7 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
-import net.oilcake.mitelros.util.OreDropHelper;
+import net.oilcake.mitelros.feat.OreDropHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

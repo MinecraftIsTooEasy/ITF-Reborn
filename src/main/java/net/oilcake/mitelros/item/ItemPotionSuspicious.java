@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.item;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.potion.PotionExtend;
 
@@ -10,7 +10,7 @@ public class ItemPotionSuspicious extends Item {
         super(id, Material.glass, "suspicious_potion");
         setMaxStackSize(1);
         setCraftingDifficultyAsComponent(25.0F);
-        ((ITFItem) this).itf$SetFoodWater(1);
+        ITFApi.setItemWater(this, 1);
     }
 
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
@@ -23,7 +23,7 @@ public class ItemPotionSuspicious extends Item {
                 player.getFoodStats().addNutrition(1);
                 player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("欢迎来到Double随机等于0的欧皇大殿").setColor(EnumChatFormatting.AQUA));
             }
-            player.itf$AddWater(((ITFItem) this).itf$GetFoodWater());
+            player.itf$AddWater(ITFApi.getItemWater(this));
         }
         super.onItemUseFinish(item_stack, world, player);
     }

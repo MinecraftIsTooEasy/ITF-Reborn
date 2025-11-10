@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.util.quality;
+package net.oilcake.mitelros.feat.quality;
 
 public enum EnumEffectEntry {
     Digging("挖掘速度"),

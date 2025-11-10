@@ -6,8 +6,8 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.status.MiscManager;
 import net.oilcake.mitelros.util.Constant;
-import net.oilcake.mitelros.util.quality.EnumEffectEntry;
-import net.oilcake.mitelros.util.quality.EnumToolType;
+import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
+import net.oilcake.mitelros.feat.quality.EnumToolType;
 
 public class CombatListener implements ICombatListener {
     @Override

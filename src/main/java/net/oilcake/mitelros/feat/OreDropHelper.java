@@ -1,9 +1,10 @@
-package net.oilcake.mitelros.util;
+package net.oilcake.mitelros.feat;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.registry.property.ITFProperties;
 
 import java.util.Map;
 import java.util.Random;
@@ -18,11 +19,11 @@ public class OreDropHelper {
             int type = metadata & 0b10;
             return type == 0b10 ? Items.pieceGoldNether.itemID : Items.pieceGold.itemID;
         }
-        return ITFRegistryImpl.PIECE_MAP.getOrDefault(blockOre, 0);
+        return ITFProperties.ORE_PIECE_MAP.getOrDefault(blockOre);
     }
 
     public static int getMeltPieceItemID(BlockOre blockOre) {
-        return ITFRegistryImpl.MELTING_MAP.getOrDefault(blockOre, 0);
+        return ITFProperties.ORE_MELTING_MAP.getOrDefault(blockOre);
     }
 
     public static boolean canAbsorb(BlockOre blockOre) {

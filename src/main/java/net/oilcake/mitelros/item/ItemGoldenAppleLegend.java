@@ -1,13 +1,13 @@
 package net.oilcake.mitelros.item;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFItem;
+import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.registry.item.Items;
 
 public class ItemGoldenAppleLegend extends ItemAppleGold {
     public ItemGoldenAppleLegend(int id, int satiation, int nutrition, String texture) {
         super(id, satiation, nutrition, texture);
-        ((ITFItem) this).itf$SetFoodWater(-8);
+        ITFApi.setItemWater(this, -8);
     }
 
     @Override
