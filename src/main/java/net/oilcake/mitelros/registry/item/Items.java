@@ -499,7 +499,7 @@ public class Items extends Item {
 
     static {
         ExtraInfo.register(totemOfKnowledge, "itf.item.totem_of_knowledge.info");
-        ExtraInfo.register(totemOfFlattening, "itf.item.totem_of_knowledge.info");
+        ExtraInfo.register(totemOfFlattening, "itf.item.totem_of_flattening.info");
         ExtraInfo.register(frostRod, "itf.item.frost_rod.info");
         ExtraInfo.register(enderRod, "itf.item.ender_rod.info");
 
