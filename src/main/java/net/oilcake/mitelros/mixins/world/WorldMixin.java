@@ -37,8 +37,8 @@ public abstract class WorldMixin implements ITFWorld {
 
     @WrapOperation(method = "generateWeatherEvents(I)Ljava/util/List;", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 2))
     private int itfRain(Random instance, int i, Operation<Integer> original) {
-        int duration_static = 6000 * (ITFConfig.TagEternalRaining.get() ? 6 : 1);
-        int duration_random = original.call(instance, i) * (ITFConfig.TagEternalRaining.get() ? 2 : 1);
+        int duration_static = 6000 * (ITFConfig.TagEternalRaining.getBooleanValue() ? 6 : 1);
+        int duration_random = original.call(instance, i) * (ITFConfig.TagEternalRaining.getBooleanValue() ? 2 : 1);
         int duration = duration_random + duration_static;
         duration = (int) (duration * getRainDurationModify(itf$GetWorldSeason()));
         return duration - 6000;

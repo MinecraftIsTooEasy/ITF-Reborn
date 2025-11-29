@@ -15,8 +15,8 @@ public class EntityPigmanLord extends EntityPigZombie {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        ITECompatUtil.setMaxHealth(this, ITFConfig.TagDemonDescend.get() ? 45.0D : 30.0D);
-        ITECompatUtil.setAttackDamage(this, ITFConfig.TagDemonDescend.get() ? 11.25D : 9.0D);
+        ITECompatUtil.setMaxHealth(this, ITFConfig.TagDemonDescend.getBooleanValue() ? 45.0D : 30.0D);
+        ITECompatUtil.setAttackDamage(this, ITFConfig.TagDemonDescend.getBooleanValue() ? 11.25D : 9.0D);
     }
 
     public EntityPigmanLord(World par1World) {
@@ -38,12 +38,12 @@ public class EntityPigmanLord extends EntityPigZombie {
     }
 
     public void addRandomWeapon() {
-        List<RandomItemListEntry> items = new ArrayList();
+        List<RandomItemListEntry> items = new ArrayList<>();
         items.add(new RandomItemListEntry((Item) Items.tungstenSword, 2));
         if (!Minecraft.isInTournamentMode()) {
             items.add(new RandomItemListEntry((Item) Items.tungstenBattleAxe, 1));
             items.add(new RandomItemListEntry((Item) Items.tungstenWarHammer, 1));
-            if (ITFConfig.TagDemonDescend.get()) {
+            if (ITFConfig.TagDemonDescend.getBooleanValue()) {
                 items.add(new RandomItemListEntry(Items.morningStarTungsten, 4));
             }
         }
@@ -82,7 +82,7 @@ public class EntityPigmanLord extends EntityPigZombie {
             }
             if (spawnSums <= 4 && gathering_troops) {
                 if (spawnCounter < 20) {
-                    if (ITFConfig.TagDemonDescend.get()) spawnCounter++;
+                    if (ITFConfig.TagDemonDescend.getBooleanValue()) spawnCounter++;
                 } else {
                     EntityPigmanGuard Belongings = new EntityPigmanGuard(worldObj);
                     Belongings.setPosition(posX, posY, posZ);

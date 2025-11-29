@@ -7,6 +7,7 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.util.Constant;
+import net.xiaoyu233.mitemod.miteite.api.ITELivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

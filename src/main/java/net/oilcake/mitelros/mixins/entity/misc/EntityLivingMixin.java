@@ -1,10 +1,13 @@
 package net.oilcake.mitelros.mixins.entity.misc;
 
 import net.minecraft.*;
+import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.registry.block.Blocks;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityLiving.class)
@@ -38,5 +41,19 @@ public abstract class EntityLivingMixin extends EntityLivingBase {
                 }
             }
         }
+    }
+
+    @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)
+    protected void cancelAtDimensionInvade(boolean recently_hit_by_player, int par2, CallbackInfo ci) {
+        if (!(ReflectHelper.dyCast(this) instanceof EntityMob)
+                && !ITFConfig.TagDimensionInvade.getBooleanValue()) return;
+        for (int i = 0; i < this.getLastActiveItems().length; ++i) {
+            ItemStack stack = this.getCurrentItemOrArmor(i);
+            if (stack != null && (!stack.isItemStackDamageable() && stack.getRemainingDurability() > stack.getMaxDamage() / 4)) {
+                this.dropItemStack(stack, 0.0F);
+                this.getLastActiveItems()[i] = null;
+            }
+        }
+        ci.cancel();
     }
 }

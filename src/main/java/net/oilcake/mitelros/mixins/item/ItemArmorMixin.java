@@ -54,7 +54,7 @@ public abstract class ItemArmorMixin extends Item implements IDamageableItem {
 
     @ModifyConstant(method = "getDamageFactor", constant = @Constant(floatValue = 0.5f))
     private float instinctSurvival(float constant) {
-        return ITFConfig.TagInstinctSurvival.get() ? 0.75F : 0.5F;
+        return ITFConfig.TagInstinctSurvival.getBooleanValue() ? 0.75F : 0.5F;
     }
 
     @ModifyReturnValue(method = "getDamageFactor", at = @At(value = "RETURN", ordinal = 2))

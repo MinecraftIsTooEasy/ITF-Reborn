@@ -20,7 +20,7 @@ public abstract class BiomeHellMixin extends BiomeGenBase {
         this.spawnableMonsterList.add(new SpawnListEntry(EntityDemonSpider.class, 20, 1, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityHellhound.class, 20, 1, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 50, 1, 4));
-        this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanLord.class, 5, 1, 1));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanLord.class, ITFConfig.TagDemonDescend.getBooleanValue() ? 20 : 5, 1, 1));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanGuard.class, 10, 1, 2));
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySpirit.class, 10, 1, 2));
         if (ITFConfig.TagDimensionInvade.getBooleanValue()) {

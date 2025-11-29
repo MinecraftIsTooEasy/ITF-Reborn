@@ -24,7 +24,7 @@ public class BiomeGenUnderworldMixin extends BiomeGenBase {
         removeEntityFromSpawnableLists(EntityRetinueZombie.class);
         this.spawnableMonsterList.add(new SpawnListEntry(EntityStalkerCreeper.class, 100, 1, 2));
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySpiderKing.class, 5, 1, 1));
-        if (ITFConfig.TagDimensionInvade.get()) {
+        if (ITFConfig.TagDimensionInvade.getBooleanValue()) {
             this.spawnableMonsterList.add(new SpawnListEntry(EntityRevenant.class, 40, 2, 4));
             this.spawnableMonsterList.add(new SpawnListEntry(EntityInfernalCreeper.class, 20, 1, 2));
             this.spawnableMonsterList.add(new SpawnListEntry(EntityDemonSpider.class, 30, 1, 4));
