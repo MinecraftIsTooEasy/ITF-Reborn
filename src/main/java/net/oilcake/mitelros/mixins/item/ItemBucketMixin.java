@@ -84,6 +84,9 @@ public abstract class ItemBucketMixin extends ItemVessel {
         return xpNeeded;
     }
 
+    /**
+     * gets ugly numbers if not rounded
+     */
     @ModifyArg(method = "addInformation", at = @At(value = "INVOKE", target = "Lnet/minecraft/Translator;getFormatted(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"), index = 1)
     private Object[] fixChances(Object[] par1ArrayOfObj) {
         return new Object[]{Math.round(this.getChanceOfMeltingWhenFilledWithLava() * 100.0f)};

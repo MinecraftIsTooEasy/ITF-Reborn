@@ -39,7 +39,7 @@ public class EmiPluginITF implements EmiPlugin {
 
         this.addInfoRecipes(registry);
         this.addEnchantReserverRecipes(registry);
-        MetalRecycle.registerEmi(registry);
+        MetalRecycle.registerToEmi((item, itemStack) -> addMetalRecycleRecipe(registry, item, itemStack));
 
         this.hideTechnical();
     }
@@ -96,5 +96,20 @@ public class EmiPluginITF implements EmiPlugin {
 
     private void hide(Block block) {
         EmiRemoveFromIndex.removed.add(EmiStack.of(block));
+    }
+
+    private static void addMetalRecycleRecipe(EmiRegistry registry, Item in, ItemStack out) {
+        TileEntityFurnace furnace = new TileEntityFurnace();
+        int fuel = furnace.getFuelHeatLevel();
+        registry.addRecipe(
+                new MetalRecycleRecipe(
+                        new ResourceLocation("minecraft", "furnace/" + in.itemID),
+                        new ItemStack(in),
+                        out,
+                        VanillaEmiRecipeCategories.SMELTING,
+                        fuel,
+                        out.getExperienceReward()
+                )
+        );
     }
 }

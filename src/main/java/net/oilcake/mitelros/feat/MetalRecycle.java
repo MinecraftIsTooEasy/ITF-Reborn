@@ -1,9 +1,6 @@
 package net.oilcake.mitelros.feat;
 
-import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import net.minecraft.*;
-import net.oilcake.mitelros.compat.emi.MetalRecycleRecipe;
 import net.oilcake.mitelros.item.api.ItemMorningStar;
 import net.oilcake.mitelros.material.Materials;
 
@@ -57,37 +54,20 @@ public class MetalRecycle {
         return new ItemStack(repairItem, quantity);
     }
 
-    public static void registerEmi(EmiRegistry registry) {
-        BiConsumer<Item, ItemStack> consumer = (item, itemStack) -> addMetalRecycleRecipe(registry, item, itemStack);
-
+    public static void registerToEmi(BiConsumer<Item, ItemStack> registry) {
         Material[] available_material = {Material.copper, Material.silver, Material.gold, Material.iron, Materials.nickel, Materials.tungsten, Material.ancient_metal, Material.rusted_iron};
 
         for (Material material : available_material) {
             for (Class<?> tool : tools) {
                 Item toolItem = Item.getMatchingItem(tool, material);
-                registerRecipeSafe(consumer, toolItem, recycleMetal(toolItem));
+                registerRecipeSafe(registry, toolItem, recycleMetal(toolItem));
             }
             for (Class<?> armor : armors) {
                 ItemArmor armorItem = ItemArmor.getMatchingArmor(armor, material, false);
-                registerRecipeSafe(consumer, armorItem, recycleMetal(armorItem));
+                registerRecipeSafe(registry, armorItem, recycleMetal(armorItem));
                 armorItem = ItemArmor.getMatchingArmor(armor, material, true);
-                registerRecipeSafe(consumer, armorItem, recycleMetal(armorItem));
+                registerRecipeSafe(registry, armorItem, recycleMetal(armorItem));
             }
         }
-    }
-
-    private static void addMetalRecycleRecipe(EmiRegistry registry, Item in, ItemStack out) {
-        TileEntityFurnace furnace = new TileEntityFurnace();
-        int fuel = furnace.getFuelHeatLevel();
-        registry.addRecipe(
-                new MetalRecycleRecipe(
-                        new ResourceLocation("minecraft", "furnace/" + in.itemID),
-                        new ItemStack(in),
-                        out,
-                        VanillaEmiRecipeCategories.SMELTING,
-                        fuel,
-                        out.getExperienceReward()
-                )
-        );
     }
 }
