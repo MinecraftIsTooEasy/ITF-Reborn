@@ -10,26 +10,27 @@ import net.oilcake.mitelros.client.gui.GuiEnchantReserver;
 import net.oilcake.mitelros.network.ITFNetwork;
 
 public class S2CEnchantReserverInfo implements Packet {
-    private final int EXP;
+    private final int exp;
 
     public S2CEnchantReserverInfo(PacketByteBuf packetByteBuf) {
         this(packetByteBuf.readInt());
     }
 
     public S2CEnchantReserverInfo(int exp) {
-        this.EXP = exp;
+        this.exp = exp;
     }
 
     @Override
     public void write(PacketByteBuf packetByteBuf) {
-        packetByteBuf.writeInt(this.EXP);
+        packetByteBuf.writeInt(this.exp);
     }
 
     @Override
     public void apply(EntityPlayer entityPlayer) {
         GuiScreen openingGUI = Minecraft.getMinecraft().currentScreen;
-        if (openingGUI instanceof GuiEnchantReserver)
-            ((GuiEnchantReserver) openingGUI).setEnchantInfo(this.EXP);
+        if (openingGUI instanceof GuiEnchantReserver) {
+            ((GuiEnchantReserver) openingGUI).setEXP(this.exp);
+        }
     }
 
     @Override

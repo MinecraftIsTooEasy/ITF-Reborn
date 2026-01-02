@@ -2,6 +2,7 @@ package net.oilcake.mitelros.block.entity;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.block.BlockEnchantReserver;
+import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 
 import java.util.Arrays;
@@ -41,16 +42,16 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
         return this.inventory;
     }
 
-    private int EXP;
+    private int exp;
 
     private int last_EXP = -1;
 
     public int getEXP() {
-        return this.EXP;
+        return this.exp;
     }
 
     public void setEXP(int exp) {
-        this.EXP = exp;
+        this.exp = exp;
     }
 
     public int getMaxEXP() {
@@ -78,30 +79,31 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
     @Override
     public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3) {
         if (par3 == 0 && par1 == 1)
-            return (!(par2ItemStack.getItem() instanceof net.minecraft.ItemNugget) && par2ItemStack.getItem() != Item.potion);
+            return (!(par2ItemStack.getItem() instanceof ItemNugget) && par2ItemStack.getItem() != Item.potion);
         return true;
     }
 
     @Override
     public void updateEntity() {
         this.inventory.updateInfo();
-        if (!(getWorldObj()).isRemote) {
-            if (this.EXP != this.last_EXP)
-                this.last_EXP = this.EXP;
-            ItemStack inputStack = this.inventory.getInPutStack();
-            if (inputStack != null) {
-                this.checkInput(inputStack);
-            }
-            ItemStack outputStack = this.inventory.getOutPutStack();
-            if (outputStack != null) {
-                this.checkOutput(outputStack);
-            }
+        if (this.getWorldObj().isWorldClient()) return;
+
+        if (this.exp != this.last_EXP) {
+            this.last_EXP = this.exp;
+        }
+        ItemStack inputStack = this.inventory.getInPutStack();
+        if (inputStack != null) {
+            this.checkInput(inputStack);
+        }
+        ItemStack outputStack = this.inventory.getOutPutStack();
+        if (outputStack != null) {
+            this.checkOutput(outputStack);
         }
     }
 
     public void checkOutput(ItemStack outputStack) {
-        if (this.EXP >= 200 && outputStack.itemID == Item.potion.itemID && outputStack.stackSize * 200 <= getEXP() - getLaunchEXP()) {
-            this.EXP -= 200 * outputStack.stackSize;
+        if (this.exp >= 200 && outputStack.itemID == Item.potion.itemID && outputStack.stackSize * 200 <= getEXP() - getLaunchEXP()) {
+            this.exp -= 200 * outputStack.stackSize;
             this.inventory.getOutPut().putStack(Item.expBottle.getItemStackForStatsIcon());
             return;
         }
@@ -110,8 +112,8 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
             if (coin == null) return;
             int experienceValue = coin.getExperienceValue();
             if (experienceValue == 0) return;
-            if (this.EXP >= outputStack.stackSize * experienceValue) {
-                this.EXP -= outputStack.stackSize * experienceValue;
+            if (this.exp >= outputStack.stackSize * experienceValue) {
+                this.exp -= outputStack.stackSize * experienceValue;
                 this.inventory.getOutPut().putStack(new ItemStack(coin, outputStack.stackSize));
             }
         }
@@ -119,8 +121,8 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
 
     public void checkInput(ItemStack inputStack) {
         int xpUnit = ItemRock.getExperienceValueWhenSacrificed(inputStack);
-        if (xpUnit != 0 && inputStack.stackSize * xpUnit + this.EXP <= this.getMaxEXP()) {
-            this.EXP += inputStack.stackSize * xpUnit;
+        if (xpUnit != 0 && inputStack.stackSize * xpUnit + this.exp <= this.getMaxEXP()) {
+            this.exp += inputStack.stackSize * xpUnit;
             this.inventory.getInPut().putStack(null);
         }
     }
@@ -128,7 +130,9 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
     public void dropXP(World world, int x, int y, int z) {
         int var3;
 //        world.playAuxSFX(2002, x, y, z, 0);
-        for (int var2 = this.EXP; var2 > 0; var2 -= var3) {
+        int xpToDrop = this.exp * (1 - ITFConfig.EnchantReserverLossMultiplier.getIntegerValue() / 100);
+        if (xpToDrop <= 0) return;
+        for (int var2 = xpToDrop; var2 > 0; var2 -= var3) {
             var3 = EntityXPOrb.getXPSplit(var2);
             world.spawnEntityInWorld(new EntityXPOrb(world, x, y, z, var3));
         }
@@ -192,14 +196,14 @@ public class TileEntityEnchantReserver extends TileEntity implements ISidedInven
     @Override
     public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readFromNBT(par1NBTTagCompound);
-        this.EXP = par1NBTTagCompound.getInteger("EXP");
+        this.exp = par1NBTTagCompound.getInteger("EXP");
         this.inventory.readFromNBT(par1NBTTagCompound, this);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setInteger("EXP", this.EXP);
+        par1NBTTagCompound.setInteger("EXP", this.exp);
         this.inventory.writeToNBT(par1NBTTagCompound);
     }
 

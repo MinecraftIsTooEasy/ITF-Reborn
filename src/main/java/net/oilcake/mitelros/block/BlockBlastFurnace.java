@@ -2,7 +2,6 @@ package net.oilcake.mitelros.block;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.registry.block.Blocks;
 
 public class BlockBlastFurnace extends BlockFurnace {
@@ -36,39 +35,9 @@ public class BlockBlastFurnace extends BlockFurnace {
 
     public int dropBlockAsEntityItem(BlockBreakInfo info) {
         Block furnace_block = Block.getBlock(getIdleBlockID());
-        if (ITFConfig.TagBenchingV2.getBooleanValue()) {
-            if (!info.wasExploded()) {
-                if (furnace_block == Blocks.blastFurnaceNetherrackIdle) {
-                    dropBlockAsEntityItem(info, Block.netherrack.blockID, 0, 8, 1.0F);
-                    dropBlockAsEntityItem(info, Item.ingotAdamantium.itemID, 0, 3, 1.0F);
-                } else if (furnace_block == Blocks.blastFurnaceObsidianIdle) {
-                    dropBlockAsEntityItem(info, Block.obsidian.blockID, 0, 8, 1.0F);
-                    dropBlockAsEntityItem(info, Item.ingotMithril.itemID, 0, 3, 1.0F);
-                } else if (furnace_block == Blocks.blastFurnaceStoneIdle) {
-                    dropBlockAsEntityItem(info, Block.cobblestone.blockID, 0, 8, 1.0F);
-                    dropBlockAsEntityItem(info, Item.ingotIron.itemID, 0, 3, 1.0F);
-                } else {
-                    return 0;
-                }
-            } else if (furnace_block == Blocks.blastFurnaceNetherrackIdle) {
-                dropBlockAsEntityItem(info, Block.netherrack.blockID, 0, 1, 1.3F);
-                dropBlockAsEntityItem(info, Item.ingotAdamantium.itemID, 0, 1, 1.3F);
-            } else if (furnace_block == Blocks.blastFurnaceObsidianIdle) {
-                dropBlockAsEntityItem(info, Block.obsidian.blockID, 0, 1, 1.0F);
-                dropBlockAsEntityItem(info, Item.shardObsidian.itemID, 0, 2, 1.3F);
-                dropBlockAsEntityItem(info, Item.ingotMithril.itemID, 0, 1, 1.3F);
-                dropBlockAsEntityItem(info, Item.mithrilNugget.itemID, 0, 2, 1.3F);
-            } else if (furnace_block == Blocks.blastFurnaceStoneIdle) {
-                dropBlockAsEntityItem(info, Block.cobblestone.blockID, 0, 1, 1.3F);
-                dropBlockAsEntityItem(info, Item.ingotIron.itemID, 0, 1, 0.5F);
-                dropBlockAsEntityItem(info, Item.ironNugget.itemID, 0, 2, 1.3F);
-            } else {
-                return 0;
-            }
-            return 0;
-        }
-        if (!info.wasExploded())
+        if (!info.wasExploded()) {
             return super.dropBlockAsEntityItem(info);
+        }
         if (furnace_block == Blocks.blastFurnaceNetherrackIdle) {
             dropBlockAsEntityItem(info, Block.netherrack.blockID, 0, 1, 1.3F);
             dropBlockAsEntityItem(info, Item.ingotAdamantium.itemID, 0, 1, 1.3F);

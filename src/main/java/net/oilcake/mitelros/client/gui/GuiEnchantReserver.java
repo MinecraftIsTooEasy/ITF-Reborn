@@ -64,15 +64,17 @@ public class GuiEnchantReserver extends GuiContainer {
         int var6 = this.guiLeft;
         int var7 = this.guiTop;
         drawTexturedModalRect(var4, var5, 0, 0, this.xSize, this.ySize);
-        int exp = Math.max(0, this.tileEntityEnchantReserver.getEXP() - this.tileEntityEnchantReserver.getLaunchEXP());
-        int maxExp = this.tileEntityEnchantReserver.getMaxEXP() - this.tileEntityEnchantReserver.getLaunchEXP();
+        int storedXp = this.tileEntityEnchantReserver.getEXP();
+        int launchEXP = this.tileEntityEnchantReserver.getLaunchEXP();
+        int exp = Math.max(0, storedXp - launchEXP);
+        int maxExp = this.tileEntityEnchantReserver.getMaxEXP() - launchEXP;
         int r;
         int g;
         int b;
-        if (tileEntityEnchantReserver.getEXP() < this.tileEntityEnchantReserver.getLaunchEXP()) {
-            r = 160 + (int) (24.0F * ((float) tileEntityEnchantReserver.getEXP() / (float) this.tileEntityEnchantReserver.getLaunchEXP()));
-            g = 30 + (int) (196.0F * ((float) tileEntityEnchantReserver.getEXP() / (float) this.tileEntityEnchantReserver.getLaunchEXP()));
-            b = 30 - (int) (27.0F * ((float) tileEntityEnchantReserver.getEXP() / (float) this.tileEntityEnchantReserver.getLaunchEXP()));
+        if (storedXp < launchEXP) {
+            r = 160 + (int) (24.0F * ((float) storedXp / (float) launchEXP));
+            g = 30 + (int) (196.0F * ((float) storedXp / (float) launchEXP));
+            b = 30 - (int) (27.0F * ((float) storedXp / (float) launchEXP));
         } else {
             r = 184 - (int) (120.0F * ((float) exp / (float) maxExp));
             g = 226 - (int) (66.0F * ((float) exp / (float) maxExp));
@@ -80,15 +82,15 @@ public class GuiEnchantReserver extends GuiContainer {
         }
         int color = (r << 16) + (g << 8) + b;
         drawTexturedModalRect(var6 + 99, var7 + 21, 176, 0, 16, (int) (43.0F * exp / maxExp));
-        if (tileEntityEnchantReserver.getEXP() < this.tileEntityEnchantReserver.getLaunchEXP()) {
-            this.fontRenderer.drawString(tileEntityEnchantReserver.getEXP() + "/" + this.tileEntityEnchantReserver.getLaunchEXP(), this.width / 2 + 8, this.height / 2 - 70, color);
+        if (storedXp < launchEXP) {
+            this.fontRenderer.drawString(storedXp + "/" + launchEXP, this.width / 2 + 8, this.height / 2 - 70, color);
         } else {
             this.fontRenderer.drawString(exp + "/" + maxExp, this.width / 2 + 8, this.height / 2 - 70, 14737632);
         }
 
     }
 
-    public void setEnchantInfo(int exp) {
+    public void setEXP(int exp) {
         this.tileEntityEnchantReserver.setEXP(exp);
     }
 }
