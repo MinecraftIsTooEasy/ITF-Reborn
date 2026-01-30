@@ -12,6 +12,6 @@ public class MetalRecycleRecipe extends EmiCookingRecipe {
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return RecipeCategory.MetalRecycle;
+        return RecipeCategories.MetalRecycle;
     }
 }

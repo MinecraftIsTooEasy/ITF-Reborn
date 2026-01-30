@@ -28,7 +28,7 @@ public class EnchantReserverOutRecipe implements EmiRecipe {
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return RecipeCategory.EnchantReserverOut;
+        return RecipeCategories.EnchantReserverOut;
     }
 
     @Override

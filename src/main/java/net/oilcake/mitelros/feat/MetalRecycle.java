@@ -2,7 +2,6 @@ package net.oilcake.mitelros.feat;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.item.api.ItemMorningStar;
-import net.oilcake.mitelros.material.Materials;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -18,7 +17,11 @@ public class MetalRecycle {
     );
 
     public static boolean canApply(ItemStack itemStack) {
-        Class<? extends Item> clazz = itemStack.getItem().getClass();
+        return canApply(itemStack.getItem());
+    }
+
+    public static boolean canApply(Item item) {
+        Class<? extends Item> clazz = item.getClass();
         return MetalRecycle.tools.contains(clazz) || MetalRecycle.armors.contains(clazz);
     }
 
@@ -55,19 +58,9 @@ public class MetalRecycle {
     }
 
     public static void registerToEmi(BiConsumer<Item, ItemStack> registry) {
-        Material[] available_material = {Material.copper, Material.silver, Material.gold, Material.iron, Materials.nickel, Materials.tungsten, Material.ancient_metal, Material.rusted_iron};
-
-        for (Material material : available_material) {
-            for (Class<?> tool : tools) {
-                Item toolItem = Item.getMatchingItem(tool, material);
-                registerRecipeSafe(registry, toolItem, recycleMetal(toolItem));
-            }
-            for (Class<?> armor : armors) {
-                ItemArmor armorItem = ItemArmor.getMatchingArmor(armor, material, false);
-                registerRecipeSafe(registry, armorItem, recycleMetal(armorItem));
-                armorItem = ItemArmor.getMatchingArmor(armor, material, true);
-                registerRecipeSafe(registry, armorItem, recycleMetal(armorItem));
-            }
+        for (Item item : Item.itemsList) {
+            if (item == null) continue;
+            if (canApply(item)) registerRecipeSafe(registry, item, recycleMetal(item));
         }
     }
 }

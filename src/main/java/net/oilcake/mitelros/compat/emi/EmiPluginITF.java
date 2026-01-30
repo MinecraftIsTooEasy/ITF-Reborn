@@ -18,12 +18,12 @@ import java.util.List;
 public class EmiPluginITF implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
-        registry.addCategory(RecipeCategory.EnchantReserverIn);
-        registry.addCategory(RecipeCategory.EnchantReserverOut);
-        registry.addCategory(RecipeCategory.MetalRecycle);
+        registry.addCategory(RecipeCategories.EnchantReserverIn);
+        registry.addCategory(RecipeCategories.EnchantReserverOut);
+        registry.addCategory(RecipeCategories.MetalRecycle);
 
-        registry.addWorkstation(RecipeCategory.EnchantReserverIn, EmiStack.of(Blocks.blockEnchantReserver));
-        registry.addWorkstation(RecipeCategory.EnchantReserverOut, EmiStack.of(Blocks.blockEnchantReserver));
+        registry.addWorkstation(RecipeCategories.EnchantReserverIn, EmiStack.of(Blocks.blockEnchantReserver));
+        registry.addWorkstation(RecipeCategories.EnchantReserverOut, EmiStack.of(Blocks.blockEnchantReserver));
 
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(new ItemStack(Blocks.nickelWorkBench)));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(new ItemStack(Blocks.tungstenWorkBench)));
@@ -33,9 +33,9 @@ public class EmiPluginITF implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(Blocks.blastFurnaceNetherrackIdle));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(Blocks.blockSmokerIdle));
 
-        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceStoneIdle));
-        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceObsidianIdle));
-        registry.addWorkstation(RecipeCategory.MetalRecycle, EmiStack.of(Blocks.blastFurnaceNetherrackIdle));
+        registry.addWorkstation(RecipeCategories.MetalRecycle, EmiStack.of(Blocks.blastFurnaceStoneIdle));
+        registry.addWorkstation(RecipeCategories.MetalRecycle, EmiStack.of(Blocks.blastFurnaceObsidianIdle));
+        registry.addWorkstation(RecipeCategories.MetalRecycle, EmiStack.of(Blocks.blastFurnaceNetherrackIdle));
 
         this.addInfoRecipes(registry);
         this.addEnchantReserverRecipes(registry);
