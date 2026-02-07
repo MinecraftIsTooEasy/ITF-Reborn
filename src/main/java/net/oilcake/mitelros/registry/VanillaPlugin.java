@@ -22,7 +22,6 @@ public class VanillaPlugin implements ITFPlugin {
         registry.registerItemWater(Items.melon_ice, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
         registry.registerItemWater(Items.chocolate_smoothie, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
         registry.registerItemWater(Items.peeledSugarcane, 1);
-        registry.registerItemWater(Items.glowberries, 1);
         registry.registerItemWater(Items.mashedCactus, 1);
         registry.registerItemWater(Item.bread, -1);
         registry.registerItemWater(Item.cheese, -1);
