@@ -6,6 +6,7 @@ import net.oilcake.mitelros.registry.block.Blocks;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -45,7 +46,7 @@ public abstract class EntityLivingMixin extends EntityLivingBase {
 
     @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)
     protected void cancelAtDimensionInvade(boolean recently_hit_by_player, int par2, CallbackInfo ci) {
-        if (!(ReflectHelper.dyCast(this) instanceof EntityMob)
+        if ((ReflectHelper.dyCast(this) instanceof IMob)
                 && !ITFConfig.TagDimensionInvade.getBooleanValue()) return;
         for (int i = 0; i < this.getLastActiveItems().length; ++i) {
             ItemStack stack = this.getCurrentItemOrArmor(i);
