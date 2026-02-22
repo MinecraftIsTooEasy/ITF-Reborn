@@ -8,6 +8,7 @@ import net.oilcake.mitelros.registry.item.Items;
 public class BlockBeetroots extends BlockCrops {
     public BlockBeetroots(int par1) {
         super(par1, 4);
+        this.num_growth_stages = 4;
     }
 
     protected int getSeedItem() {

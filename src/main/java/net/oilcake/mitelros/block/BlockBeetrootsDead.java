@@ -8,6 +8,7 @@ import net.oilcake.mitelros.ITFStart;
 public class BlockBeetrootsDead extends BlockCropsDead {
     public BlockBeetrootsDead(int block_id) {
         super(block_id, 4);
+        this.num_growth_stages = 4;
     }
 
     public int getGrowthStage(int metadata) {
