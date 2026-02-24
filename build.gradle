@@ -9,7 +9,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-    archivesName = "[MITF重生]" + project.archives_base_name
+    archivesName = "[黄昏重生]" + project.archives_base_name
 }
 
 repositories {
@@ -23,7 +23,7 @@ repositories {
 loom {
     accessWidenerPath = file("src/main/resources/MITEIsTooFalse.accesswidener")
     mergedMinecraftJar()
-    setFML(new File("${lib_dir}/${fml_file_name}${fml_version}.jar"))
+    setFML(new File("${lib_dir}/${fish_mod_loader}"))
     mods {
         "MITE-ITF-Reborn" {
             sourceSet sourceSets.main
@@ -32,8 +32,8 @@ loom {
 
 }
 
-runClient {
-    args("--username", "De6ris", "--session", "a.a.a.a", "--width", 854, "--height", 480)
+tasks.named('runClient', JavaExec).configure { exec ->
+    exec.setArgs(['--username', project.property('user_name'), '--session', '0', '--width', '854', '--height', '480'])
 }
 
 dependencies {
