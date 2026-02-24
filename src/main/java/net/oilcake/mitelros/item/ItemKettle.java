@@ -6,7 +6,7 @@ import net.minecraft.*;
 import net.oilcake.mitelros.localization.TooltipKeys;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
-import net.oilcake.mitelros.util.FoodDataList;
+import net.oilcake.mitelros.feat.FoodWater;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -98,7 +98,7 @@ public class ItemKettle extends Item implements IDamageableItem {
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
         if (player.onServer()) {
             player.itf$AddWater(waterOnDrink);
-            FoodDataList.onWaterDrunk(item_stack.getItem(), player);
+            FoodWater.onWaterDrunk(item_stack.getItem(), player);
             player.getHeldItemStack().tryDamageItem(world, drinkDamageUnit, true);
         }
     }

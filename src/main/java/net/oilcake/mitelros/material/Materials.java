@@ -77,8 +77,8 @@ public class Materials extends Material {
         vibranium = new MaterialFakeVibranium(VIBRANIUM);
         uru = new MaterialUru(URU);
         porkchop_stew = (new MaterialFood("porkchop_stew")).setHarmedByPepsin();
-        lampchop_stew = (new MaterialFood("chestnut_soup")).setHarmedByPepsin();
-        fish_soup = (new MaterialFood("chestnut_soup")).setHarmedByPepsin();
+        lampchop_stew = (new MaterialFood("lampchop_stew")).setHarmedByPepsin();
+        fish_soup = (new MaterialFood("fish_soup")).setHarmedByPepsin();
         mashedCactus = new MaterialFood("mashed_cactus");
         glowberries = new MaterialFood("glowberries");
         orePieces = new Material("Pieces");

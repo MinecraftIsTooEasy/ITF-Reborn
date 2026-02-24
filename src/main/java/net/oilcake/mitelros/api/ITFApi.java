@@ -1,17 +1,16 @@
 package net.oilcake.mitelros.api;
 
 import net.minecraft.Item;
+import net.oilcake.mitelros.feat.FoodWater;
 import net.oilcake.mitelros.registry.property.ITFProperties;
 
 public interface ITFApi {
     static int getItemWater(Item item) {
-        return ITFProperties.WATER.getOrDefault(item);
+        return FoodWater.getWater(item);
     }
 
     static float getItemWaterChance(Item item) {
-        Float v = ITFProperties.WATER_CHANCE.get(item);
-        if (v != null) return v;
-        return 0.0F;
+        return FoodWater.getWaterChance(item);
     }
 
     static void setItemWater(Item item, int water) {

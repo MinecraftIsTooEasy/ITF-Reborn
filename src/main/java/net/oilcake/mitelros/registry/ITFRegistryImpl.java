@@ -1,9 +1,6 @@
 package net.oilcake.mitelros.registry;
 
-import net.minecraft.Block;
-import net.minecraft.Entity;
-import net.minecraft.Item;
-import net.minecraft.ItemStack;
+import net.minecraft.*;
 import net.oilcake.mitelros.api.ITFRegistry;
 import net.oilcake.mitelros.registry.property.ITFProperties;
 
@@ -45,5 +42,10 @@ public class ITFRegistryImpl implements ITFRegistry {
     @Override
     public void registerOreAbsorbing(Block blockOre, ItemStack output) {
         ABSORBING_MAP.put(blockOre, output);
+    }
+
+    @Override
+    public void registerMaterialWater(Material material, int water) {
+        ITFProperties.MATERIAL_WATER.register(material, water);
     }
 }

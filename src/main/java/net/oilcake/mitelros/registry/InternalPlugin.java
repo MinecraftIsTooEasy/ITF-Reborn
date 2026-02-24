@@ -5,6 +5,7 @@ import net.oilcake.mitelros.ModReference;
 import net.oilcake.mitelros.api.ITFPlugin;
 import net.oilcake.mitelros.api.ITFRegistry;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.unsafe.ExtremeAccess;
@@ -12,8 +13,8 @@ import net.oilcake.mitelros.unsafe.ITEAccess;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class VanillaPlugin implements ITFPlugin {
-    private static final Logger LOGGER = LogManager.getLogger(VanillaPlugin.class);
+public class InternalPlugin implements ITFPlugin {
+    private static final Logger LOGGER = LogManager.getLogger(InternalPlugin.class);
 
     @Override
     public void register(ITFRegistry registry) {
@@ -28,6 +29,29 @@ public class VanillaPlugin implements ITFPlugin {
 
         registry.registerItemWaterChance(Items.agave, ITFConfig.TagDryDilemma.getBooleanValue() ? 0.2F : 0.4F);
         registry.registerItemWaterChance(Items.glowberries, ITFConfig.TagDryDilemma.getBooleanValue() ? 0.5F : 1.0F);
+
+        registry.registerMaterialWater(Material.water, 1);
+        registry.registerMaterialWater(Material.cereal, 2);
+        registry.registerMaterialWater(Material.ice_cream, 2);
+        registry.registerMaterialWater(Material.milk, 2);
+
+        // originally 4 for any else but null/mashed_potato/salad, but I'm not sure if these are all
+        registry.registerMaterialWater(Materials.mushroom_stew, 4);
+        registry.registerMaterialWater(Materials.beef_stew, 4);
+        registry.registerMaterialWater(Materials.chicken_soup, 4);
+        registry.registerMaterialWater(Materials.vegetable_soup, 4);
+        registry.registerMaterialWater(Materials.cream_of_mushroom_soup, 4);
+        registry.registerMaterialWater(Materials.cream_of_vegetable_soup, 4);
+        registry.registerMaterialWater(Materials.pumpkin_soup, 4);
+        registry.registerMaterialWater(Materials.sorbet, 4);
+        registry.registerMaterialWater(Materials.porridge, 4);
+        registry.registerMaterialWater(Materials.porkchop_stew, 4);
+        registry.registerMaterialWater(Materials.lampchop_stew, 4);
+        registry.registerMaterialWater(Materials.pure_water, 4);
+        registry.registerMaterialWater(Materials.lemonade, 4);
+        registry.registerMaterialWater(Materials.fish_soup, 4);
+        registry.registerMaterialWater(Materials.beetroot_soup, 4);
+
 
         registry.registerMeatAnimal(EntityCow.class);
         registry.registerMeatAnimal(EntityChicken.class);

@@ -10,7 +10,6 @@ import net.oilcake.mitelros.api.ITFApi;
 import net.oilcake.mitelros.feat.ExtraInfo;
 import net.oilcake.mitelros.localization.TooltipKeys;
 import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.registry.property.ITFProperties;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -56,9 +55,9 @@ public abstract class ItemMixin {
             } else if (water < 0) {
                 info.add(EnumChatFormatting.YELLOW + TooltipKeys.WATER_MINUS.translate(water));
             }
-            Float v = ITFProperties.WATER_CHANCE.get(item);
-            if (v != null) {
-                info.add(EnumChatFormatting.AQUA + TooltipKeys.WATER_CHANCE.translate(Math.round(100.0f * v)));
+            float chance = ITFApi.getItemWaterChance(item);
+            if (chance > 0) {
+                info.add(EnumChatFormatting.AQUA + TooltipKeys.WATER_CHANCE.translate(Math.round(100.0f * chance)));
             }
         }
     }

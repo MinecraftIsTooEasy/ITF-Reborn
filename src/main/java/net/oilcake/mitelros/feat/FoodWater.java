@@ -1,27 +1,37 @@
-package net.oilcake.mitelros.util;
+package net.oilcake.mitelros.feat;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.material.IWateryMaterial;
 import net.oilcake.mitelros.potion.PotionExtend;
+import net.oilcake.mitelros.registry.property.ITFProperties;
 
 import java.util.Random;
 
-public class FoodDataList {
-    public static int bowlFoodWater(Material material) {
+public class FoodWater {
+    @SuppressWarnings("RedundantIfStatement")
+    public static int getWater(Item item) {
+        int water = ITFProperties.WATER.getOrDefault(item);
+        if (water != 0) return water;
+        if (item instanceof ItemBowl bowl) {
+            Material contents = bowl.getContents();
+            water = getMaterialWater(contents);
+            if (water != 0) return water;
+        }
+        return 0;
+    }
+
+    public static float getWaterChance(Item item) {
+        Float v = ITFProperties.WATER_CHANCE.get(item);
+        if (v != null) return v;
+        return 0.0F;
+    }
+
+    private static int getMaterialWater(Material material) {
         if (material instanceof IWateryMaterial iWateryMaterial) {
             return iWateryMaterial.getWater();
         }
-        if (material == Material.water) {
-            return 1;// changed
-        }
-        if (material == (Material.cereal) || material == (Material.ice_cream) || material == (Material.milk)) {
-            return 2;
-        } else if (!(material == null || material == (Material.mashed_potato) || material == (Materials.salad))) {
-            return 4;
-        }
-        return 0;
+        return ITFProperties.MATERIAL_WATER.getOrDefault(material);
     }
 
     public static int foodWater(int id, Material material) {

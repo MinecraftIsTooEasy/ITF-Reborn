@@ -1,9 +1,6 @@
 package net.oilcake.mitelros.api;
 
-import net.minecraft.Block;
-import net.minecraft.Entity;
-import net.minecraft.Item;
-import net.minecraft.ItemStack;
+import net.minecraft.*;
 
 public interface ITFRegistry {
     void registerItemWater(Item item, int water);
@@ -27,4 +24,9 @@ public interface ITFRegistry {
      * @param output used to look up the exp equivalent.
      */
     void registerOreAbsorbing(Block blockOre, ItemStack output);
+
+    /**
+     * For bowl or other food containers
+     */
+    void registerMaterialWater(Material material, int water);
 }

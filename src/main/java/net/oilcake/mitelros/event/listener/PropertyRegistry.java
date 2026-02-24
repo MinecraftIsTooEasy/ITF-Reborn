@@ -6,7 +6,7 @@ import net.oilcake.mitelros.api.ITFPlugin;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
-import net.oilcake.mitelros.registry.VanillaPlugin;
+import net.oilcake.mitelros.registry.InternalPlugin;
 import net.xiaoyu233.fml.FishModLoader;
 
 public class PropertyRegistry implements Runnable {
@@ -33,7 +33,7 @@ public class PropertyRegistry implements Runnable {
 
 
         ITFRegistryImpl itfRegistry = new ITFRegistryImpl();
-        new VanillaPlugin().register(itfRegistry);
+        new InternalPlugin().register(itfRegistry);
         FishModLoader.getEntrypointContainers("itf-reborn", ITFPlugin.class)
                 .forEach(x -> x.getEntrypoint().register(itfRegistry));
     }
