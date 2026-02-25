@@ -13,11 +13,20 @@ public class FoodWater {
     public static int getWater(Item item) {
         int water = ITFProperties.WATER.getOrDefault(item);
         if (water != 0) return water;
+
+        Material material = null;
         if (item instanceof ItemBowl bowl) {
-            Material contents = bowl.getContents();
-            water = getMaterialWater(contents);
+            material = bowl.getContents();
+        }
+        if (item instanceof ItemFood food) {
+            material = food.getMaterial(0);
+        }
+
+        if (material != null) {
+            water = getMaterialWater(material);
             if (water != 0) return water;
         }
+
         return 0;
     }
 
@@ -32,14 +41,6 @@ public class FoodWater {
             return iWateryMaterial.getWater();
         }
         return ITFProperties.MATERIAL_WATER.getOrDefault(material);
-    }
-
-    public static int foodWater(int id, Material material) {
-        if (material == Material.fruit)
-            return ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2;
-        if (material == Material.desert)
-            return -1;
-        return 0;
     }
 
     public static void onWaterDrunk(Item item, EntityPlayer player) {
