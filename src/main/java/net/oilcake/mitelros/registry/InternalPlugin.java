@@ -18,22 +18,27 @@ public class InternalPlugin implements ITFPlugin {
 
     @Override
     public void register(ITFRegistry registry) {
-        registry.registerItemWater(Item.carrot, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
-        registry.registerItemWater(Items.ice_sucker, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
-        registry.registerItemWater(Items.melon_ice, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
-        registry.registerItemWater(Items.chocolate_smoothie, ITFConfig.TagDryDilemma.getBooleanValue() ? 1 : 2);
+        boolean dryDilemma = ITFConfig.TagDryDilemma.getBooleanValue();
+
+        registry.registerItemWater(Item.carrot, dryDilemma ? 1 : 2);
+        registry.registerItemWater(Items.ice_sucker, dryDilemma ? 1 : 2);
+        registry.registerItemWater(Items.melon_ice, dryDilemma ? 1 : 2);
+        registry.registerItemWater(Items.chocolate_smoothie, dryDilemma ? 1 : 2);
         registry.registerItemWater(Items.peeledSugarcane, 1);
         registry.registerItemWater(Items.mashedCactus, 1);
         registry.registerItemWater(Item.bread, -1);
         registry.registerItemWater(Item.cheese, -1);
 
-        registry.registerItemWaterChance(Items.agave, ITFConfig.TagDryDilemma.getBooleanValue() ? 0.2F : 0.4F);
-        registry.registerItemWaterChance(Items.glowberries, ITFConfig.TagDryDilemma.getBooleanValue() ? 0.5F : 1.0F);
+        registry.registerItemWaterChance(Items.agave, dryDilemma ? 0.2F : 0.4F);
+        registry.registerItemWaterChance(Items.glowberries, dryDilemma ? 0.5F : 1.0F);
 
         registry.registerMaterialWater(Material.water, 1);
         registry.registerMaterialWater(Material.cereal, 2);
         registry.registerMaterialWater(Material.ice_cream, 2);
         registry.registerMaterialWater(Material.milk, 2);
+
+        registry.registerMaterialWater(Material.fruit, dryDilemma ? 1 : 2);
+        registry.registerMaterialWater(Material.desert, -1);
 
         // originally 4 for any else but null/mashed_potato/salad, but I'm not sure if these are all
         registry.registerMaterialWater(Materials.mushroom_stew, 4);
