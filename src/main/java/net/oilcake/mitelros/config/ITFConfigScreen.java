@@ -4,6 +4,7 @@ import fi.dy.masa.malilib.config.interfaces.IConfigHandler;
 import fi.dy.masa.malilib.config.options.ConfigBase;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
+import fi.dy.masa.malilib.gui.layer.Layer;
 import fi.dy.masa.malilib.gui.screen.DefaultConfigScreen;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.GuiScreen;
@@ -18,16 +19,17 @@ public class ITFConfigScreen extends DefaultConfigScreen {
     }
 
     @Override
-    protected void initElements() {
-        super.initElements();
+    protected void initElements(Layer layer) {
+        super.initElements(layer);
+
         ButtonGeneric buttonGeneric = ButtonGeneric.builder("启用终极挑战", buttonBase -> {
             String question = "确定启用终极挑战吗";
             String yes = StringUtils.translate("gui.yes");
             String no = StringUtils.translate("gui.no");
-            GuiYesNoMITE var3 = new GuiYesNoMITE(this, question, "这很困难!", yes, no, 0);
+            GuiYesNoMITE var3 = new GuiYesNoMITE(this, question, "这很困难!", yes, no, ConfirmFlag);
             this.mc.displayGuiScreen(var3);
         }).dimensions(this.width - 80, 30, 60, 20).build();
-        this.addButton(buttonGeneric);
+        layer.addWidget(buttonGeneric);
     }
 
     @Override

@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'fml-loom' version '0.1.local'
+    id 'fml-loom' version '0.1'
     id 'maven-publish'
 }
 
@@ -12,66 +12,69 @@ base {
     archivesName = "[黄昏重生]" + project.archives_base_name
 }
 
+def canonical_version = project.mod_version
+project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
+
 repositories {
-    mavenLocal()
     maven {
-        name = "Spongepowered"
-        url = "https://repo.spongepowered.org/repository/maven-public/"
+        name = "ModdedMITE"
+        url = uri("https://maven.limingzxc.top/repository/maven-public/")
     }
 }
 
+configurations {
+    fml
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    fml "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
+    implementation "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
+
+    // these are necessary for running
+    implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.0"
+    implementation "com.github.MinecraftIsTooEasy:RustedIronCore:1.5.0"
+    implementation "com.github.MinecraftIsTooEasy:Conditional-Mixin:0.6.4"
+
+    // compile needed, runtime not needed
+    compileOnly "com.github.MinecraftIsTooEasy:MITE-ITE:2.0.19"
+    compileOnly "com.github.MinecraftIsTooEasy:Baubles:1.1.1"
+    compileOnly "com.github.MinecraftIsTooEasy:Shop:1.0.4"
+    compileOnly "com.github.MinecraftIsTooEasy:RWG:1.4.2"
+    compileOnly "com.github.MinecraftIsTooEasy:Extreme:0.1.6.11"
+
+    // useful mods
+    implementation "com.github.MinecraftIsTooEasy:ModernMITE:3.7.1"
+    implementation "com.github.MinecraftIsTooEasy:OMMC:1.4.2"
+    implementation "com.github.MinecraftIsTooEasy:Neodymium:1.1.1"
+    implementation "com.github.MinecraftIsTooEasy:Hwite:1.5.1"
+    implementation "com.github.MinecraftIsTooEasy:MixinConflictHelper:1.0.0"
+    implementation "com.github.MinecraftIsTooEasy:ModMenu:10.1.1"
+    implementation "com.github.MinecraftIsTooEasy:PinIn-Lib:1.6.0"
+    implementation "com.github.MinecraftIsTooEasy:ExtraGui:1.3.6"
+
+    implementation "com.github.MinecraftIsTooEasy:Gson:2.10.1"
+    implementation "com.github.MinecraftIsTooEasy:FastUtil:8.5.12"
+    implementation "com.github.MinecraftIsTooEasy:EMI:1.1.24"
+}
+
+def fmlResolvedFile = configurations.fml.files.iterator().next()
+
 loom {
-    accessWidenerPath = file("src/main/resources/MITEIsTooFalse.accesswidener")
+    accessWidenerPath = file("src/main/resources/MITEIsTooFalse.accessWidener")
     mergedMinecraftJar()
-    setFML(new File("${lib_dir}/${fish_mod_loader}"))
+
     mods {
         "MITE-ITF-Reborn" {
             sourceSet sourceSets.main
         }
     }
-
 }
 
-tasks.named('runClient', JavaExec).configure { exec ->
-    exec.setArgs(['--username', project.property('user_name'), '--session', '0', '--width', '854', '--height', '480'])
-}
-
-dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.fmlMCPMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-    implementation files(loom.getFML().toPath())
-
-    implementation("it.unimi.dsi:fastutil:8.5.12")
-
-    // these are necessary for running
-    implementation files("${lib_dir}/ManyLib.jar")
-    implementation files("${lib_dir}/RustedIronCore.jar")
-    implementation files("${lib_dir}/RustedIronCore-sources.jar")
-    implementation files("${lib_dir}/conditional-mixin.jar")
-
-    // compile needed, runtime not needed
-    compileOnly(files("${lib_dir}/MITE-ITE.jar"))
-    compileOnly(files("${lib_dir}/Baubles.jar"))
-    compileOnly(files("${lib_dir}/Shop.jar"))
-    compileOnly(files("${lib_dir}/RWG.jar"))
-    compileOnly(files("${lib_dir}/Extreme.jar"))
-
-    // some useful mods I use
-    implementation files("${lib_dir}/ModernMite.jar")
-    implementation files("${lib_dir}/ommc.jar")
-    implementation files("${lib_dir}/Neodymium.jar")
-    implementation files("${lib_dir}/Hwite.jar")
-    implementation files("${lib_dir}/MixinConflictHelper.jar")
-    implementation files("${lib_dir}/EMI.jar")
-    implementation files("${lib_dir}/ModMenu.jar")
-    implementation files("${lib_dir}/PinIn-Lib.jar")
-    implementation files("${lib_dir}/ExtraGui.jar")
-}
-
-def canonical_version = project.mod_version
-project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
+loom.setFML(fmlResolvedFile)
+dependencies.add("mappings", loom.fmlMCPMappings())
 
 processResources {
     inputs.property "version", project.version
@@ -94,7 +97,11 @@ java {
 }
 
 jar {
+}
 
+tasks.named('runClient', JavaExec).configure { exec ->
+    def user = project.hasProperty('username') ? project.username : 'Dev'
+    exec.setArgs(['--username', user, '--session', '0', '--width', '854', '--height', '480'])
 }
 
 // configure the maven publication

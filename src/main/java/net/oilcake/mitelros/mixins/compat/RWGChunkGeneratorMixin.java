@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import rwg.world.ChunkGeneratorRealistic;
+import rwg.world.overworld.ChunkGeneratorRealistic;
 
 import java.util.Random;
 
