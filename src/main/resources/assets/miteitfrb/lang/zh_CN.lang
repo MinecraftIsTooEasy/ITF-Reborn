@@ -149,6 +149,7 @@ tile.bars/nickel_bars.name=镍栅栏
 tile.toolbench.nickel.name=镍工作台
 tile.block_smoker_idle.name=烟熏炉
 tile.block_smoker_burning.name=烟熏炉
+tile.beetroot.name=甜菜根
 tile.azurite_block.name=碧蓝水晶块
 tile.azurite_cluster.name=碧蓝水晶簇
 tile.torch_idle.name=阴燃火把
