@@ -1,14 +1,13 @@
 package net.oilcake.mitelros.mixins.world;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.BiomeGenBase;
 import net.minecraft.Entity;
 import net.minecraft.Explosion;
 import net.minecraft.World;
-import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
-import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.feat.EnumSeason;
+import net.oilcake.mitelros.feat.EternalRaining;
+import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,11 +18,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Random;
-
 @Mixin(World.class)
 public abstract class WorldMixin implements ITFWorld {
-
     @Shadow
     public abstract World getWorld();
 
@@ -35,39 +31,18 @@ public abstract class WorldMixin implements ITFWorld {
         return explosion;
     }
 
-    @WrapOperation(method = "generateWeatherEvents(I)Ljava/util/List;", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 2))
-    private int itfRain(Random instance, int i, Operation<Integer> original) {
-        int duration_static = 6000 * (ITFConfig.TagEternalRaining.getBooleanValue() ? 6 : 1);
-        int duration_random = original.call(instance, i) * (ITFConfig.TagEternalRaining.getBooleanValue() ? 2 : 1);
-        int duration = duration_random + duration_static;
-        duration = (int) (duration * getRainDurationModify(itf$GetWorldSeason()));
-        return duration - 6000;
+    @ModifyExpressionValue(method = "generateWeatherEvents(I)Ljava/util/List;", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 2))
+    private int itfRain(int original) {
+        return EternalRaining.modifyRain((World) (Object) this, original);
     }
 
     @Shadow
     @Final
-    public int getDayOfWorld() {
-        return 0;
-    }
+    public abstract int getDayOfWorld();
 
     @Unique
     public EnumSeason itf$GetWorldSeason() {
         return EnumSeason.getForCode((this.getDayOfWorld() % 128) / 32);
-    }
-
-    @Unique
-    public float getRainDurationModify(EnumSeason season) {
-        return switch (season) {
-            case SPRING -> 1.0F;
-            case SUMMER -> 2.25F;
-            case AUTUMN -> 0.75F;
-            case WINTER -> 0.5F;
-        };
-    }
-
-    @Unique
-    public float itf$GetSeasonGrowthModifier() {
-        return (float) Math.sin(0.0490873852123 * (this.getDayOfWorld() - 16));
     }
 
     @ModifyConstant(method = "canSnowAt", constant = @Constant(floatValue = 0.15F))
