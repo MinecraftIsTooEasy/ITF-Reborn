@@ -1,17 +1,14 @@
 package net.oilcake.mitelros.status;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
-import net.oilcake.mitelros.compat.ModCompat;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.material.Materials;
-import net.oilcake.mitelros.item.ItemTotem;
-import net.oilcake.mitelros.unsafe.BaublesAccess;
-import net.oilcake.mitelros.util.AchievementExtend;
-import net.oilcake.mitelros.util.Constant;
 import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
 import net.oilcake.mitelros.feat.quality.EnumToolType;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.util.AchievementExtend;
+import net.oilcake.mitelros.util.Constant;
 
 import java.util.List;
 
@@ -113,26 +110,6 @@ public class MiscManager {
             }
         }
         return distance;
-    }
-
-    public boolean skipDeath() {
-        ItemStack var5 = player.getHeldItemStack();
-        if (var5 != null && var5.getItem() instanceof ItemTotem totem) {
-            totem.trigger(this.player, false);
-            player.setHeldItemStack(null);
-            return true;
-        }
-
-        if (ModCompat.HAS_BAUBLES) {
-            ItemStack itemStack = BaublesAccess.getStackInAmulet(player);
-            if (itemStack != null && itemStack.getItem() instanceof ItemTotem totem) {
-                totem.trigger(this.player, false);
-                BaublesAccess.clearAmulet(player);
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void wolfFurCheck() {

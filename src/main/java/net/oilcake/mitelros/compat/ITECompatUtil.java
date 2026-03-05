@@ -3,6 +3,7 @@ package net.oilcake.mitelros.compat;
 import net.minecraft.EntityLivingBase;
 import net.minecraft.SharedMonsterAttributes;
 import net.minecraft.World;
+import net.oilcake.mitelros.ModReference;
 
 public class ITECompatUtil {
     public static int getITEDay(World world) {
@@ -14,7 +15,7 @@ public class ITECompatUtil {
     }
 
     public static double getAttribute(int day, double base, double ratio) {
-        return ModCompat.HAS_ITE ? base * 2.0D + day * ratio : base;
+        return ModReference.hasMod(ModReference.ITE) ? base * 2.0D + day * ratio : base;
     }
 
     public static void setMaxHealth(EntityLivingBase entity, double base) {

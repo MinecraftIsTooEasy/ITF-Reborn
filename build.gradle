@@ -45,6 +45,7 @@ dependencies {
     compileOnly "com.github.MinecraftIsTooEasy:Shop:1.0.4"
     compileOnly "com.github.MinecraftIsTooEasy:RWG:1.4.2"
     compileOnly "com.github.MinecraftIsTooEasy:Extreme:0.1.6.11"
+    compileOnly "com.github.MinecraftIsTooEasy:OffHand:3.0.2"
 
     // useful mods
     implementation "com.github.MinecraftIsTooEasy:ModernMITE:3.7.1"

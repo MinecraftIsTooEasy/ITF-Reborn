@@ -3,9 +3,9 @@ package net.oilcake.mitelros.mixins.entity.misc;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.*;
+import net.oilcake.mitelros.feat.TotemUse;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
 import net.oilcake.mitelros.potion.PotionExtend;
-import net.oilcake.mitelros.status.MiscManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -44,10 +44,11 @@ public abstract class EntityLivingBaseMixin extends Entity implements ITFEntityL
         return 0.0F;
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     @WrapWithCondition(method = "attackEntityFromHelper", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityDamageResult;setEntityWasDestroyed()Lnet/minecraft/EntityDamageResult;"))
     private boolean onDestroyed(EntityDamageResult instance) {
         if (this.instance instanceof EntityPlayer player) {
-            if (MiscManager.getInstance(player).skipDeath()) return false;
+            if (TotemUse.skipDeath(player)) return false;
         }
         return true;
     }
