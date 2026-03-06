@@ -20,6 +20,7 @@
     "block.BlockPortalMixin",
     "block.BlockStemMixin",
     "block.BlockTorchMixin",
+    "block.IMixinBlock",
     "block.entity.TileEntityBeaconMixin",
     "block.entity.TileEntityFurnaceMixin",
     "client.gui.GuiBeaconButtonPowerMixin",
@@ -110,8 +111,8 @@
     "world.WorldMixin",
     "world.WorldProviderUnderworldMixin",
     "world.WorldServerMixin",
-    "world.biome.BiomeGenHillsMixin",
     "world.biome.BiomeGenBaseMixin",
+    "world.biome.BiomeGenHillsMixin",
     "world.biome.BiomeGenUnderworldMixin",
     "world.biome.BiomeHellMixin",
     "world.biome.BiomeTheEndMixin"

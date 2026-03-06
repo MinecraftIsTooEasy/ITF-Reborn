@@ -37,6 +37,11 @@ public class ITFRegistryImpl implements ITFRegistry {
         ITFProperties.ORE_MELTING_MAP.register(blockOre, dropItemID);
     }
 
+    @Override
+    public void registerOreMeltingSilkTouch(Block blockOre, int dropItemID) {
+        ITFProperties.ORE_MELTING_SILK_TOUCH_MAP.register(blockOre, dropItemID);
+    }
+
     public static final Map<Block, ItemStack> ABSORBING_MAP = new HashMap<>();
 
     @Override

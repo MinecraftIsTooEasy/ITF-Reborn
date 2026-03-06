@@ -12,4 +12,5 @@ public class ITFProperties {
     public static final IntegerProperty<Block> ORE_PIECE_MAP = IntegerProperty.of("Ore Piece", 0);
     public static final IntegerProperty<Block> ORE_MELTING_MAP = IntegerProperty.of("Ore Melting", 0);
     public static final IntegerProperty<Material> MATERIAL_WATER = IntegerProperty.of("Material Water", 0);
+    public static final IntegerProperty<Block> ORE_MELTING_SILK_TOUCH_MAP = IntegerProperty.of("Ore Melting Silk Touch", 0);
 }

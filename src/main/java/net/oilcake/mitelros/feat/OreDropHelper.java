@@ -26,6 +26,10 @@ public class OreDropHelper {
         return ITFProperties.ORE_MELTING_MAP.getOrDefault(blockOre);
     }
 
+    public static int getMeltIngotItemID(BlockOre blockOre) {
+        return ITFProperties.ORE_MELTING_SILK_TOUCH_MAP.getOrDefault(blockOre);
+    }
+
     public static boolean canAbsorb(BlockOre blockOre) {
         return calcAbsorbXP(blockOre, 1.0F) != 0;
 //        return this == Block.oreDiamond || this == Block.oreEmerald || this == Blocks.blockAzurite || this == Block.oreNetherQuartz || this == Block.oreLapis;
@@ -44,4 +48,5 @@ public class OreDropHelper {
         }
         return 0;
     }
+
 }

@@ -17,7 +17,7 @@ public abstract class EnchantmentSilkTouchMixin extends Enchantment {
 
     @Inject(method = "canApplyTogether", at = @At("HEAD"), cancellable = true)
     private void inject(Enchantment par1Enchantment, CallbackInfoReturnable<Boolean> cir) {
-        if (par1Enchantment.effectId == Enchantments.enchantmentMelting.effectId || par1Enchantment.effectId == Enchantments.enchantmentAbsorb.effectId) {
+        if (par1Enchantment.effectId == Enchantments.enchantmentAbsorb.effectId) {
             cir.setReturnValue(false);
         }
     }

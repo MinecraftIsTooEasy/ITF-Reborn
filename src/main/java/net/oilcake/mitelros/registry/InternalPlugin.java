@@ -91,6 +91,17 @@ public class InternalPlugin implements ITFPlugin {
         registry.registerOreMelting(Blocks.oreUru, Items.uruNugget.itemID);
 
 
+        registry.registerOreMeltingSilkTouch(Block.oreCopper, Item.ingotCopper.itemID);
+        registry.registerOreMeltingSilkTouch(Block.oreSilver, Item.ingotSilver.itemID);
+        registry.registerOreMeltingSilkTouch(Block.oreGold, Item.ingotGold.itemID);
+        registry.registerOreMeltingSilkTouch(Block.oreIron, Item.ingotIron.itemID);
+        registry.registerOreMeltingSilkTouch(Block.oreMithril, Item.ingotMithril.itemID);
+        registry.registerOreMeltingSilkTouch(Block.oreAdamantium, Item.ingotAdamantium.itemID);
+        registry.registerOreMeltingSilkTouch(Blocks.oreNickel, Items.nickelIngot.itemID);
+        registry.registerOreMeltingSilkTouch(Blocks.oreTungsten, Items.tungstenIngot.itemID);
+        registry.registerOreMeltingSilkTouch(Blocks.oreUru, Items.uruIngot.itemID);
+
+
         registry.registerOreAbsorbing(Block.oreDiamond, new ItemStack(Item.diamond));
         registry.registerOreAbsorbing(Block.oreEmerald, new ItemStack(Item.emerald));
         registry.registerOreAbsorbing(Block.oreNetherQuartz, new ItemStack(Item.netherQuartz));

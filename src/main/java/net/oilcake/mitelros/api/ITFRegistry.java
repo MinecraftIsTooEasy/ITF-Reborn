@@ -20,6 +20,8 @@ public interface ITFRegistry {
 
     void registerOreMelting(Block blockOre, int dropItemID);
 
+    void registerOreMeltingSilkTouch(Block blockOre, int dropItemID);
+
     /**
      * @param output used to look up the exp equivalent.
      */
