@@ -1,12 +1,11 @@
 package net.oilcake.mitelros.mixins.entity.player;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
-import net.oilcake.mitelros.api.CraftingSpeedTweaker;
-import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import net.oilcake.mitelros.client.gui.GuiEnchantReserver;
 import net.oilcake.mitelros.client.gui.GuiMinePocketInventory;
+import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
+import net.oilcake.mitelros.registry.property.ITFProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,8 +37,7 @@ public abstract class ClientPlayerMixin extends AbstractClientPlayer implements 
         if (benchMaterial.min_harvest_level < material_to_check_tool_bench_hardness_against.min_harvest_level) {
             cir.setReturnValue(0.0F);
         } else {
-            float modifier = CraftingSpeedTweaker.get(benchMaterial);
-            if (modifier != 0.0f) cir.setReturnValue(modifier);
+            ITFProperties.CRAFTING_SPEED.getOptional(benchMaterial).ifPresent(cir::setReturnValue);
         }
     }
 }

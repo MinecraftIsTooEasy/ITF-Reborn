@@ -53,4 +53,19 @@ public class ITFRegistryImpl implements ITFRegistry {
     public void registerMaterialWater(Material material, int water) {
         ITFProperties.MATERIAL_WATER.register(material, water);
     }
+
+    @Override
+    public void registerMaterialCraftingSpeedModifier(Material material, float speed) {
+        ITFProperties.CRAFTING_SPEED.register(material, speed);
+    }
+
+    @Override
+    public void registerMaterialBowPullTicks(Material material, int ticks) {
+        ITFProperties.BOW_PULL_TICKS.register(material, ticks);
+    }
+
+    @Override
+    public void registerMaterialBowDamageModifier(Material material, float modifier) {
+        ITFProperties.BOW_DAMAGE_MODIFIER.register(material, modifier);
+    }
 }

@@ -11,11 +11,6 @@ public class EnchantmentMelting extends Enchantment {
     }
 
     @Override
-    public boolean canApplyTogether(Enchantment par1Enchantment) {
-        return (super.canApplyTogether(par1Enchantment) && par1Enchantment.effectId != Enchantments.enchantmentAbsorb.effectId);
-    }
-
-    @Override
     public String getNameSuffix() {
         return "melting";
     }

@@ -4,9 +4,9 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
-import net.oilcake.mitelros.api.BowAttributeTweaker;
 import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
 import net.oilcake.mitelros.feat.quality.EnumToolType;
+import net.oilcake.mitelros.registry.property.ITFProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,10 +18,19 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class ItemBowMixin extends Item {
     @Inject(method = "getTicksForMaxPull", at = @At("HEAD"), cancellable = true)
     private static void setITFPullSpeed(ItemStack item_stack, CallbackInfoReturnable<Integer> cir) {
-        int i = BowAttributeTweaker.overridePullSpeed(item_stack);
-        if (i != -1) {
-            cir.setReturnValue(i);
-        }
+        Material material = item_stack.getMaterialForRepairs();
+
+        Integer i = ITFProperties.BOW_PULL_TICKS.get(material);
+
+        if (i == null) return;
+
+        cir.setReturnValue(
+                (int) (
+                        i
+                                * (1.0F - 0.5F * EnchantmentHelper.getEnchantmentLevelFraction(Enchantment.quickness, item_stack))
+                                / EnumToolType.getMultiplierForEntry(item_stack, EnumEffectEntry.PullSpeed)
+                )
+        );
     }
 
     @ModifyExpressionValue(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;inCreativeMode()Z"))
@@ -41,7 +50,7 @@ public abstract class ItemBowMixin extends Item {
             damageAfterPower -= ((double) ((float) power * 0.5F) + 0.5);
         }
         Material material = item_stack.getMaterialForRepairs();
-        damageAfterPower *= BowAttributeTweaker.getDamageModifier(material);
+        damageAfterPower *= (double) ITFProperties.BOW_DAMAGE_MODIFIER.getOrDefault(material);
         if (power > 0) {
             damageAfterPower += (double) ((float) power * 0.5F) + 0.5;
         }

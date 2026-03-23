@@ -64,5 +64,8 @@ public class ITFEventRIC extends Handlers {
         BiomeDecoration.register(new BiomeDecorationRegistry());
 
         PotionRegistry.register(net.oilcake.mitelros.registry.potion.PotionRegistry::register);
+
+        WorldLoad.register(new WorldLoadListener());
     }
+
 }

@@ -13,4 +13,7 @@ public class ITFProperties {
     public static final IntegerProperty<Block> ORE_MELTING_MAP = IntegerProperty.of("Ore Melting", 0);
     public static final IntegerProperty<Material> MATERIAL_WATER = IntegerProperty.of("Material Water", 0);
     public static final IntegerProperty<Block> ORE_MELTING_SILK_TOUCH_MAP = IntegerProperty.of("Ore Melting Silk Touch", 0);
+    public static final FloatProperty<Material> CRAFTING_SPEED = FloatProperty.of("Workbench Crafting Speed", 0);
+    public static final IntegerProperty<Material> BOW_PULL_TICKS = IntegerProperty.of("Bow Pull Ticks", 0);
+    public static final FloatProperty<Material> BOW_DAMAGE_MODIFIER = FloatProperty.of("Bow Damage Modifier", 0.75F);
 }

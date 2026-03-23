@@ -107,6 +107,32 @@ public class InternalPlugin implements ITFPlugin {
         registry.registerOreAbsorbing(Block.oreNetherQuartz, new ItemStack(Item.netherQuartz));
         registry.registerOreAbsorbing(Block.oreLapis, new ItemStack(Item.dyePowder, 1, 4));
 
+
+        registry.registerMaterialCraftingSpeedModifier(Material.flint, 0.25F);
+        registry.registerMaterialCraftingSpeedModifier(Material.obsidian, 0.25F);
+        registry.registerMaterialCraftingSpeedModifier(Material.copper, 0.4F);
+        registry.registerMaterialCraftingSpeedModifier(Material.silver, 0.4F);
+        registry.registerMaterialCraftingSpeedModifier(Material.gold, 0.4F);
+        registry.registerMaterialCraftingSpeedModifier(Material.iron, 0.5F);
+        registry.registerMaterialCraftingSpeedModifier(Materials.nickel, 0.5F);
+        registry.registerMaterialCraftingSpeedModifier(Materials.ancient_metal, 0.75F);
+        registry.registerMaterialCraftingSpeedModifier(Materials.mithril, 1.0F);
+        registry.registerMaterialCraftingSpeedModifier(Materials.tungsten, 1.5F);
+        registry.registerMaterialCraftingSpeedModifier(Materials.adamantium, 2.5F);
+
+
+        registry.registerMaterialBowPullTicks(Materials.tungsten, 30);
+        registry.registerMaterialBowPullTicks(Materials.uru, 18);
+        registry.registerMaterialBowPullTicks(Materials.mithril, 27);
+        registry.registerMaterialBowPullTicks(Materials.ancient_metal, 24);
+
+
+        registry.registerMaterialBowDamageModifier(Materials.tungsten, 1.15F);
+        registry.registerMaterialBowDamageModifier(Materials.uru, 0.9F);
+        registry.registerMaterialBowDamageModifier(Materials.mithril, 1.1F);
+        registry.registerMaterialBowDamageModifier(Materials.ancient_metal, 1.05F);
+
+
         if (ITFConfig.OreCompat.getBooleanValue()) {
             try {
                 if (ModReference.hasMod(ModReference.ITE)) ITEAccess.register(registry);

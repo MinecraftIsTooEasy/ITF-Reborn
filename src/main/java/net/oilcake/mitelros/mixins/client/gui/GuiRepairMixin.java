@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.mixins.client.gui;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.api.AnvilStatus;
-import net.oilcake.mitelros.feat.AnvilSystem;
+import net.oilcake.mitelros.feat.anvil.AnvilStatus;
+import net.oilcake.mitelros.feat.anvil.AnvilSystem;
 import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

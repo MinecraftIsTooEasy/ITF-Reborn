@@ -64,6 +64,7 @@ public class ITFConfig extends SimpleConfigs {
     public static final ConfigBoolean ITFAnvilSystem = new ConfigBoolean("ITF铁砧机制", true, "此设置还会影响战利品箱子中附魔书的生成");
     public static final ConfigEnum<BiomeMode> ITFBiomeMode = new ConfigEnum<>("群系机制", BiomeMode.NORMAL, "compat代表兼容模式, 与原版大致相同");
     public static final ConfigBoolean OreCompat = new ConfigBoolean("矿物兼容", true, "融毁和吸收等附魔对别的模组奏效");
+    public static final ConfigBoolean Statement = new ConfigBoolean("声明", true, "进入游戏时的声明");
 
     public static final List<ConfigBase<?>> challenge;
     public static final List<ConfigBase<?>> spite;
@@ -92,7 +93,7 @@ public class ITFConfig extends SimpleConfigs {
 
         experimental = List.of(TagCreaturesV2, FinalChallenge);
         args = List.of(AnvilXPMultiplier, AnvilXPMultiplierInit, AnvilXPMultiplierReward, AnvilXPMultiplierTreasure, TotemKnowledgeLimit, CancelItemRockUse, EnchantReserverLossMultiplier);
-        misc = List.of(ITFAnvilSystem, ITFBiomeMode, OreCompat);
+        misc = List.of(ITFAnvilSystem, ITFBiomeMode, OreCompat, Statement);
 
 
         values = new ArrayList<>();

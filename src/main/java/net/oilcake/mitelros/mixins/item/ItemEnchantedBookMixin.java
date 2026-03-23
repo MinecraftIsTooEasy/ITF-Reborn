@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.oilcake.mitelros.feat.AnvilSystem;
+import net.oilcake.mitelros.feat.anvil.AnvilSystem;
 import net.oilcake.mitelros.feat.MultiEnchantedBook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

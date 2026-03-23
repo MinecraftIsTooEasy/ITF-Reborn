@@ -31,4 +31,16 @@ public interface ITFRegistry {
      * For bowl or other food containers
      */
     void registerMaterialWater(Material material, int water);
+
+    /**
+     * for workbench; 1 for unit
+     */
+    void registerMaterialCraftingSpeedModifier(Material material, float modifier);
+
+    void registerMaterialBowPullTicks(Material material, int ticks);
+
+    /**
+     * 0.75 for default
+     */
+    void registerMaterialBowDamageModifier(Material material, float modifier);
 }

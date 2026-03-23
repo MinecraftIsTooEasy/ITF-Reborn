@@ -1,4 +1,4 @@
-package net.oilcake.mitelros.feat;
+package net.oilcake.mitelros.feat.anvil;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
