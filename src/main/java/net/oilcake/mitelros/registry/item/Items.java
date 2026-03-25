@@ -411,7 +411,7 @@ public class Items extends Item {
 
     public static final Item totemOfHunting = new ItemTotemHunting(getNextItemID());
 
-    public static final ItemClub uruMorningStar = ReflectHelper.createInstance(ItemClub.class, new Class[]{int.class, Material.class}, getNextItemID(), Materials.uru);
+    public static final ItemMorningStar uruMorningStar = new ItemMorningStar(getNextItemID(), Materials.uru);
 
     public static final ItemPickaxe uruPickaxe = ReflectHelper.createInstance(ItemPickaxe.class, new Class[]{int.class, Material.class}, getNextItemID(), Materials.uru);
 
