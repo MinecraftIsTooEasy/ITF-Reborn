@@ -35,6 +35,7 @@
     "container.ContainerEnchantmentMixin",
     "container.ContainerRepairINNER2Mixin",
     "container.ContainerRepairMixin",
+    "container.InventoryPlayerMixin",
     "enchantment.EnchantmentArrowRecoveryMixin",
     "enchantment.EnchantmentMixin",
     "enchantment.EnchantmentPiercingMixin",

@@ -1,26 +1,24 @@
 package net.oilcake.mitelros.inventory;
 
-import net.minecraft.*;
+import net.minecraft.InventoryBasic;
+import net.minecraft.ItemStack;
+import net.minecraft.NBTTagCompound;
 import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.util.InventoryUtil;
 
 public class MinePocketInventory extends InventoryBasic {
+    public static final int SIZE = 5;
+
     private final ItemStack itemStack;
 
     public MinePocketInventory(String par1Str, boolean par2, ItemStack itemStack) {
-        super(par1Str, par2, 5);
-        if (itemStack.itemID != Items.minePocket.itemID) {
-            Minecraft.setErrorMessage("why create inventory for not mine pocket");
+        super(par1Str, par2, SIZE);
+        if (itemStack.getItem() != Items.minePocket) {
+            throw new AssertionError("why create inventory for not mine pocket");
         }
         this.itemStack = itemStack;
         NBTTagCompound tagCompound = itemStack.getTagCompound();
-        if (tagCompound != null && tagCompound.hasKey("Items")) {
-            NBTTagList minePocket = tagCompound.getTagList("Items");
-            for (int index = 0; index < minePocket.tagCount(); index++) {
-                NBTTagCompound nbtBase = (NBTTagCompound) minePocket.tagAt(index);
-                int slot = nbtBase.getByte("Slot");
-                this.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(nbtBase));
-            }
-        }
+        InventoryUtil.load(this, tagCompound);
     }
 
     @Override
@@ -29,16 +27,7 @@ public class MinePocketInventory extends InventoryBasic {
         if (tagCompound == null) {
             tagCompound = new NBTTagCompound();
         }
-        NBTTagList var2 = new NBTTagList();
-        for (int var3 = 0; var3 < this.getSizeInventory(); ++var3) {
-            ItemStack var4 = this.getStackInSlot(var3);
-            if (var4 == null) continue;
-            NBTTagCompound var5 = new NBTTagCompound();
-            var5.setByte("Slot", (byte) var3);
-            var4.writeToNBT(var5);
-            var2.appendTag(var5);
-        }
-        tagCompound.setTag("Items", var2);
+        InventoryUtil.save(this, tagCompound);
         this.itemStack.setTagCompound(tagCompound);
     }
 }

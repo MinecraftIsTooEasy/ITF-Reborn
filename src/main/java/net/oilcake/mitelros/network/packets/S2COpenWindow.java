@@ -3,11 +3,11 @@ package net.oilcake.mitelros.network.packets;
 import moddedmite.rustedironcore.network.Packet;
 import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import net.oilcake.mitelros.inventory.MinePocketInventory;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.network.ITFNetwork;
+import net.oilcake.mitelros.registry.item.Items;
 
 public class S2COpenWindow implements Packet {
     public int windowId;
@@ -87,8 +87,11 @@ public class S2COpenWindow implements Packet {
                 player.openContainer.windowId = this.windowId;
             }
             case MinePocket -> {
-                ((ITFPlayer) player).itf$DisplayGuiMinePocket(new MinePocketInventory(this.windowTitle, false, player.getHeldItemStack()));
-                player.openContainer.windowId = this.windowId;
+                ItemStack itemStack = player.getHeldItemStack();
+                if (itemStack.getItem() == Items.minePocket) {
+                    ((ITFPlayer) player).itf$DisplayGuiMinePocket(new MinePocketInventory(this.windowTitle, false, itemStack));
+                    player.openContainer.windowId = this.windowId;
+                }
             }
             default -> Minecraft.setErrorMessage("handleOpenWindow: type not handled " + this.enumInventoryType);
         }
