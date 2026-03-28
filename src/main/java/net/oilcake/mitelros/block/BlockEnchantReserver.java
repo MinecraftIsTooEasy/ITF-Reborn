@@ -3,7 +3,6 @@ package net.oilcake.mitelros.block;
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class BlockEnchantReserver extends BlockContainer {

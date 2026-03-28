@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.command;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 
 import java.util.List;
 

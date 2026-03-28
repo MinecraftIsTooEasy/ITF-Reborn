@@ -2,8 +2,8 @@ package net.oilcake.mitelros.client.render;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
 import net.oilcake.mitelros.entity.boss.EntityLich;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityLivingBase;
 import org.lwjgl.opengl.GL11;
 
 public class RenderLich extends RenderBiped {

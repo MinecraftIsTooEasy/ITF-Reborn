@@ -2,11 +2,10 @@ package net.oilcake.mitelros.mixins.entity.player;
 
 import moddedmite.rustedironcore.network.Network;
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
-import net.oilcake.mitelros.container.ContainerEnchantReserver;
-import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.container.ContainerEnchantReserver;
 import net.oilcake.mitelros.container.ContainerMinePocket;
+import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.S2COpenWindow;

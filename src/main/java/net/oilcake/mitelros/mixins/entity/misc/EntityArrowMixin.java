@@ -9,7 +9,7 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.entity.mob.EntityBoneBodyguard;
 import net.oilcake.mitelros.entity.mob.EntityStray;
 import net.oilcake.mitelros.entity.mob.EntityWitherBodyguard;
-import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.feat.Difficulty;
 import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
 import net.oilcake.mitelros.feat.quality.EnumToolType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,7 +51,7 @@ public abstract class EntityArrowMixin extends Entity {
     @ModifyExpressionValue(method = "onUpdate", at = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/ItemArrow;getDamage()F"))
     private float addDamage(float original) {
         float dummy = 0.0F;
-        if (ITFConfig.FinalChallenge.getBooleanValue()) dummy += Constant.calculateCurrentDifficulty() / 12.5F;
+        if (ITFConfig.FinalChallenge.getBooleanValue()) dummy += Difficulty.calculateCurrentDifficulty() / 12.5F;
         if (this.shootingEntity.getClass() == EntityStray.class) dummy += 0.5F;
         if (this.shootingEntity.getClass() == EntityBoneBodyguard.class) dummy++;
         if (this.shootingEntity.getClass() == EntityWitherBodyguard.class) dummy += 1.5F;

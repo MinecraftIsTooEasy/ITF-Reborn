@@ -3,10 +3,10 @@ package net.oilcake.mitelros.event.listener;
 import moddedmite.rustedironcore.property.ItemProperties;
 import net.minecraft.Item;
 import net.oilcake.mitelros.api.ITFPlugin;
-import net.oilcake.mitelros.registry.block.Blocks;
-import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.registry.ITFRegistryImpl;
 import net.oilcake.mitelros.registry.InternalPlugin;
+import net.oilcake.mitelros.registry.block.Blocks;
+import net.oilcake.mitelros.registry.item.Items;
 import net.xiaoyu233.fml.FishModLoader;
 
 public class PropertyRegistry implements Runnable {

@@ -3,11 +3,11 @@ package net.oilcake.mitelros.event.listener;
 import moddedmite.rustedironcore.api.event.listener.ICombatListener;
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.potion.PotionExtend;
-import net.oilcake.mitelros.status.MiscManager;
-import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.feat.Difficulty;
 import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
 import net.oilcake.mitelros.feat.quality.EnumToolType;
+import net.oilcake.mitelros.potion.PotionExtend;
+import net.oilcake.mitelros.status.MiscManager;
 
 public class CombatListener implements ICombatListener {
     @Override
@@ -17,8 +17,9 @@ public class CombatListener implements ICombatListener {
 
     @Override
     public void onPlayerReceiveDamageModify(EntityPlayer player, Damage damage) {
-        if (ITFConfig.FinalChallenge.getBooleanValue())
-            damage.scaleAmount(1.0F + Constant.calculateCurrentDifficulty() / 50.0F);
+        if (ITFConfig.FinalChallenge.getBooleanValue()) {
+            damage.scaleAmount(1.0F + Difficulty.calculateCurrentDifficulty() / 50.0F);
+        }
     }
 
     @Override

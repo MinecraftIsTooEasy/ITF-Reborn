@@ -9,7 +9,7 @@ import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.JsonUtils;
 import net.minecraft.GuiScreen;
 import net.oilcake.mitelros.ITFStart;
-import net.oilcake.mitelros.util.Constant;
+import net.oilcake.mitelros.feat.Difficulty;
 import net.oilcake.mitelros.world.biome.BiomeMode;
 
 import java.util.ArrayList;
@@ -47,7 +47,6 @@ public class ITFConfig extends SimpleConfigs {
 
     /* experimentalConfig */
     public static final ConfigBoolean TagCreaturesV2 = new ConfigBoolean("新动物生成机制", "重启游戏生效");
-    public static final ConfigBoolean TagBenchingV2 = new ConfigBoolean("工作站废料回收");
     public static final ConfigBoolean FinalChallenge = new ConfigBoolean("终极挑战模式");
 
     // args
@@ -104,7 +103,7 @@ public class ITFConfig extends SimpleConfigs {
 
         Instance = new ITFConfig(ITFStart.MOD_ID, null, values);
 
-        Constant.ultimateDifficulty = calculateUltimateDifficulty();
+        Difficulty.ultimateDifficulty = Difficulty.calculateUltimateDifficulty();
 
 
         configTabs.add(new ConfigTab("自然恶意", spite));
@@ -113,27 +112,6 @@ public class ITFConfig extends SimpleConfigs {
         configTabs.add(new ConfigTab("实验性玩法", experimental));
         configTabs.add(new ConfigTab("参数配置", args));
         configTabs.add(new ConfigTab("杂项", misc));
-    }
-
-    private static int calculateUltimateDifficulty() {
-        int difficulty = 0;
-        for (ConfigBase<?> configBase : spite) {
-            if (configBase instanceof ConfigBooleanChallenge configBooleanChallenge) {
-                difficulty += configBooleanChallenge.getLevel();
-            }
-            if (configBase instanceof ConfigInteger configInteger) {
-                difficulty += configInteger.getMaxIntegerValue();
-            }
-        }
-        for (ConfigBase<?> configBase : enemy) {
-            if (configBase instanceof ConfigBooleanChallenge configBooleanChallenge) {
-                difficulty += configBooleanChallenge.getLevel();
-            }
-            if (configBase instanceof ConfigInteger configInteger) {
-                difficulty += configInteger.getMaxIntegerValue();
-            }
-        }
-        return difficulty;
     }
 
     public static ITFConfig getInstance() {

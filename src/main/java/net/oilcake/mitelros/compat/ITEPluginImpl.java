@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.compat;
 
-import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.item.api.ItemMorningStar;
+import net.oilcake.mitelros.material.Materials;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;

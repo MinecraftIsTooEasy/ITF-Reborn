@@ -2,9 +2,9 @@ package net.oilcake.mitelros.registry.recipe;
 
 import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
-import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.item.api.ItemMorningStar;
+import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.ItemUtil;
 
 public class RecipesArmor extends Items {

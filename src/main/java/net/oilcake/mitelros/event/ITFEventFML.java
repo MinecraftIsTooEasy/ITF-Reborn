@@ -5,7 +5,6 @@ import net.minecraft.*;
 import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
 import net.oilcake.mitelros.block.entity.TileEntityObserver;
 import net.oilcake.mitelros.block.entity.TileEntityReceiver;
-import net.oilcake.mitelros.registry.block.BlockRegistry;
 import net.oilcake.mitelros.client.render.*;
 import net.oilcake.mitelros.command.CommandGenerate;
 import net.oilcake.mitelros.command.CommandHunger;
@@ -15,11 +14,12 @@ import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.entity.boss.EntityLich;
 import net.oilcake.mitelros.entity.misc.*;
 import net.oilcake.mitelros.entity.mob.*;
+import net.oilcake.mitelros.feat.Difficulty;
+import net.oilcake.mitelros.registry.block.BlockRegistry;
 import net.oilcake.mitelros.registry.item.ItemRegistry;
 import net.oilcake.mitelros.sound.Sounds;
 import net.oilcake.mitelros.status.MiscManager;
 import net.oilcake.mitelros.util.AchievementExtend;
-import net.oilcake.mitelros.util.Constant;
 import net.xiaoyu233.fml.reload.event.*;
 
 import static net.oilcake.mitelros.ITFStart.NameSpace;
@@ -61,7 +61,7 @@ public class ITFEventFML {
             event.setExecuteSuccess(true);
         }
         if (par2Str.startsWith("difficulty")) {
-            int difficulty = Constant.calculateCurrentDifficulty();
+            int difficulty = Difficulty.calculateCurrentDifficulty();
             player.sendChatToPlayer(MiscManager.getDifficultyMessage(difficulty));
             event.setExecuteSuccess(true);
         }

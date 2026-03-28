@@ -2,13 +2,13 @@ package net.oilcake.mitelros.status;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.feat.Difficulty;
 import net.oilcake.mitelros.feat.quality.EnumEffectEntry;
 import net.oilcake.mitelros.feat.quality.EnumToolType;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.AchievementExtend;
-import net.oilcake.mitelros.util.Constant;
 
 import java.util.List;
 
@@ -57,8 +57,9 @@ public class MiscManager {
     }
 
     public float calculateITFStv(float str_vs_block) {
-        if (ITFConfig.FinalChallenge.getBooleanValue())
-            str_vs_block *= 1.0F - Constant.calculateCurrentDifficulty() / 100.0F;
+        if (ITFConfig.FinalChallenge.getBooleanValue()) {
+            str_vs_block *= 1.0F - Difficulty.calculateCurrentDifficulty() / 100.0F;
+        }
         return str_vs_block * EnumToolType.getMultiplierForEntry(this.player.getHeldItemStack(), EnumEffectEntry.Digging);
     }
 

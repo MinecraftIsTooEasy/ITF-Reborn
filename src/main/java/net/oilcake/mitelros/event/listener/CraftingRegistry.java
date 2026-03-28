@@ -1,9 +1,9 @@
 package net.oilcake.mitelros.event.listener;
 
 import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
+import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
-import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.registry.recipe.RecipeRegistry;
 
 import java.util.function.Consumer;

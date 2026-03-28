@@ -3,10 +3,10 @@ package net.oilcake.mitelros.item;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import net.minecraft.*;
+import net.oilcake.mitelros.feat.FoodWater;
 import net.oilcake.mitelros.localization.TooltipKeys;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
-import net.oilcake.mitelros.feat.FoodWater;
 
 import javax.annotation.Nonnull;
 import java.util.List;

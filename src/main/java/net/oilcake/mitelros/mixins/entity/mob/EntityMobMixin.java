@@ -1,13 +1,12 @@
 package net.oilcake.mitelros.mixins.entity.mob;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.mixin.interfaces.ITFEntityMob;
-import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.enchantment.Enchantments;
+import net.oilcake.mitelros.feat.Difficulty;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityMob;
+import net.oilcake.mitelros.mixin.interfaces.ITFWorld;
 import net.oilcake.mitelros.potion.PotionExtend;
-import net.oilcake.mitelros.util.Constant;
-import net.xiaoyu233.mitemod.miteite.api.ITELivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -83,7 +82,7 @@ public abstract class EntityMobMixin extends EntityCreature implements ITFEntity
     @Inject(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityCreature;onUpdate()V", shift = At.Shift.AFTER))
     private void modifyAttributeForFinalChallenge(CallbackInfo ci) {
         if (!this.worldObj.isRemote && !this.modified_attribute && this.getHealth() > 0.0F && ITFConfig.FinalChallenge.getBooleanValue()) {
-            int difficulty = Constant.calculateCurrentDifficulty();
+            int difficulty = Difficulty.calculateCurrentDifficulty();
             float healthMultiplier = 1.0F + (difficulty / 16.0F);
             if (healthMultiplier < 0) healthMultiplier = 0;
             this.setEntityAttribute(SharedMonsterAttributes.maxHealth, this.getMaxHealth() * healthMultiplier);

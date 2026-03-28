@@ -2,7 +2,6 @@ package net.oilcake.mitelros.command;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
-import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 
 public class CommandStatus extends CommandBase {
     @Override

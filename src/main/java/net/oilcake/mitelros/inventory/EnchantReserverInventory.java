@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.inventory;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.container.ContainerEnchantReserver;
 import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
+import net.oilcake.mitelros.container.ContainerEnchantReserver;
 
 public class EnchantReserverInventory extends InventoryBasic {
 

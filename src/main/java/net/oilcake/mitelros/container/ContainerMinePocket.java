@@ -1,8 +1,8 @@
 package net.oilcake.mitelros.container;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.item.api.IItemLocked;
 import net.oilcake.mitelros.item.ItemPieces;
+import net.oilcake.mitelros.item.api.IItemLocked;
 
 /**
  * Basically copied from container hopper

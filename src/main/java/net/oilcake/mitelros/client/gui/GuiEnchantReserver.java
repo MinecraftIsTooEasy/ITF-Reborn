@@ -2,9 +2,9 @@ package net.oilcake.mitelros.client.gui;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
+import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
 import net.oilcake.mitelros.container.ContainerEnchantReserver;
 import net.oilcake.mitelros.inventory.EnchantReserverInventory;
-import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
