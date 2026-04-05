@@ -68,4 +68,9 @@ public class ITFRegistryImpl implements ITFRegistry {
     public void registerMaterialBowDamageModifier(Material material, float modifier) {
         ITFProperties.BOW_DAMAGE_MODIFIER.register(material, modifier);
     }
+
+    @Override
+    public void registerSmeltingSpeedModifier(Item item, float modifier) {
+        ITFProperties.SMELTING_SPEED_MODIFIER.register(item, modifier);
+    }
 }

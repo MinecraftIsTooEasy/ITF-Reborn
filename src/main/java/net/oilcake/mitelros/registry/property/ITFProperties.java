@@ -16,4 +16,5 @@ public class ITFProperties {
     public static final FloatProperty<Material> CRAFTING_SPEED = FloatProperty.of("Workbench Crafting Speed", 0);
     public static final IntegerProperty<Material> BOW_PULL_TICKS = IntegerProperty.of("Bow Pull Ticks", 0);
     public static final FloatProperty<Material> BOW_DAMAGE_MODIFIER = FloatProperty.of("Bow Damage Modifier", 0.75F);
+    public static final FloatProperty<Item> SMELTING_SPEED_MODIFIER = FloatProperty.of("Smelting Speed Modifier", 1.0F);
 }

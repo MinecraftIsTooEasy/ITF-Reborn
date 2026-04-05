@@ -17,7 +17,7 @@ public class PropertyRegistry implements Runnable {
         ItemProperties.HeatLevelRequired.register(Item.getItem(Blocks.oreUru), 4);
 
         ItemProperties.HeatLevelRequired.register(Items.pieceCopper, 2);
-        ItemProperties.HeatLevelRequired.register(Items.pieceCopper, 2);
+        ItemProperties.HeatLevelRequired.register(Items.pieceSilver, 2);
         ItemProperties.HeatLevelRequired.register(Items.pieceGold, 2);
         ItemProperties.HeatLevelRequired.register(Items.pieceGoldNether, 2);
         ItemProperties.HeatLevelRequired.register(Items.pieceIron, 2);

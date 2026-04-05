@@ -8,6 +8,7 @@ import net.oilcake.mitelros.block.BlockBlastFurnace;
 import net.oilcake.mitelros.block.BlockSmoker;
 import net.oilcake.mitelros.mixin.interfaces.ITFFurnace;
 import net.oilcake.mitelros.registry.item.Items;
+import net.oilcake.mitelros.registry.property.ITFProperties;
 
 public class FurnaceListener implements IFurnaceUpdateListener {
     @Override
@@ -44,13 +45,8 @@ public class FurnaceListener implements IFurnaceUpdateListener {
 
     @Override
     public int onFurnaceCookTimeIncreaseModify(TileEntityFurnace tileEntityFurnace, int original) {
-        int item_id = (tileEntityFurnace.getInputItemStack()).itemID;
-        int speed_bonus = 1;
-        if (item_id == Items.pieceCopper.itemID || item_id == Items.pieceSilver.itemID || item_id == Items.pieceGold.itemID || item_id == Items.pieceGoldNether.itemID || item_id == Items.pieceIron.itemID || item_id == Items.pieceNickel.itemID)
-            speed_bonus = 4;
-        if (item_id == Items.pieceMithril.itemID || item_id == Items.pieceTungsten.itemID || item_id == Items.pieceAdamantium.itemID)
-            speed_bonus = 2;
-        original *= speed_bonus;
+        float speed_bonus = ITFProperties.SMELTING_SPEED_MODIFIER.getOrDefault(tileEntityFurnace.getInputItemStack().getItem());
+        original = (int) (original * speed_bonus);
         if (tileEntityFurnace.getFurnaceBlock() instanceof BlockBlastFurnace) {
             original *= 2;
         } else if (tileEntityFurnace.getFurnaceBlock() instanceof BlockSmoker) {

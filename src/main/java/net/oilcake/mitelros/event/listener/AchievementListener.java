@@ -4,6 +4,7 @@ import moddedmite.rustedironcore.api.event.listener.IAchievementListener;
 import net.minecraft.*;
 import net.oilcake.mitelros.feat.Difficulty;
 import net.oilcake.mitelros.item.ItemBowlClay;
+import net.oilcake.mitelros.item.ItemPieces;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.AchievementExtend;
@@ -57,8 +58,9 @@ public class AchievementListener implements IAchievementListener {
 
     @Override
     public void onItemPickUp(EntityPlayer player, ItemStack itemStack) {
-        if (itemStack.itemID == Items.pieceCopper.itemID || itemStack.itemID == Items.pieceGold.itemID || itemStack.itemID == Items.pieceSilver.itemID || itemStack.itemID == Items.pieceIron.itemID)
+        if (itemStack.getItem() instanceof ItemPieces) {
             player.triggerAchievement(AchievementExtend.FragofMine);
+        }
         if (itemStack.itemID == Item.recordUnderworld.itemID || itemStack.itemID == Item.recordDescent.itemID || itemStack.itemID == Item.recordWanderer.itemID || itemStack.itemID == Item.recordLegends.itemID)
             player.triggerAchievement(AchievementExtend.SoundofUnder);
         if (itemStack.itemID == Item.skull.itemID)

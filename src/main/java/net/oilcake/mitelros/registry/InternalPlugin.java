@@ -133,6 +133,17 @@ public class InternalPlugin implements ITFPlugin {
         registry.registerMaterialBowDamageModifier(Materials.ancient_metal, 1.05F);
 
 
+        registry.registerSmeltingSpeedModifier(Items.pieceCopper, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceSilver, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceGold, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceGoldNether, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceIron, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceNickel, 4);
+        registry.registerSmeltingSpeedModifier(Items.pieceMithril, 2);
+        registry.registerSmeltingSpeedModifier(Items.pieceTungsten, 2);
+        registry.registerSmeltingSpeedModifier(Items.pieceAdamantium, 2);
+
+
         if (ITFConfig.OreCompat.getBooleanValue()) {
             try {
                 if (ModReference.hasMod(ModReference.ITE)) ITEAccess.register(registry);

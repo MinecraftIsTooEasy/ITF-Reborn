@@ -43,4 +43,6 @@ public interface ITFRegistry {
      * 0.75 for default
      */
     void registerMaterialBowDamageModifier(Material material, float modifier);
+
+    void registerSmeltingSpeedModifier(Item item, float modifier);
 }
