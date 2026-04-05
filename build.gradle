@@ -13,7 +13,6 @@ base {
 }
 
 def canonical_version = project.mod_version
-project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
 
 repositories {
     maven {
@@ -88,7 +87,6 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 17
-//    options.compilerArgs += ["-Dmod_version=${mod_version}"]
 }
 
 java {
@@ -99,6 +97,7 @@ java {
 }
 
 jar {
+    project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
     inputs.property "archivesName", project.archives_base_name
 
     from("LICENSE") {
@@ -115,14 +114,22 @@ tasks.named('runClient', JavaExec).configure { exec ->
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifactId = project.archives_base_name
+            version = canonical_version
             from components.java
         }
     }
 
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
+        maven {
+            name = "ModdedMITE"
+            url = uri("https://maven.limingzxc.top/repository/maven-releases/")
+            credentials {
+                // Read only from gradle.properties (user level, your gradle_home)
+                username = project.findProperty("nexusUsername")
+                password = project.findProperty("nexusPassword")
+            }
+        }
     }
 }
