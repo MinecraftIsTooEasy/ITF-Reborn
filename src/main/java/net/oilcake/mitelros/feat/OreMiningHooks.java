@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.mixins.block.IMixinBlock;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 public class OreMiningHooks {
     public static void setIdMeta(BlockBreakInfo info, BlockOre ore, LocalIntRef id_dropped, LocalIntRef quantity_dropped) {
@@ -36,9 +37,8 @@ public class OreMiningHooks {
         }
     }
 
-
-    public static int modifyFinalDropId(BlockOre ore, int id_dropped, BlockBreakInfo info, boolean suppress_fortune) {
-        float chance = suppress_fortune ? 1.0F : (1.0F + info.getHarvesterFortune() * 0.2F);
+    public static void modifyFinalDropId(BlockOre ore, MutableInt id, MutableInt meta, BlockBreakInfo info, boolean suppressFortune) {
+        float chance = suppressFortune ? 1.0F : (1.0F + info.getHarvesterFortune() * 0.2F);
         if (OreDropHelper.canAbsorb(ore) && EnchantmentHelper.hasEnchantment(info.responsible_item_stack, Enchantments.enchantmentAbsorb)) {
             int xp = OreDropHelper.calcAbsorbXP(ore, chance);
             ((IMixinBlock) ore).invokeDropXpOnBlockBreak(info.world, info.x, info.y, info.z, xp);
@@ -49,10 +49,14 @@ public class OreMiningHooks {
             melting_chance *= (info.responsible_item_stack.getItemAsTool().getMaterialHarvestLevel() - ore.getMinHarvestLevel(0));
             if (info.world.rand.nextFloat() < melting_chance) {
                 int itemID = OreDropHelper.getMeltPieceItemID(ore);
-                if (itemID != 0) return itemID;
+                if (itemID != 0) {
+                    id.setValue(itemID);
+                }
+                if (ore == Block.oreGold) {
+                    meta.setValue(0);
+                }
             }
         }
-        return id_dropped;
     }
 
 

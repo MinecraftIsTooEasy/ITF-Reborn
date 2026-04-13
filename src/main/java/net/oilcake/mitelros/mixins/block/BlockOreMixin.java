@@ -8,11 +8,11 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.*;
 import net.oilcake.mitelros.enchantment.Enchantments;
 import net.oilcake.mitelros.feat.OreMiningHooks;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
@@ -44,9 +44,19 @@ public abstract class BlockOreMixin extends Block {
         return original * 2;
     }
 
-    @ModifyArg(method = "dropBlockAsEntityItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/Block;dropBlockAsEntityItem(Lnet/minecraft/BlockBreakInfo;IIIF)I"), index = 1)
-    private int smelt(int id_dropped, @Local(argsOnly = true) BlockBreakInfo info, @Local boolean suppress_fortune) {
-        return OreMiningHooks.modifyFinalDropId(instance, id_dropped, info, suppress_fortune);
+    @WrapOperation(method = "dropBlockAsEntityItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/Block;dropBlockAsEntityItem(Lnet/minecraft/BlockBreakInfo;IIIF)I"))
+    private int modifyFinal(BlockOre instance,
+                            BlockBreakInfo info,
+                            int id,
+                            int metadata,
+                            int quantity,
+                            float chance,
+                            Operation<Integer> original,
+                            @Local boolean suppress_fortune) {
+        MutableInt mutableId = new MutableInt(id);
+        MutableInt mutableMetadata = new MutableInt(metadata);
+        OreMiningHooks.modifyFinalDropId(instance, mutableId, mutableMetadata, info, suppress_fortune);
+        return original.call(instance, info, mutableId.intValue(), mutableMetadata.intValue(), quantity, chance);
     }
 
 }

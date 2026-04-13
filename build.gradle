@@ -34,8 +34,7 @@ dependencies {
 
     // these are necessary for running
     implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.0"
-    implementation "com.github.MinecraftIsTooEasy:RustedIronCore:1.5.0"
-    implementation "com.github.MinecraftIsTooEasy:RustedIronCore:1.5.0:sources"
+    implementation "com.github.MinecraftIsTooEasy:RustedIronCore:1.5.2"
     implementation "com.github.MinecraftIsTooEasy:Conditional-Mixin:0.6.4"
 
     // compile needed, runtime not needed
