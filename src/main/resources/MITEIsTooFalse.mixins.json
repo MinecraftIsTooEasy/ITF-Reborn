@@ -82,7 +82,6 @@
     "item.ItemGlassBottleMixin",
     "item.ItemHoeMixin",
     "item.ItemMixin",
-    "item.ItemNuggetMixin",
     "item.ItemPickaxeMixin",
     "item.ItemPotionMixin",
     "item.ItemRockMixin",

@@ -8,6 +8,7 @@ import net.oilcake.mitelros.feat.ExtraInfo;
 import net.oilcake.mitelros.item.*;
 import net.oilcake.mitelros.item.api.*;
 import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.registry.ITFRegistries;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.sound.Sounds;
 import net.oilcake.mitelros.util.ITFLootTables;
@@ -493,8 +494,27 @@ public class Items extends Item {
 
     public static final ItemKettle uruKettle = new ItemKettle(getNextItemID(), 13, Materials.pure_water, Materials.uru).setPurify();
 
+    private static Item of(String id, Material material, ItemFactory factory) {
+        Item item = factory.create(allocateId(id), material, id);
+        return of(id, item);
+    }
+
+    private static Item of(String id, Item item) {
+        ITFRegistries.ITEM.put(id, item);
+        return item;
+    }
+
+    private static int allocateId(String id) {
+        return IdUtil.getNextItemID();
+    }
+
     private static int getNextItemID() {
         return IdUtil.getNextItemID();
+    }
+
+    @FunctionalInterface
+    private interface ItemFactory {
+        Item create(int id, Material material, String texture);
     }
 
     static {
@@ -502,6 +522,17 @@ public class Items extends Item {
         ExtraInfo.register(totemOfFlattening, "itf.item.totem_of_flattening.info");
         ExtraInfo.register(frostRod, "itf.item.frost_rod.info");
         ExtraInfo.register(enderRod, "itf.item.ender_rod.info");
+
+        Item.copperNugget.setXPReward(1);
+        Item.silverNugget.setXPReward(1);
+        Item.ironNugget.setXPReward(1);
+        nickelNugget.setXPReward(1);
+        Item.goldNugget.setXPReward(2);
+        Item.ancientMetalNugget.setXPReward(3);
+        Item.mithrilNugget.setXPReward(4);
+        tungstenNugget.setXPReward(7);
+        Item.adamantiumNugget.setXPReward(10);
+        uruNugget.setXPReward(15);
 
         forgingNote.setLowestCraftingDifficultyToProduce(0.0F);
         clayBowlEmpty.setLowestCraftingDifficultyToProduce(0.0F);
