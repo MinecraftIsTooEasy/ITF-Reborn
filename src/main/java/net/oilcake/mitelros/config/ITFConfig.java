@@ -20,9 +20,9 @@ public class ITFConfig extends SimpleConfigs {
     public static final ConfigBooleanChallenge TagHeatStroke = new ConfigBooleanChallenge("酷暑代价", "水分自然消耗的速度提升100%", 1);
     public static final ConfigBooleanChallenge TagDryDilemma = new ConfigBooleanChallenge("旱地", "降低非碗类食物回复水分值的能力，高于1的减1，等于1的降低概率", 1);
     public static final ConfigBooleanChallenge TagInstinctSurvival = new ConfigBooleanChallenge("防御本能", "怪物享受护甲防御的比率提升至75%，同时取消保底1伤害的设定", 1);
-    public static final ConfigBooleanChallenge TagRejection = new ConfigBooleanChallenge("世界排异", "玩家始终获得一种诅咒，尝试消除诅咒将随机改变诅咒类型", 2);
-    public static final ConfigInteger TagFallenInMine = new ConfigInteger("矿难群体", 0, 0, 2, "LVL1:主世界低层数生成僵尸扈从的概率提升, LVL2:亡魂的生命值提升50%, 攻击力提升25%, 且召唤僵尸支援, 重启游戏生效");
-    public static final ConfigInteger TagBattleSuffer = new ConfigInteger("久经沙场", 0, 0, 2, "LVL1:主世界低层数生成骷髅侍卫的概率提升, LVL2:亡骸领主的生命值提升50%, 攻击力提升40%, 召唤的支援获得强化, 重启游戏生效");
+    public static final ConfigIntegerChallenge TagRejection = new ConfigIntegerChallenge("世界排异", 0, 0, 3, true, "每增加一级使玩家始终多获得一种诅咒，尝试消除诅咒将随机改变诅咒类型");
+    public static final ConfigIntegerChallenge TagFallenInMine = new ConfigIntegerChallenge("矿难群体", 0, 0, 2, "LVL1:主世界低层数生成僵尸扈从的概率提升, LVL2:亡魂的生命值提升50%, 攻击力提升25%, 且召唤僵尸支援, 重启游戏生效");
+    public static final ConfigIntegerChallenge TagBattleSuffer = new ConfigIntegerChallenge("久经沙场", 0, 0, 2, "LVL1:主世界低层数生成骷髅侍卫的概率提升, LVL2:亡骸领主的生命值提升50%, 攻击力提升40%, 召唤的支援获得强化, 重启游戏生效");
     public static final ConfigBooleanChallenge TagInvisibleFollower = new ConfigBooleanChallenge("无形跟随", "更低层数的爬行者将被替换为潜伏爬行者", 1);
     public static final ConfigBooleanChallenge TagUnstableConvection = new ConfigBooleanChallenge("不稳定对流", "闪电的触发频率提升300%", 1);
     public static final ConfigBooleanChallenge TagEternalRaining = new ConfigBooleanChallenge("阴雨连绵", "雨的最长持续时间提升300%，最短持续时间提升700%", 2);
@@ -33,7 +33,7 @@ public class ITFConfig extends SimpleConfigs {
     public static final ConfigBooleanChallenge TagUnderAlliance = new ConfigBooleanChallenge("蛰骨联盟", "出现更多种类的骷髅骑士", 1);
     public static final ConfigBooleanChallenge TagDemonDescend = new ConfigBooleanChallenge("恶魔降临", "僵尸猪人领主生成概率提升，且生命值提升50%，攻击力提升25%，概率手持钨钉头锤，并召唤猪人守卫支援", 2);
     public static final ConfigBooleanChallenge TagDimensionInvade = new ConfigBooleanChallenge("维度入侵", "除了末地之外的任何维度都会生成其他维度的敌对生物，且所有敌对生物均不再会掉落任何装备", 4);
-    public static final ConfigInteger TagCorrosion = new ConfigInteger("腐械蚀甲", 0, 0, 3, "每级使玩家的物品耐久度消耗提升30%");
+    public static final ConfigIntegerChallenge TagCorrosion = new ConfigIntegerChallenge("腐械蚀甲", 0, 0, 3, "每级使玩家的物品耐久度消耗提升30%");
     public static final ConfigBooleanChallenge TagPillager = new ConfigBooleanChallenge("掠夺者", "允许部分怪物捡起物品", 1);
     public static final ConfigBooleanChallenge TagBurnOut = new ConfigBooleanChallenge("油尽灯枯", "火把会变成阴燃, 最后熄灭", 2);
 

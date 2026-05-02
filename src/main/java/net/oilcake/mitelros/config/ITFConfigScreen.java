@@ -28,7 +28,7 @@ public class ITFConfigScreen extends DefaultConfigScreen {
             String no = StringUtils.translate("gui.no");
             GuiYesNoMITE var3 = new GuiYesNoMITE(this, question, "这很困难!", yes, no, ConfirmFlag);
             this.mc.displayGuiScreen(var3);
-        }).dimensions(this.width - 80, 30, 60, 20).build();
+        }).dimensions(this.width - 190, 8, 60, 20).build();
         layer.addWidget(buttonGeneric);
     }
 

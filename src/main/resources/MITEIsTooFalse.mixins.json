@@ -28,6 +28,7 @@
     "client.gui.GuiEnchantmentMixin",
     "client.gui.GuiIngameMixin",
     "client.gui.GuiRepairMixin",
+    "client.gui.InventoryEffectRendererMixin",
     "client.render.ItemRendererMixin",
     "client.render.RenderBlocksMixin",
     "compat.EmiFoodRecipeMixin",

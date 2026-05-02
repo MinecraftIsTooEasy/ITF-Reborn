@@ -1,10 +1,13 @@
 package net.oilcake.mitelros.mixin.interfaces;
 
+import net.minecraft.Curse;
 import net.minecraft.EntityPlayer;
 import net.oilcake.mitelros.status.DrunkManager;
 import net.oilcake.mitelros.status.FeastManager;
 import net.oilcake.mitelros.status.HuntManager;
 import net.oilcake.mitelros.status.MiscManager;
+
+import java.util.List;
 
 public interface ITFEntityPlayer {
     MiscManager itf_GetMiscManager();
@@ -28,4 +31,12 @@ public interface ITFEntityPlayer {
     static ITFEntityPlayer cast(EntityPlayer player) {
         return player;
     }
+    
+    List<Curse> itf$GetActiveCurses();
+    
+    void itf$SetActiveCurses(List<Curse> curses);
+    
+    void itf$ClearCurses();
+    
+    void itf$LearnCurseEffect(Curse curse);
 }

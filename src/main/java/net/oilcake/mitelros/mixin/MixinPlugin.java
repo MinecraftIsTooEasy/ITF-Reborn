@@ -21,4 +21,9 @@ public class MixinPlugin extends RestrictiveMixinConfigPlugin implements IMixinC
     public List<String> getMixins() {
         return null;
     }
+
+    @Override
+    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+	    return !"moddedmite.emi.mixin.client.InventoryEffectRendererMixin".equals(mixinClassName);
+    }
 }

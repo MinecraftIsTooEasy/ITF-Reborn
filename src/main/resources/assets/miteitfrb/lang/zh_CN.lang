@@ -46,6 +46,7 @@ curse.fearOfDarkness.name=黑暗恐惧
 curse.fearOfDarkness.desc=你在黑暗中只能摸索前进
 curse.fearOfLight.name=光照恐惧
 curse.fearOfLight.desc=光照让你行动不便
+effect.curses=%s重诅咒
 
 potion.extend.freeze=霜冻
 potion.extend.dehydration=腹泻

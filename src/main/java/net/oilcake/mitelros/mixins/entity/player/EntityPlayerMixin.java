@@ -9,8 +9,10 @@ import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.status.*;
+import net.oilcake.mitelros.util.CurseExtend;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +22,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 @Mixin(EntityPlayer.class)
 public abstract class EntityPlayerMixin extends EntityLivingBase implements ICommandSender, ITFEntityPlayer {
@@ -109,7 +115,17 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
 
     @Shadow
     public abstract ItemStack getHeldItemStack();
-
+    
+    @Shadow
+    public boolean is_cursed;
+    @Shadow
+    public int curse_id;
+    @Shadow
+    public boolean curse_effect_known;
+    
+    @Shadow
+    public abstract void sendPacket(Packet packet);
+    
     @Unique
     private MiscManager miscManager = new MiscManager(ReflectHelper.dyCast(this));
     @Unique
@@ -192,6 +208,100 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
             if (nickel_coverage >= 0.999F)
                 cir.setReturnValue(null);
             damage.scaleAmount(1.0F - nickel_coverage);
+        }
+    }
+
+    @Unique
+    public List<Curse> itf$GetActiveCurses() {
+        return CurseExtend.activeCurses;
+    }
+
+    @Unique
+    public void itf$SetActiveCurses(List<Curse> curses) {
+        if (!new HashSet<>(CurseExtend.activeCurses).containsAll(curses)) {
+            int size = CurseExtend.activeCurses.size();
+            for (Curse curse : curses) {
+                if (size >= CurseExtend.getMaxCurseCount()) {
+                    break;
+                }
+                if (!CurseExtend.activeCurses.contains(curse)) {
+                    CurseExtend.activeCurses.add(curse);
+                    size++;
+                }
+            }
+        }
+        if (CurseExtend.activeCurses.isEmpty()) {
+            is_cursed = false;
+            curse_id = 0;
+            curse_effect_known = false;
+        } else {
+            is_cursed = true;
+            curse_id = CurseExtend.activeCurses.get(0).id;
+            curse_effect_known = CurseExtend.activeCurses.stream().anyMatch(c -> c.effect_known);
+        }
+    }
+
+    public boolean itf$HasCurse(Curse curse, boolean learnEffectIfSo) {
+        for (Curse c : CurseExtend.activeCurses) {
+            if (c.id == curse.id) {
+                if (learnEffectIfSo && !c.effect_known) {
+                    itf$LearnCurseEffect(c);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Unique
+    public void itf$LearnCurseEffect(Curse curse) {
+        if (!curse.effect_known) {
+            curse.effect_known = true;
+            curse.effect_has_already_been_learned = true;
+            ((EntityPlayer) (Object) this).sendPacket(new Packet85SimpleSignal(EnumSignal.curse_effect_learned));
+        }
+    }
+
+    @Inject(method = "learnCurseEffect", at = @At("HEAD"), cancellable = true)
+    private void onLearnCurseEffect(CallbackInfo ci) {
+        if (CurseExtend.activeCurses.size() > 1) {
+            for (Curse c : CurseExtend.activeCurses) {
+                if (!c.effect_known) {
+                    itf$LearnCurseEffect(c);
+                }
+            }
+            ci.cancel();
+        }
+    }
+
+    @Unique
+    public void removeCurse(Curse curse) {
+        CurseExtend.activeCurses.removeIf(c -> c.id == curse.id);
+    }
+
+    @Unique
+    public void itf$ClearCurses() {
+        Random rand = new Random();
+        removeCurse(CurseExtend.activeCurses.get(rand.nextInt(CurseExtend.activeCurses.size())));
+    }
+    
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public boolean hasCurse(Curse curse, boolean learn_effect_if_so) {
+        return this.itf$HasCurse(curse, learn_effect_if_so);
+    }
+    
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public void onCurseRealized(int curse_id) {
+        if (curse_id == Curse.cannot_wear_armor.id && !this.worldObj.isRemote && this.inventory.dropAllArmor()) {
+            this.itf$LearnCurseEffect(Curse.cursesList[curse_id]);
         }
     }
 }

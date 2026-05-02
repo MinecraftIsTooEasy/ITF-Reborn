@@ -6,6 +6,7 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.container.ContainerEnchantReserver;
 import net.oilcake.mitelros.container.ContainerMinePocket;
 import net.oilcake.mitelros.inventory.EnchantReserverInventory;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFPlayer;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.S2COpenWindow;
@@ -20,7 +21,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends EntityPlayer implements ICrafting, ITFPlayer {
@@ -60,13 +63,25 @@ public abstract class ServerPlayerMixin extends EntityPlayer implements ICraftin
 
     @Inject(method = "onUpdateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/FoodStats;getHunger()F"))
     private void inject(CallbackInfo ci) {
-        if (!this.is_cursed && ITFConfig.TagRejection.getBooleanValue()) {
+        if (((ITFEntityPlayer) this).itf$GetActiveCurses().size() < ITFConfig.TagRejection.getIntegerValue() && ITFConfig.TagRejection.isEnable()) {
             EntityWitch temp = new EntityWitch(this.worldObj);
             int username_hash = 0;
             for (int i = 0; i < this.username.length(); i++)
                 username_hash += this.username.charAt(i) * i;
-            this.worldObj.getAsWorldServer().addCurse(getAsEntityPlayerMP(), temp, Curse.getRandomCurse(new Random((this.rand.nextInt() + username_hash))), 0);
-            learnCurseEffect();
+            Set<Integer> added = new HashSet<>();
+            for (Curse c : ((ITFEntityPlayer) this).itf$GetActiveCurses()) {
+                added.add(c.id);
+            }
+            Random rand = new Random(this.rand.nextInt() + username_hash);
+            for (int i = 0; i < ITFConfig.TagRejection.getIntegerValue() - ((ITFEntityPlayer) this).itf$GetActiveCurses().size(); i++) {
+                Curse randomCurse = Curse.getRandomCurse(rand);
+                while (added.contains(randomCurse.id)) {
+                    randomCurse = Curse.getRandomCurse(rand);
+                }
+                this.worldObj.getAsWorldServer().addCurse(getAsEntityPlayerMP(), temp, randomCurse, i);
+                added.add(randomCurse.id);
+                ((ITFEntityPlayer) this).itf$LearnCurseEffect(randomCurse);
+            }
         }
         int water = this.itf$GetWater();
         if (water != this.last_water) {

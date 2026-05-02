@@ -46,6 +46,7 @@ curse.fearOfDarkness.name=Fear of Darkness
 curse.fearOfDarkness.desc=The darkness keeps you from moving.
 curse.fearOfLight.name=Fear of Light
 curse.fearOfLight.desc=You can only feel your way in the light.
+effect.curses=%s Curse
 
 potion.extend.freeze=Freeze
 potion.extend.dehydration=Dehydration

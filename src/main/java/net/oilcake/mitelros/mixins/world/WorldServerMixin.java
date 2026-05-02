@@ -1,13 +1,24 @@
 package net.oilcake.mitelros.mixins.world;
 
 import net.minecraft.*;
+import net.minecraft.server.MinecraftServer;
 import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.util.CurseExtend;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(WorldServer.class)
+import java.util.ArrayList;
+import java.util.List;
+
+@Mixin(value = WorldServer.class, priority = 999)
 public abstract class WorldServerMixin extends World {
+    @Shadow
+    public abstract MinecraftServer getMinecraftServer();
+    
     public WorldServerMixin(ISaveHandler par1ISaveHandler, String par2Str, WorldProvider par3WorldProvider, WorldSettings par4WorldSettings, Profiler par5Profiler, ILogAgent par6ILogAgent, long world_creation_time, long total_world_time) {
         super(par1ISaveHandler, par2Str, par3WorldProvider, par4WorldSettings, par5Profiler, par6ILogAgent, world_creation_time, total_world_time);
     }
@@ -195,4 +206,63 @@ public abstract class WorldServerMixin extends World {
     private int moreThunder1(int constant) {
         return ITFConfig.TagUnstableConvection.getBooleanValue() ? 25000 : 100000;
     }
+
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public void checkCurses() {
+        for (ServerPlayer player : (List<ServerPlayer>) this.playerEntities) {
+            List<Curse> playerCurses = new ArrayList<>();
+	        for (Curse curse : (List<Curse>) this.worldInfo.getCurses()) {
+		        if (!curse.cursed_player_username.equals(player.getEntityName())) continue;
+		        if (curse.has_been_realized) {
+			        playerCurses.add(curse);
+			        if (!curse.effect_known && !curse.effect_has_already_been_learned) {
+				        player.playerNetServerHandler.sendPacketToPlayer(
+						        new Packet85SimpleSignal(EnumSignal.curse_effect_learned)
+				        );
+				        curse.effect_has_already_been_learned = true;
+			        }
+		        } else if (curse.time_of_realization <= this.getTotalWorldTime()) {
+			        curse.has_been_realized = true;
+			        playerCurses.add(curse);
+			        player.playerNetServerHandler.sendPacketToPlayer(
+					        (new Packet85SimpleSignal(EnumSignal.curse_realized)).setByte((byte) curse.id)
+			        );
+			        player.onCurseRealized(curse.id);
+		        }
+	        }
+	        ((ITFEntityPlayer) player).itf$SetActiveCurses(playerCurses);
+        }
+        if (this.worldInfo.getNanotime() != (long) this.worldInfo.calcChecksum()) {
+            this.getMinecraftServer().initiateShutdown();
+        }
+    }
+
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public void removeCursesFromPlayer(ServerPlayer player) {
+        List<Curse> curses = this.worldInfo.getCurses();
+        if (curses != null) {
+            curses.removeIf(curse -> curse.cursed_player_username.equals(player.getEntityName()));
+        }
+	    ((ITFEntityPlayer) player).itf$ClearCurses();
+    }
+
+	/**
+	 * @author
+	 * @reason
+	 */
+	@Overwrite
+	public void addCurse(ServerPlayer player_to_curse, EntityWitch cursing_witch, Curse curse_type, int ticks_delay) {
+		if (!(cursing_witch.getHealth() <= 0.0F) && (((ITFEntityPlayer) player_to_curse).itf$GetActiveCurses().size() < CurseExtend.getMaxCurseCount())) {
+			this.worldInfo.getCurses().add(new Curse(player_to_curse.getEntityName(), cursing_witch.getUniqueID(), curse_type, this.getTotalWorldTime() + (long)ticks_delay, false, false));
+		}
+	}
+	
 }
