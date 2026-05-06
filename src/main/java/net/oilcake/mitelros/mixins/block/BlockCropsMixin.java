@@ -17,6 +17,6 @@ public abstract class BlockCropsMixin extends BlockGrowingPlant {
 
     @ModifyConstant(method = "getGrowthRate", constant = @Constant(floatValue = 1.0f, ordinal = 0))
     private float seasonGrowth(float constant, @Local(argsOnly = true) World par1World) {
-        return constant + ITFWorld.getSeasonGrowModifier(par1World);
+        return constant * ITFWorld.getSeasonGrowFactor(par1World);
     }
 }

@@ -46,7 +46,7 @@
     "baubles": [
       "net.oilcake.mitelros.compat.BaublesPluginImpl"
     ],
-    "shop": [
+    "newshop": [
       "net.oilcake.mitelros.compat.ShopPluginImpl"
     ]
   },

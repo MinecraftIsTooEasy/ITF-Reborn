@@ -15,4 +15,8 @@ public interface ITFWorld {
     static float getSeasonGrowModifier(World world) {
         return (float) Math.sin(0.0490873852123 * (world.getDayOfWorld() - 16));
     }
+
+    static float getSeasonGrowFactor(World world) {
+        return Math.max(0.0F, 1.0F + getSeasonGrowModifier(world));
+    }
 }
