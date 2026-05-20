@@ -7,6 +7,9 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
+import net.oilcake.mitelros.network.ITFNetwork;
+import net.oilcake.mitelros.network.packets.C2SLearnCurseEffect;
+import net.oilcake.mitelros.network.packets.S2CUpdateCurses;
 import net.oilcake.mitelros.potion.PotionExtend;
 import net.oilcake.mitelros.status.*;
 import net.oilcake.mitelros.util.CurseExtend;
@@ -23,9 +26,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 @Mixin(EntityPlayer.class)
 public abstract class EntityPlayerMixin extends EntityLivingBase implements ICommandSender, ITFEntityPlayer {
@@ -212,37 +215,65 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
     }
 
     @Unique
+    private final List<Curse> itf$activeCurses = new ArrayList<>();
+
+    @Unique
     public List<Curse> itf$GetActiveCurses() {
-        return CurseExtend.activeCurses;
+        if (this.worldObj != null && this.worldObj.isRemote) {
+            if (!this.is_cursed) {
+                this.itf$activeCurses.clear();
+            } else if (this.curse_id > 0 && this.itf$activeCurses.isEmpty()) {
+                Curse curse = this.itf$CreateLocalCurse(this.curse_id, this.curse_effect_known);
+                if (curse != null) {
+                    this.itf$activeCurses.add(curse);
+                }
+            }
+            if (this.curse_id > 0) {
+                boolean curseFound = false;
+                for (Curse curse : this.itf$activeCurses) {
+                    if (curse.id == this.curse_id) {
+                        curse.effect_known = this.curse_effect_known;
+                        curseFound = true;
+                        break;
+                    }
+                }
+                if (!curseFound) {
+                    Curse curse = this.itf$CreateLocalCurse(this.curse_id, this.curse_effect_known);
+                    if (curse != null) {
+                        this.itf$activeCurses.add(curse);
+                    }
+                }
+            }
+        }
+        return this.itf$activeCurses;
     }
 
     @Unique
     public void itf$SetActiveCurses(List<Curse> curses) {
-        if (!new HashSet<>(CurseExtend.activeCurses).containsAll(curses)) {
-            int size = CurseExtend.activeCurses.size();
-            for (Curse curse : curses) {
-                if (size >= CurseExtend.getMaxCurseCount()) {
-                    break;
-                }
-                if (!CurseExtend.activeCurses.contains(curse)) {
-                    CurseExtend.activeCurses.add(curse);
-                    size++;
-                }
+        this.itf$activeCurses.clear();
+        HashSet<Integer> added = new HashSet<>();
+        int maxCurseCount = this.worldObj != null && this.worldObj.isRemote ? curses.size() : CurseExtend.getMaxCurseCount();
+        for (Curse curse : curses) {
+            if (this.itf$activeCurses.size() >= maxCurseCount) {
+                break;
+            }
+            if (added.add(curse.id)) {
+                this.itf$activeCurses.add(curse);
             }
         }
-        if (CurseExtend.activeCurses.isEmpty()) {
+        if (this.itf$activeCurses.isEmpty()) {
             is_cursed = false;
             curse_id = 0;
             curse_effect_known = false;
         } else {
             is_cursed = true;
-            curse_id = CurseExtend.activeCurses.get(0).id;
-            curse_effect_known = CurseExtend.activeCurses.stream().anyMatch(c -> c.effect_known);
+            curse_id = this.itf$activeCurses.get(0).id;
+            curse_effect_known = this.itf$activeCurses.get(0).effect_known;
         }
     }
 
     public boolean itf$HasCurse(Curse curse, boolean learnEffectIfSo) {
-        for (Curse c : CurseExtend.activeCurses) {
+        for (Curse c : this.itf$GetActiveCurses()) {
             if (c.id == curse.id) {
                 if (learnEffectIfSo && !c.effect_known) {
                     itf$LearnCurseEffect(c);
@@ -255,34 +286,72 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
 
     @Unique
     public void itf$LearnCurseEffect(Curse curse) {
+        Curse activeCurse = this.itf$getActiveCurse(curse.id);
+        if (activeCurse != null) {
+            curse = activeCurse;
+        }
         if (!curse.effect_known) {
             curse.effect_known = true;
             curse.effect_has_already_been_learned = true;
-            ((EntityPlayer) (Object) this).sendPacket(new Packet85SimpleSignal(EnumSignal.curse_effect_learned));
+            if (this.worldObj.isRemote) {
+                ITFNetwork.sendToServer(new C2SLearnCurseEffect(curse.id));
+            } else if ((Object) this instanceof ServerPlayer player) {
+                ITFNetwork.sendToClient(player, new S2CUpdateCurses(this.itf$GetActiveCurses()));
+            }
         }
     }
 
     @Inject(method = "learnCurseEffect", at = @At("HEAD"), cancellable = true)
     private void onLearnCurseEffect(CallbackInfo ci) {
-        if (CurseExtend.activeCurses.size() > 1) {
-            for (Curse c : CurseExtend.activeCurses) {
-                if (!c.effect_known) {
-                    itf$LearnCurseEffect(c);
-                }
-            }
-            ci.cancel();
+        List<Curse> activeCurses = this.itf$GetActiveCurses();
+        if (activeCurses.isEmpty()) {
+            return;
         }
+        for (Curse c : activeCurses) {
+            if (!c.effect_known) {
+                itf$LearnCurseEffect(c);
+            }
+        }
+        ci.cancel();
     }
 
     @Unique
     public void removeCurse(Curse curse) {
-        CurseExtend.activeCurses.removeIf(c -> c.id == curse.id);
+        List<Curse> remaining = new ArrayList<>(this.itf$activeCurses);
+        remaining.removeIf(c -> c.id == curse.id);
+        this.itf$SetActiveCurses(remaining);
     }
 
     @Unique
     public void itf$ClearCurses() {
-        Random rand = new Random();
-        removeCurse(CurseExtend.activeCurses.get(rand.nextInt(CurseExtend.activeCurses.size())));
+        this.itf$SetActiveCurses(List.of());
+    }
+
+    @Unique
+    private Curse itf$getActiveCurse(int curseId) {
+        for (Curse activeCurse : this.itf$GetActiveCurses()) {
+            if (activeCurse.id == curseId) {
+                return activeCurse;
+            }
+        }
+        return null;
+    }
+
+    @Unique
+    private Curse itf$CreateLocalCurse(int curseId, boolean effectKnown) {
+        if (curseId <= 0 || curseId >= Curse.cursesList.length || Curse.cursesList[curseId] == null) {
+            return null;
+        }
+        Curse curse = new Curse(
+                this.getEntityName(),
+                this.getUniqueID(),
+                Curse.cursesList[curseId],
+                0L,
+                true,
+                effectKnown
+        );
+        curse.effect_has_already_been_learned = effectKnown;
+        return curse;
     }
     
     /**

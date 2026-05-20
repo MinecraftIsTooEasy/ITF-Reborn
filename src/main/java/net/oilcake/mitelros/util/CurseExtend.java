@@ -4,12 +4,7 @@ import net.minecraft.Curse;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CurseExtend extends Curse {
-    public static List<Curse> activeCurses = new ArrayList<>();
-
     private static int getNextCurseID() {
         return IdUtil.getNextCurseId();
     }

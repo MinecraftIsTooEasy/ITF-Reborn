@@ -13,9 +13,11 @@ public class ITFNetwork {
     public static final ResourceLocation BossInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "BossInfo");
     public static final ResourceLocation SetGlowing = new ResourceLocation(ITFStart.NameSpaceCompact, "SetGlowing");
     public static final ResourceLocation DecreaseWater = new ResourceLocation(ITFStart.NameSpaceCompact, "DecreaseWater");
+    public static final ResourceLocation LearnCurseEffect = new ResourceLocation(ITFStart.NameSpaceCompact, "LearnCurseEffect");
     public static final ResourceLocation EnchantmentInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentInfo");
     public static final ResourceLocation EnchantmentReserverInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentReserverInfo");
     public static final ResourceLocation UpdateITFStatus = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateITFStatus");
+    public static final ResourceLocation UpdateCurses = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateCurses");
     public static final ResourceLocation OpenWindow = new ResourceLocation(ITFStart.NameSpaceCompact, "OpenWindow");
 
     public static void sendToClient(ServerPlayer player, Packet packet) {
@@ -39,10 +41,12 @@ public class ITFNetwork {
         PacketReader.registerClientPacketReader(EnchantmentInfo, S2CEnchantmentInfo::new);
         PacketReader.registerClientPacketReader(EnchantmentReserverInfo, S2CEnchantReserverInfo::new);
         PacketReader.registerClientPacketReader(UpdateITFStatus, S2CUpdateITFStatus::new);
+        PacketReader.registerClientPacketReader(UpdateCurses, S2CUpdateCurses::new);
         PacketReader.registerClientPacketReader(OpenWindow, S2COpenWindow::new);
     }
 
     private static void initServer() {
         PacketReader.registerServerPacketReader(DecreaseWater, C2SDecreaseWater::new);
+        PacketReader.registerServerPacketReader(LearnCurseEffect, C2SLearnCurseEffect::new);
     }
 }

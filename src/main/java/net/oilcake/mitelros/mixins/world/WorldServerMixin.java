@@ -4,15 +4,21 @@ import net.minecraft.*;
 import net.minecraft.server.MinecraftServer;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
+import net.oilcake.mitelros.network.ITFNetwork;
+import net.oilcake.mitelros.network.packets.S2CUpdateCurses;
 import net.oilcake.mitelros.util.CurseExtend;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @Mixin(value = WorldServer.class, priority = 999)
 public abstract class WorldServerMixin extends World {
@@ -215,26 +221,33 @@ public abstract class WorldServerMixin extends World {
     public void checkCurses() {
         for (ServerPlayer player : (List<ServerPlayer>) this.playerEntities) {
             List<Curse> playerCurses = new ArrayList<>();
+            boolean curseRealized = false;
 	        for (Curse curse : (List<Curse>) this.worldInfo.getCurses()) {
 		        if (!curse.cursed_player_username.equals(player.getEntityName())) continue;
 		        if (curse.has_been_realized) {
 			        playerCurses.add(curse);
-			        if (!curse.effect_known && !curse.effect_has_already_been_learned) {
-				        player.playerNetServerHandler.sendPacketToPlayer(
-						        new Packet85SimpleSignal(EnumSignal.curse_effect_learned)
-				        );
+			        if (curse.effect_known && !curse.effect_has_already_been_learned) {
 				        curse.effect_has_already_been_learned = true;
 			        }
 		        } else if (curse.time_of_realization <= this.getTotalWorldTime()) {
 			        curse.has_been_realized = true;
+                    curseRealized = true;
 			        playerCurses.add(curse);
 			        player.playerNetServerHandler.sendPacketToPlayer(
 					        (new Packet85SimpleSignal(EnumSignal.curse_realized)).setByte((byte) curse.id)
 			        );
+                    ((ITFEntityPlayer) player).itf$SetActiveCurses(playerCurses);
 			        player.onCurseRealized(curse.id);
 		        }
 	        }
-	        ((ITFEntityPlayer) player).itf$SetActiveCurses(playerCurses);
+            ITFEntityPlayer itfPlayer = (ITFEntityPlayer) player;
+            List<Curse> previousCurses = new ArrayList<>(itfPlayer.itf$GetActiveCurses());
+            itfPlayer.itf$SetActiveCurses(playerCurses);
+            List<Curse> activeCurses = itfPlayer.itf$GetActiveCurses();
+            boolean cursesChanged = curseRealized || !this.itf$cursesMatch(previousCurses, activeCurses);
+            if (cursesChanged || this.getTotalWorldTime() % 20L == 0L) {
+                ITFNetwork.sendToClient(player, new S2CUpdateCurses(activeCurses));
+            }
         }
         if (this.worldInfo.getNanotime() != (long) this.worldInfo.calcChecksum()) {
             this.getMinecraftServer().initiateShutdown();
@@ -247,11 +260,101 @@ public abstract class WorldServerMixin extends World {
      */
     @Overwrite
     public void removeCursesFromPlayer(ServerPlayer player) {
+        if (ITFConfig.TagRejection.isEnable()) {
+            this.itf$RerollRejectionCurses(player);
+            return;
+        }
         List<Curse> curses = this.worldInfo.getCurses();
         if (curses != null) {
             curses.removeIf(curse -> curse.cursed_player_username.equals(player.getEntityName()));
         }
 	    ((ITFEntityPlayer) player).itf$ClearCurses();
+        ITFNetwork.sendToClient(player, new S2CUpdateCurses(List.of()));
+    }
+
+    @Unique
+    private void itf$RerollRejectionCurses(ServerPlayer player) {
+        List<Curse> curses = this.worldInfo.getCurses();
+        if (curses == null) {
+            return;
+        }
+        int targetCurseCount = ITFConfig.TagRejection.getIntegerValue();
+        if (targetCurseCount <= 0) {
+            ((ITFEntityPlayer) player).itf$ClearCurses();
+            ITFNetwork.sendToClient(player, new S2CUpdateCurses(List.of()));
+            return;
+        }
+
+        curses.removeIf(curse -> curse.cursed_player_username.equals(player.getEntityName()));
+
+        Random random = new Random(this.itf$GetRejectionRerollSeed(player));
+        Set<Integer> addedCurseIds = new HashSet<>();
+        List<Curse> rerolledCurses = new ArrayList<>();
+        for (int i = 0; i < targetCurseCount; i++) {
+            Curse curseType = this.itf$GetRandomAvailableCurse(random, addedCurseIds);
+            if (curseType == null) {
+                break;
+            }
+            Curse rerolledCurse = new Curse(
+                    player.getEntityName(),
+                    player.getUniqueID(),
+                    curseType,
+                    this.getTotalWorldTime(),
+                    true,
+                    true
+            );
+            rerolledCurse.effect_has_already_been_learned = true;
+            curses.add(rerolledCurse);
+            rerolledCurses.add(rerolledCurse);
+            addedCurseIds.add(curseType.id);
+        }
+
+        ITFEntityPlayer itfPlayer = (ITFEntityPlayer) player;
+        itfPlayer.itf$SetActiveCurses(rerolledCurses);
+        for (Curse curse : rerolledCurses) {
+            player.onCurseRealized(curse.id);
+        }
+        ITFNetwork.sendToClient(player, new S2CUpdateCurses(itfPlayer.itf$GetActiveCurses()));
+    }
+
+    @Unique
+    private Curse itf$GetRandomAvailableCurse(Random random, Set<Integer> addedCurseIds) {
+        List<Curse> availableCurses = new ArrayList<>();
+        for (Curse curse : Curse.cursesList) {
+            if (curse != null && !addedCurseIds.contains(curse.id)) {
+                availableCurses.add(curse);
+            }
+        }
+        if (availableCurses.isEmpty()) {
+            return null;
+        }
+        return availableCurses.get(random.nextInt(availableCurses.size()));
+    }
+
+    @Unique
+    private long itf$GetRejectionRerollSeed(ServerPlayer player) {
+        long seed = this.getSeed();
+        seed ^= ((long) player.getEntityName().hashCode()) << 32;
+        seed ^= this.worldInfo.getWorldCreationTime();
+        seed ^= this.getTotalWorldTime() * 0x9E3779B97F4A7C15L;
+        seed ^= this.rand.nextLong();
+        seed ^= System.nanoTime();
+        return seed;
+    }
+
+    @Unique
+    private boolean itf$cursesMatch(List<Curse> currentCurses, List<Curse> updatedCurses) {
+        if (currentCurses.size() != updatedCurses.size()) {
+            return false;
+        }
+        for (int i = 0; i < currentCurses.size(); i++) {
+            Curse current = currentCurses.get(i);
+            Curse updated = updatedCurses.get(i);
+            if (current.id != updated.id || current.effect_known != updated.effect_known) {
+                return false;
+            }
+        }
+        return true;
     }
 
 	/**
@@ -260,9 +363,20 @@ public abstract class WorldServerMixin extends World {
 	 */
 	@Overwrite
 	public void addCurse(ServerPlayer player_to_curse, EntityWitch cursing_witch, Curse curse_type, int ticks_delay) {
-		if (!(cursing_witch.getHealth() <= 0.0F) && (((ITFEntityPlayer) player_to_curse).itf$GetActiveCurses().size() < CurseExtend.getMaxCurseCount())) {
+		if (!(cursing_witch.getHealth() <= 0.0F) && this.itf$getPersistedCurseCount(player_to_curse) < CurseExtend.getMaxCurseCount()) {
 			this.worldInfo.getCurses().add(new Curse(player_to_curse.getEntityName(), cursing_witch.getUniqueID(), curse_type, this.getTotalWorldTime() + (long)ticks_delay, false, false));
 		}
 	}
+
+    @Unique
+    private int itf$getPersistedCurseCount(ServerPlayer player) {
+        int count = 0;
+        for (Curse curse : (List<Curse>) this.worldInfo.getCurses()) {
+            if (curse.cursed_player_username.equals(player.getEntityName())) {
+                count++;
+            }
+        }
+        return count;
+    }
 	
 }
