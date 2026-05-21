@@ -264,18 +264,7 @@ public abstract class InventoryEffectRendererMixin extends GuiContainer {
 
     @Unique
     private String itf$getPotionDisplayName(Potion potion, PotionEffect potionEffect) {
-        String name = I18n.getString(potion.getName());
-        int amplifier = potionEffect.getAmplifier();
-        if (amplifier == 1) {
-            return name + " II";
-        }
-        if (amplifier == 2) {
-            return name + " III";
-        }
-        if (amplifier == 3) {
-            return name + " IV";
-        }
-        return name;
+        return I18n.getString(potion.getName()) + " " + I18n.getString("enchantment.level." + (potionEffect.getAmplifier() + 1));
     }
 
     @Unique
