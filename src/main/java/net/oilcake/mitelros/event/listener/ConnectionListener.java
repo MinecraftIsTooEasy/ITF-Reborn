@@ -1,14 +1,16 @@
 package net.oilcake.mitelros.event.listener;
 
-import moddedmite.rustedironcore.api.event.listener.IWorldLoadListener;
+import moddedmite.rustedironcore.api.event.listener.IConnectionListener;
 import moddedmite.rustedironcore.api.util.StringUtil;
 import net.minecraft.Minecraft;
-import net.minecraft.WorldClient;
+import net.minecraft.NetClientHandler;
+import net.minecraft.Packet1Login;
 import net.oilcake.mitelros.config.ITFConfig;
 
-public class WorldLoadListener implements IWorldLoadListener {
+public class ConnectionListener implements IConnectionListener {
+
     @Override
-    public void onWorldLoad(WorldClient world) {
+    public void onClientLoggedIn(NetClientHandler clientHandler, Packet1Login login) {
         Minecraft client = Minecraft.getMinecraft();
 
         if (ITFConfig.Statement.getBooleanValue() && StringUtil.getCurrentLanguage().equals("zh_CN")) {

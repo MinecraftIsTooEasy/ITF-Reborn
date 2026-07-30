@@ -65,7 +65,7 @@ public class ITFEventRIC extends Handlers {
 
         PotionRegistry.register(net.oilcake.mitelros.registry.potion.PotionRegistry::register);
 
-        WorldLoad.register(new WorldLoadListener());
+        Connection.register(new ConnectionListener());
     }
 
 }
