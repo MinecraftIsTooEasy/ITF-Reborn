@@ -42,6 +42,7 @@ dependencies {
     compileOnly "com.github.MinecraftIsTooEasy:MITE-ITE:2.0.25"
     compileOnly "com.github.MinecraftIsTooEasy:Baubles:1.1.2"
     compileOnly "com.github.MinecraftIsTooEasy:NewShop:1.0.6"
+    compileOnly "com.github.MinecraftIsTooEasy:Shop:1.0.5"
     compileOnly "com.github.MinecraftIsTooEasy:RWG:1.4.2"
     compileOnly "com.github.MinecraftIsTooEasy:Extreme:0.1.6.12"
     compileOnly "com.github.MinecraftIsTooEasy:OffHand:3.0.2"

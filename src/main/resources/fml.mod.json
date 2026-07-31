@@ -19,7 +19,7 @@
     "Huix",
     "Rizur",
     "Debris",
-    "Xy_Lose"
+    "Xy_Luce"
   ],
   "contact": {
     "homepage": "https://github.com/MinecraftIsTooEasy/ITF-Reborn",
@@ -47,6 +47,9 @@
       "net.oilcake.mitelros.compat.BaublesPluginImpl"
     ],
     "newshop": [
+      "net.oilcake.mitelros.compat.NewShopPluginImpl"
+    ],
+    "shop": [
       "net.oilcake.mitelros.compat.ShopPluginImpl"
     ]
   },
