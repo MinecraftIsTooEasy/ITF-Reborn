@@ -26,11 +26,14 @@ public class PlayerListener implements IPlayerEventListener {
             guide.setTagCompound(ItemGuideBook.generateBookContents());
             player.inventory.addItemStackToInventoryOrDropIt(guide);
         }
+        if (event.firstLogin() && ITFConfig.TagRejection.isEnable()) {
+            ((WorldServer) player.worldObj).removeCursesFromPlayer(player);
+        }
         loadPlayerCurses(player);
     }
     
     private void loadPlayerCurses(ServerPlayer player) {
-        if (!(player.worldObj instanceof WorldServer worldServer)) return;
+        WorldServer worldServer = (WorldServer) player.worldObj;
 	    List<Curse> wCurses = worldServer.getWorldInfo().getCurses();
         List<Curse> pCurses = new ArrayList<>();
         for (Curse curse : wCurses) {
