@@ -4,6 +4,7 @@ import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
 import net.oilcake.mitelros.potion.PotionExtend;
+import net.oilcake.mitelros.util.WaterHelper;
 
 public class WaterManager {
 
@@ -30,7 +31,7 @@ public class WaterManager {
             if (biome == BiomeGenBase.swampRiver || biome == BiomeGenBase.swampland) {
                 ((ITFFoodStats) player.getFoodStats()).itf$AddWater(1);
                 player.addPotionEffect(new PotionEffect(Potion.poison.id, 450, 0));
-            } else if (biome == BiomeGenBase.river || biome == BiomeGenBase.desertRiver) {
+            } else if (WaterHelper.isPureWater(biome)) {
                 ((ITFFoodStats) player.getFoodStats()).itf$AddWater(2);
             } else {
                 ((ITFFoodStats) player.getFoodStats()).itf$AddWater(1);

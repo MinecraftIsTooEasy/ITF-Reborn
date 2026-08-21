@@ -10,6 +10,7 @@ public class ModReference {
     public static final String BREAD_SKIN = "bread_skin";
     public static final String BAUBLES = "baubles";
     public static final String OFFHAND = "offhand";
+    public static final String WAILA = "waila";
 
     public static boolean hasMod(String modId) {
         return FabricUtil.isModLoaded(modId);

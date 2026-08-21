@@ -1,7 +1,6 @@
 package net.oilcake.mitelros.util;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.material.Materials;
 
 public final class DispenseBehaviorEmptyBucketRedirect extends BehaviorDefaultDispenseItem {
     public ItemBucket item_bucket;
@@ -22,12 +21,7 @@ public final class DispenseBehaviorEmptyBucketRedirect extends BehaviorDefaultDi
         Material var8 = var4.getBlockMaterial(var5, var6, var7);
         var4.getBlockMetadata(var5, var6, var7);
         if (var8 == Material.water) {
-            BiomeGenBase biome = var4.getBiomeGenForCoords(var5, var7);
-            if (biome == BiomeGenBase.river || biome == BiomeGenBase.desertRiver) {
-                var10 = this.item_bucket.getPeerForContents(Materials.pure_water);
-            } else {
-                var10 = this.item_bucket.getPeerForContents(Materials.water);
-            }
+            var10 = this.item_bucket.getPeerForContents(WaterHelper.getWaterMaterial(var4, var5, var7));
         } else {
             if (var8 != Material.lava)
                 return super.dispenseStack(par1IBlockSource, par2ItemStack);

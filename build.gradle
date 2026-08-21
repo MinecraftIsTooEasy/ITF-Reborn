@@ -47,12 +47,13 @@ dependencies {
     compileOnly "com.github.MinecraftIsTooEasy:Extreme:0.1.6.12"
     compileOnly "com.github.MinecraftIsTooEasy:OffHand:3.0.2"
     compileOnly "com.github.MinecraftIsTooEasy:ModMenu:10.1.1"
+    compileOnly "org.moddedmite:waila:2.0.8"
 
     // useful mods
     localRuntime "com.github.MinecraftIsTooEasy:ModernMITE:3.7.5"
     localRuntime "com.github.MinecraftIsTooEasy:OMMC:1.4.2"
     localRuntime "com.github.MinecraftIsTooEasy:Neodymium:1.1.1"
-    localRuntime "com.github.MinecraftIsTooEasy:Waila:2.0.6"
+    localRuntime "org.moddedmite:waila:2.0.8"
     localRuntime "com.github.MinecraftIsTooEasy:MixinConflictHelper:1.0.0"
     localRuntime "com.github.MinecraftIsTooEasy:PinIn-Lib:1.6.0"
     localRuntime "com.github.MinecraftIsTooEasy:ExtraGui:1.3.6"

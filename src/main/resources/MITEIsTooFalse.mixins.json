@@ -10,6 +10,7 @@
     "block.BlockCropsMixin",
     "block.BlockDeadBushMixin",
     "block.BlockFlowerPotMixin",
+    "block.BlockFluidMixin",
     "block.BlockFurnaceMixin",
     "block.BlockGrassMixin",
     "block.BlockIceMixin",

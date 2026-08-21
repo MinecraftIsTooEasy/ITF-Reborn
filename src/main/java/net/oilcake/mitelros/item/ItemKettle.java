@@ -7,6 +7,7 @@ import net.oilcake.mitelros.feat.FoodWater;
 import net.oilcake.mitelros.localization.TooltipKeys;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFFoodStats;
+import net.oilcake.mitelros.util.WaterHelper;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -130,12 +131,7 @@ public class ItemKettle extends Item implements IDamageableItem {
                     if (this.purify) {
                         result = Materials.pure_water;
                     } else {
-                        BiomeGenBase biome = rc.world.getBiomeGenForCoords(rc.block_hit_x, rc.block_hit_z);
-                        if (biome == BiomeGenBase.river || biome == BiomeGenBase.desertRiver) {
-                            result = Materials.pure_water;
-                        } else {
-                            result = Materials.water;
-                        }
+                        result = WaterHelper.getWaterMaterial(rc.world, rc.block_hit_x, rc.block_hit_z);
                     }
                     player.convertOneOfHeldItem(new ItemStack(this.getContentsPeer(result)));
 

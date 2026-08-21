@@ -465,5 +465,9 @@ villager.profession.armorer=盔甲匠
 villager.profession.butcher=屠夫
 villager.profession.leatherworker=皮匠
 
+compat.waila.pure_water=纯净水
+compat.waila.furnace.state.embers=余烬尚存
+compat.waila.furnace.state.ignition_required=需要点火
+
 itemGroup.itf_reborn.item=ITF物品
 itemGroup.itf_reborn.block=ITF方块

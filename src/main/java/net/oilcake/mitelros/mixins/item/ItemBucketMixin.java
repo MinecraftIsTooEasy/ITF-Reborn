@@ -8,6 +8,7 @@ import net.oilcake.mitelros.api.WontFix;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.util.DispenseBehaviorEmptyBucketRedirect;
 import net.oilcake.mitelros.util.DispenseBehaviorFilledBucketRedirect;
+import net.oilcake.mitelros.util.WaterHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -54,11 +55,7 @@ public abstract class ItemBucketMixin extends ItemVessel {
     @ModifyArg(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemBucket;getPeerForContents(Lnet/minecraft/Material;)Lnet/minecraft/ItemVessel;"))
     private Material moreWaterType(Material contents, @Local RaycastCollision rc) {
         if (contents != Material.water) return contents;
-        BiomeGenBase biome = rc.world.getBiomeGenForCoords(rc.block_hit_x, rc.block_hit_z);
-        Material material;
-        if (biome == BiomeGenBase.river || biome == BiomeGenBase.desertRiver) material = Materials.pure_water;
-        else material = Materials.water;
-        return material;
+        return WaterHelper.getWaterMaterial(rc.world, rc.block_hit_x, rc.block_hit_z);
     }
 
     @ModifyExpressionValue(method = "tryPlaceContainedLiquid", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemBucket;getContents()Lnet/minecraft/Material;"))

@@ -1,7 +1,7 @@
 package net.oilcake.mitelros.mixins.entity.misc;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.material.Materials;
+import net.oilcake.mitelros.util.WaterHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,12 +16,7 @@ public abstract class EntityItemMixin extends Entity {
 
     @ModifyArg(method = "spentTickInWater", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemVessel;getPeerForContents(Lnet/minecraft/Material;)Lnet/minecraft/ItemVessel;", ordinal = 1))
     private Material itfWater(Material var1) {
-        BiomeGenBase biome = this.worldObj.getBiomeGenForCoords(getBlockPosX(), getBlockPosZ());
-        if (biome == BiomeGenBase.river || biome == BiomeGenBase.desertRiver) {
-            return Materials.pure_water;
-        } else {
-            return Material.water;
-        }
+        return WaterHelper.getWaterMaterial(this.worldObj, getBlockPosX(), getBlockPosZ());
     }
 
     @Inject(method = "convertItem", at = @At("HEAD"), cancellable = true)

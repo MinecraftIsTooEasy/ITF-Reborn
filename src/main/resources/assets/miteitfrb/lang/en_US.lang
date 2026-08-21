@@ -465,5 +465,9 @@ villager.profession.armorer=Armorer
 villager.profession.butcher=Butcher
 villager.profession.leatherworker=Leatherworker
 
+compat.waila.pure_water=Pure Water
+compat.waila.furnace.state.embers=Embers remain
+compat.waila.furnace.state.ignition_required=Needs ignition
+
 itemGroup.itf_reborn.item=ITF Items
 itemGroup.itf_reborn.block=ITF Blocks
