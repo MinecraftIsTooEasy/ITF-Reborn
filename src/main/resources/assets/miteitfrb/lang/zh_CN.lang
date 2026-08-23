@@ -313,10 +313,6 @@ item.buckets/iron/water_pure.name=装满纯净水的铁桶
 item.buckets/mithril/water_pure.name=装满纯净水的秘银桶
 item.buckets/ancient_metal/water_pure.name=装满纯净水的远古金属桶
 item.buckets/adamantium/water_pure.name=装满纯净水的艾德曼合金桶
-item.buckets/wood/empty.name=木桶
-item.buckets/wood/water.name=装满水的木桶
-item.buckets/wood/milk.name=装满牛奶的木桶
-item.buckets/wood/water_pure.name=装满纯净水的木桶
 
 item.food/mashed_cactus.name=碎仙人掌
 item.food/ice_sucker.name=印度手搓小冰棍
@@ -416,7 +412,6 @@ entity.EntitySkeletonHorse.name=骷髅马
 entity.EntityUndeadGuard.name=亡灵守卫
 entity.EntityPigManGuard.name=僵尸猪人守卫
 entity.EntityCastleGuard.name=远古傀儡
-entity.EntitySpirit.name=阴魂
 entity.EntityLongdeadSentry.name=古尸哨兵
 
 death.extend.attack.thirsty=干枯了
@@ -430,10 +425,10 @@ material.tungsten.name=钨钢
 
 gui.repair.no_available_enchantment=无可用附魔
 gui.repair.enchantment_conflict=附魔冲突
-gui.repair.lack_xp=缺少经验值:至少需要%d级
-gui.repair.effectLessThanOneLevel=合并它们对你的影响小于1级.
-gui.repair.costMoreThanOneLevel=合并它们会消耗你%d级.
-gui.repair.rewardMoreThanOneLevel=合并它们会提升你%d级.
+gui.repair.lack_xp=经验不足：需要%d点 (对应%d级)，当前%d点 (%d级)
+gui.repair.no_xp_change=此次操作不会改变经验值
+gui.repair.cost_xp=此次操作会消耗%d点经验值 (%d级 -> %d级)
+gui.repair.reward_xp=此次操作会返还%d点经验值 (%d级 -> %d级)
 
 gui.enchantReserver.slotTop.tooltip=放置钻石等拥有经验的物品
 gui.enchantReserver.slotBottom.tooltip=放置玻璃瓶, 金属粒等储存经验的物品
@@ -466,7 +461,7 @@ villager.profession.butcher=屠夫
 villager.profession.leatherworker=皮匠
 
 compat.waila.pure_water=纯净水
-compat.waila.furnace.state.embers=余烬尚存
+compat.waila.furnace.state.embers=仍有余火
 compat.waila.furnace.state.ignition_required=需要点火
 
 itemGroup.itf_reborn.item=ITF物品

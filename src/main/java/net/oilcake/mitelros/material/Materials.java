@@ -48,7 +48,7 @@ public class Materials extends Material {
 
     public static final Material pure_water;
 
-    public static final Materials magical;
+    public static final Material magical;
 
     public static final Material ancient_metal_sacred;
 
@@ -87,7 +87,7 @@ public class Materials extends Material {
         custom_b = (Materials) (new Materials(CUSTOM_B)).setMetal(false).setMinHarvestLevel(0);
         lemonade = (new MaterialFood("lemonade")).setDrinkable();
         pure_water = new MaterialPureWater("pure_water");
-        magical = (Materials) (new Materials(MAGICAL)).setMetal(false).setMinHarvestLevel(0);
+        magical = new MaterialMagical(MAGICAL).setMetal(false).setMinHarvestLevel(0);
         ancient_metal_sacred = new MaterialAncientMetalSacred(ANCIENT_METAL_SACRED);
         agave = new MaterialFood("agave");
         beetroot = new MaterialFood("beetroot");
@@ -109,8 +109,6 @@ public class Materials extends Material {
 
     @Override
     public float getDamageVsEntity() {
-        if (this == magical)
-            return 0.0F;
         Minecraft.setErrorMessage("getDamageVsEntity: unhandled material " + this.name);
         return 0.0F;
     }

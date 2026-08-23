@@ -42,7 +42,6 @@ public class BiomeGenUnderworldMixin extends BiomeGenBase {
             this.spawnableMonsterList.add(new SpawnListEntry(EntityWoodSpider.class, 40, 2, 4));
             this.spawnableMonsterList.add(new SpawnListEntry(EntityStray.class, 40, 2, 4));
             this.spawnableMonsterList.add(new SpawnListEntry(EntityHusk.class, 40, 2, 4));
-            this.spawnableMonsterList.add(new SpawnListEntry(EntitySpirit.class, 10, 1, 1));
             this.spawnableMonsterList.add(new SpawnListEntry(EntityFireElemental.class, 30, 1, 2));
         }
     }

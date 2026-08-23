@@ -10,8 +10,10 @@ import net.oilcake.mitelros.network.ITFNetwork;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class S2CUpdateCurses implements Packet {
+    private static final UUID CLIENT_CURSE_SOURCE = new UUID(0L, 0L);
     private final int[] curseIds;
     private final boolean[] effectKnown;
 
@@ -56,7 +58,7 @@ public class S2CUpdateCurses implements Packet {
             if (templateCurse != null) {
                 Curse curse = new Curse(
                         entityPlayer.getEntityName(),
-                        entityPlayer.getUniqueID(),
+                        CLIENT_CURSE_SOURCE,
                         templateCurse,
                         0L,
                         true,

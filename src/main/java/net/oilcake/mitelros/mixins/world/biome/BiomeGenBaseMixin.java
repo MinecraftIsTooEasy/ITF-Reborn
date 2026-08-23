@@ -68,7 +68,6 @@ public abstract class BiomeGenBaseMixin {
         this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBoneLord.class, 1, 1, 1));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityWitherBodyguard.class, 3, 1, 1));
-        this.spawnableMonsterList.add(new SpawnListEntry(EntitySpirit.class, 5, 1, 1));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanGuard.class, 5, 1, 2));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityPigmanLord.class, 1, 1, 2));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityEvil.class, 20, 1, 2));

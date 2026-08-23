@@ -430,14 +430,6 @@ public class Items extends Item {
 
     public static final ItemMorningStar morningStarRustedIron = new ItemMorningStar(getNextItemID(), Material.rusted_iron);
 
-    public static final ItemBucket woodBucket = new ItemBucket(getNextItemID(), Materials.wood, null);
-
-    public static final ItemBucket woodBucketWater = (ItemBucket) new ItemBucket(getNextItemID(), Materials.wood, Materials.water).setContainerItem(woodBucket);
-
-    public static final ItemBucket woodBucketWaterPure = (ItemBucket) new ItemBucket(getNextItemID(), Materials.wood, Materials.pure_water).setContainerItem(woodBucket);
-
-    public static final ItemBucketMilk woodBucketMilk = (ItemBucketMilk) new ItemBucketMilk(getNextItemID(), Materials.wood).setContainerItem(woodBucket);
-
     public static final ItemHoe hoeFlint = ReflectHelper.createInstance(ItemHoe.class, new Class[]{int.class, Material.class}, getNextItemID(), Materials.flint);
 
     public static final ItemFood peeledSugarcane = (new ItemFood(getNextItemID(), Materials.peeledSugarcane, 0, 1, 1000, false, false, true, "peeledSugarcane")).setPlantProduct();

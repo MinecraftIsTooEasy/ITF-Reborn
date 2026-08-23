@@ -11,6 +11,7 @@ public class ModReference {
     public static final String BAUBLES = "baubles";
     public static final String OFFHAND = "offhand";
     public static final String WAILA = "waila";
+    public static final String ENCHANT_DIVINE = "enchantdivine";
 
     public static boolean hasMod(String modId) {
         return FabricUtil.isModLoaded(modId);

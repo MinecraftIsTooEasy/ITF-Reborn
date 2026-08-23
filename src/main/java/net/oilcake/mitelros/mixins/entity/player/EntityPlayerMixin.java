@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Mixin(EntityPlayer.class)
 public abstract class EntityPlayerMixin extends EntityLivingBase implements ICommandSender, ITFEntityPlayer {
@@ -218,6 +219,9 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
     private final List<Curse> itf$activeCurses = new ArrayList<>();
 
     @Unique
+    private static final UUID itf$CLIENT_CURSE_SOURCE = new UUID(0L, 0L);
+
+    @Unique
     public List<Curse> itf$GetActiveCurses() {
         if (this.worldObj != null && this.worldObj.isRemote) {
             if (!this.is_cursed) {
@@ -344,7 +348,7 @@ public abstract class EntityPlayerMixin extends EntityLivingBase implements ICom
         }
         Curse curse = new Curse(
                 this.getEntityName(),
-                this.getUniqueID(),
+                itf$CLIENT_CURSE_SOURCE,
                 Curse.cursesList[curseId],
                 0L,
                 true,

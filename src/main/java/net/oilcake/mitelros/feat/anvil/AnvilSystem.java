@@ -64,16 +64,17 @@ public class AnvilSystem {
     }
 
     public static String getString(EntityPlayer player, int xpDifference) {
-        int hypothetical_level = player.getExperienceLevel(player.experience + xpDifference);
-        int level_cost = player.getExperienceLevel() - hypothetical_level;
+        int currentLevel = player.getExperienceLevel();
+        int resultingLevel = player.getExperienceLevel(player.experience + xpDifference);
         String text;
-        if (level_cost < 0) {
-            text = I18n.getStringParams("gui.repair.rewardMoreThanOneLevel", -level_cost);
-        } else if (level_cost > 0) {
-            text = I18n.getStringParams("gui.repair.costMoreThanOneLevel", level_cost);
+        if (xpDifference > 0) {
+            text = I18n.getStringParams("gui.repair.reward_xp", xpDifference, currentLevel, resultingLevel);
+        } else if (xpDifference < 0) {
+            text = I18n.getStringParams("gui.repair.cost_xp", -xpDifference, currentLevel, resultingLevel);
         } else {
-            text = I18n.getString("gui.repair.effectLessThanOneLevel");
+            text = I18n.getString("gui.repair.no_xp_change");
         }
         return EnumChatFormatting.YELLOW + text;
     }
+
 }

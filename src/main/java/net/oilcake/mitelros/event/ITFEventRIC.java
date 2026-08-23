@@ -3,12 +3,11 @@ package net.oilcake.mitelros.event;
 import moddedmite.rustedironcore.api.event.Handlers;
 import moddedmite.rustedironcore.api.event.handler.GravelDropHandler;
 import moddedmite.rustedironcore.api.event.listener.IArrowRegisterListener;
-import net.minecraft.Material;
+import moddedmite.rustedironcore.api.item.ArrowRegistry;
+import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.event.listener.*;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.registry.item.Items;
-
-import java.util.function.Consumer;
 
 public class ITFEventRIC extends Handlers {
     public static void register() {
@@ -31,9 +30,10 @@ public class ITFEventRIC extends Handlers {
 
         ArrowRegister.register(new IArrowRegisterListener() {
             @Override
-            public void onRegister(Consumer<Material> registry) {
-                registry.accept(Materials.nickel);
-                registry.accept(Materials.tungsten);
+            public void onRegister(ArrowRegistry registry) {
+                registry.register(Materials.nickel, ITFStart.ResourceDomain);
+                registry.register(Materials.tungsten, ITFStart.ResourceDomain);
+                registry.register(Materials.magical, ITFStart.ResourceDomain);
             }
         });
 

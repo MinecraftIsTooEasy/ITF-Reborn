@@ -4,7 +4,6 @@
 build/
 out/
 classes/
-build.gradle
 
 # eclipse
 
@@ -39,7 +38,5 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-.gitattributes
 /src/test
-*.bat
 *.docx

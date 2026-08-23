@@ -1,5 +1,8 @@
 package net.oilcake.mitelros.mixin.interfaces;
 
 public interface ITFGuiEnchantment {
-    void itf$SetEnchantmentInfo(int[] info);
+
+    void itf$SetEnchantmentSeed(long seed);
+
+    boolean itf$HasEnchantmentInfo();
 }

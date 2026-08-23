@@ -48,6 +48,14 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
         super(player);
     }
 
+    @Inject(method = "updateRepairOutput", at = @At("HEAD"))
+    private void resetAnvilStatus(CallbackInfo ci) {
+        if (AnvilSystem.isActive()) {
+            this.xpDifference = 0;
+            this.anvilStatus = AnvilStatus.EnchantmentConflict;
+        }
+    }
+
     @WrapOperation(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;isEnchantable()Z"))
     private boolean allowEnchantedItem(ItemStack instance, Operation<Boolean> original) {
         return original.call(instance) || (AnvilSystem.isActive() && instance.isItemEnchanted());
@@ -97,6 +105,7 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     private void rewardXP(CallbackInfo ci) {
         if (AnvilSystem.isActive()) {
             this.xpDifference = AnvilSystem.calcXPDiffOnDisenchanting(this.inputSlots.getStackInSlot(0));
+            this.anvilStatus = AnvilStatus.Satisfied;
         }
     }
 

@@ -14,7 +14,7 @@ public class ITFNetwork {
     public static final ResourceLocation SetGlowing = new ResourceLocation(ITFStart.NameSpaceCompact, "SetGlowing");
     public static final ResourceLocation DecreaseWater = new ResourceLocation(ITFStart.NameSpaceCompact, "DecreaseWater");
     public static final ResourceLocation LearnCurseEffect = new ResourceLocation(ITFStart.NameSpaceCompact, "LearnCurseEffect");
-    public static final ResourceLocation EnchantmentInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentInfo");
+    public static final ResourceLocation EnchantmentSeed = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentSeed");
     public static final ResourceLocation EnchantmentReserverInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentReserverInfo");
     public static final ResourceLocation UpdateITFStatus = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateITFStatus");
     public static final ResourceLocation UpdateCurses = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateCurses");
@@ -38,7 +38,7 @@ public class ITFNetwork {
     private static void initClient() {
         PacketReader.registerClientPacketReader(BossInfo, S2CBossInfo::new);
         PacketReader.registerClientPacketReader(SetGlowing, S2CSetGlowing::new);
-        PacketReader.registerClientPacketReader(EnchantmentInfo, S2CEnchantmentInfo::new);
+        PacketReader.registerClientPacketReader(EnchantmentSeed, S2CEnchantmentSeed::new);
         PacketReader.registerClientPacketReader(EnchantmentReserverInfo, S2CEnchantReserverInfo::new);
         PacketReader.registerClientPacketReader(UpdateITFStatus, S2CUpdateITFStatus::new);
         PacketReader.registerClientPacketReader(UpdateCurses, S2CUpdateCurses::new);

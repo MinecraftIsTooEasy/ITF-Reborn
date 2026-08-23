@@ -5,20 +5,39 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.mod_version
+def canonicalVersion = project.mod_version
+def buildDate = new SimpleDateFormat("yyyyMMdd").format(new Date())
+def archiveVersion = "${canonicalVersion}-mc${project.minecraft_version}-${buildDate}"
+
+version = archiveVersion
 group = project.maven_group
 
+def useLocalizedArchiveName = Locale.default.country.equalsIgnoreCase("CN")
+
 base {
-    archivesName = project.archives_base_name
+    // Prefix local JAR names with an optional alias, for example: "[Alias]" + archives_base_name.
+    // Maven publishing keeps using the lowercase maven_id configured below.
+    archivesName = useLocalizedArchiveName
+            ? "[黄昏重生]${project.archives_base_name}"
+            : project.archives_base_name
 }
 
-def canonical_version = project.mod_version
-
 repositories {
+    // Add repositories to retrieve artifacts from in here.
+    // Only declare repositories required by this project because Loom provides
+    // the repositories needed for Minecraft and its libraries automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repository declarations.
+    maven {
+        name = "Spongepowered"
+        url = "https://repo.spongepowered.org/repository/maven-public/"
+    }
     maven {
         name = "ModdedMITE"
-        url = uri("https://maven.limingzxc.top/repository/maven-public/")
+        url = "https://maven.limingzxc.top/repository/maven-public/"
     }
+    mavenCentral()
+    mavenLocal()
 }
 
 configurations {
@@ -26,6 +45,9 @@ configurations {
 }
 
 dependencies {
+    // Dependency versions are maintained in gradle.properties or alongside project-specific declarations below.
+    // Use implementation for required mods, compileOnly for optional integrations,
+    // and localRuntime for mods needed only in the development environment.
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
@@ -34,7 +56,7 @@ dependencies {
 
     // these are necessary for running
     implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.1"
-    implementation "com.github.MinecraftIsTooEasy:RustedIronCore:1.5.3"
+    implementation "org.moddedmite:rusted-iron-core:1.5.7"
     implementation "com.github.MinecraftIsTooEasy:Conditional-Mixin:0.6.4"
 
     // compile needed, runtime not needed
@@ -50,6 +72,7 @@ dependencies {
     compileOnly "org.moddedmite:waila:2.0.8"
 
     // useful mods
+//    localRuntime "org.moddedmite:enchantdivine:1.0.3"
     localRuntime "com.github.MinecraftIsTooEasy:ModernMITE:3.7.5"
     localRuntime "com.github.MinecraftIsTooEasy:OMMC:1.4.2"
     localRuntime "com.github.MinecraftIsTooEasy:Neodymium:1.1.1"
@@ -61,35 +84,53 @@ dependencies {
     localRuntime "com.github.MinecraftIsTooEasy:FastUtil:8.5.12"
 }
 
-def fmlResolvedFile = configurations.fml.files.iterator().next()
+def fmlResolvedFile = configurations.fml.singleFile
 
 loom {
     accessWidenerPath = file("src/main/resources/MITEIsTooFalse.accesswidener")
     mergedMinecraftJar()
-
+    setFML(fmlResolvedFile)
+    dependencies.add("mappings", fmlMCPMappings())
     mods {
-        "MITE-ITF-Reborn" {
+        "mite_itf_reborn" {
             sourceSet sourceSets.main
+//            sourceSet sourceSets.client
+//            sourceSet sourceSets.server
+//            For modules in the 'src' directory, only the main source set is required by default.
         }
+    }
+    runs {
+        client {
+            String name = project.username
+            String width = project.screen_width
+            String height = project.screen_height
+            programArgs "--userProperties", "{}", "--username", name, "--session", "a.a.a.a", "--width", width, "--height", height
+        }
+//        server {
+//            programArgs "--", ""
+//        }
     }
 }
 
-loom.setFML(fmlResolvedFile)
-dependencies.add("mappings", loom.fmlMCPMappings())
-
 processResources {
-    inputs.property "version", project.version
+    inputs.properties(
+            version: canonicalVersion,
+            id: project.mod_id,
+            name: project.mod_name
+    )
 
     filesMatching("fml.mod.json") {
-        expand "version": canonical_version
+        expand(inputs.properties)
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    options.release = 17
 }
 
 java {
+    // Loom automatically attaches sourcesJar to remapSourcesJar and the build lifecycle when it is present.
+    // Remove this line only when source artifacts should not be generated.
     withSourcesJar()
 
     sourceCompatibility = JavaVersion.VERSION_17
@@ -97,31 +138,27 @@ java {
 }
 
 jar {
-    project.version += ("-mc" + project.minecraft_version + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()))
-    inputs.property "archivesName", project.archives_base_name
+    inputs.property "archivesName", project.base.archivesName
 
     from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}" }
+        rename { String fileName -> "${fileName}_${inputs.properties.archivesName}" }
     }
 }
 
-tasks.named('runClient', JavaExec).configure { exec ->
-    def user = project.hasProperty('username') ? project.username : 'Dev'
-    exec.setArgs(['--username', user, '--session', '0', '--width', '854', '--height', '480'])
-}
-
-// configure the maven publication
+// Configure the Maven publication.
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            artifactId = project.archives_base_name
-            version = canonical_version
-            from components.java
+        create("mavenJava", MavenPublication) {
+            artifactId = project.maven_id
+            version = canonicalVersion
+            from(components.java)
         }
     }
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
+        // Publication repositories are separate from dependency repositories declared above.
+        // Add or remove release targets here without changing dependency resolution.
         maven {
             name = "ModdedMITE"
             url = uri("https://maven.limingzxc.top/repository/maven-releases/")

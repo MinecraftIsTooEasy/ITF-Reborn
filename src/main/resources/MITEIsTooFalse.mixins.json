@@ -26,6 +26,7 @@
     "block.entity.TileEntityFurnaceMixin",
     "client.gui.GuiBeaconButtonPowerMixin",
     "client.gui.GuiBeaconMixin",
+    "client.gui.GuiContainerMixin",
     "client.gui.GuiEnchantmentMixin",
     "client.gui.GuiIngameMixin",
     "client.gui.GuiRepairMixin",
@@ -121,6 +122,9 @@
   ],
   "injectors": {
     "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
   },
   "plugin": "net.oilcake.mitelros.mixin.MixinPlugin"
 }

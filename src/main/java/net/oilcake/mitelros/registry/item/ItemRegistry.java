@@ -233,10 +233,6 @@ public class ItemRegistry extends Items implements Runnable {
         register("bows/uru/", bowUru).setUnlocalizedName("uru_bow");
         register("misc/ender_rod", enderRod);
         register("tools/rusted_iron_club", morningStarRustedIron);
-        register("buckets/wood/empty", woodBucket);
-        register("buckets/wood/water", woodBucketWater);
-        register("buckets/wood/water_pure", woodBucketWaterPure);
-        register("buckets/wood/milk", woodBucketMilk);
         register("tools/flint_hoe", hoeFlint);
         register("food/peeled_sugarcane", peeledSugarcane);
         register("totem/totem_of_sentry", totemOfSentry);

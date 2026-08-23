@@ -313,10 +313,6 @@ item.buckets/iron/water_pure.name=Iron Bucket of Pure Water
 item.buckets/mithril/water_pure.name=Mithril Bucket of Pure Water
 item.buckets/ancient_metal/water_pure.name=Ancient Metal Bucket of Pure Water
 item.buckets/adamantium/water_pure.name=Adamantium Bucket of Pure Water
-item.buckets/wood/empty.name=Wood Bucket
-item.buckets/wood/water.name=Wood Bucket of Water
-item.buckets/wood/milk.name=Wood Bucket of Milk
-item.buckets/wood/water_pure.name=Wood Bucket of Pure Water
 
 item.food/mashed_cactus.name=Mashed Cactus
 item.food/ice_sucker.name=Ice Sucker
@@ -414,7 +410,6 @@ entity.EntityGhost.name=Ghost
 entity.EntityEvil.name=Evil
 entity.EntityCastleGuard.name=Ancient Golem
 entity.EntityPigManGuard.name=PigZombie Guard
-entity.EntitySpirit.name=Spirit
 entity.EntityLongdeadSentry.name=Longdead Sentry
 entity.EntitySkeletonHorse.name=Skeleton Horse
 entity.EntityUndeadGuard.name=Undead Guard
@@ -430,10 +425,10 @@ material.tungsten.name=Tungsten
 
 gui.repair.no_available_enchantment=No Available Enchantment
 gui.repair.enchantment_conflict=Enchantment Conflict
-gui.repair.lack_xp=Lack XP: >=%d Levels
-gui.repair.effectLessThanOneLevel=Combining them will effect you <1 level.
-gui.repair.costMoreThanOneLevel=Combining them will cost you %d levels.
-gui.repair.rewardMoreThanOneLevel=Combining them will reward you %d levels.
+gui.repair.lack_xp=Not enough XP: %d required (level %d), %d available (level %d)
+gui.repair.no_xp_change=This operation will not change your experience.
+gui.repair.cost_xp=Costs %d XP (level %d -> %d)
+gui.repair.reward_xp=Returns %d XP (%d -> %d)
 
 gui.enchantReserver.slotTop.tooltip=Put in items with exp, like diamonds
 gui.enchantReserver.slotBottom.tooltip=Put in items stores exp, like bottles and nuggets

@@ -114,7 +114,6 @@ public class ITFEventFML {
         event.register(EntityUndeadGuard.class, NameSpace, "EntityUndeadGuard", 559, 12698049, 4802889);
         event.register(EntityPigmanGuard.class, NameSpace, "EntityPigManGuard", 560, 15373203, 5066061);
         event.register(EntityCastleGuard.class, NameSpace, "EntityCastleGuard", 561, 0x565656, 0x999999);
-        event.register(EntitySpirit.class, NameSpace, "EntitySpirit", 562, 0xFFFFFFF, 0xFFAD0000);
         event.register(EntityLongdeadSentry.class, NameSpace, "EntityLongdeadSentry", 563, 13422277, 7699821);
         event.register(EntityWandSlimeBall.class, NameSpace, "EntityWandSlimeBall", 564);
         event.register(EntityWandPearl.class, NameSpace, "EntityPearlITF", 565);
@@ -137,7 +136,6 @@ public class ITFEventFML {
         event.register(EntityWandIceBall.class, new RenderSnowball(Item.snowball));
         event.register(EntityWandShockWave.class, new RenderSnowball(Item.eyeOfEnder));
         event.register(EntityCastleGuard.class, new RenderCastleGuard());
-        event.register(EntitySpirit.class, new RenderSpirit());
         event.register(EntityWandSlimeBall.class, new RenderSnowball(Item.slimeBall));
         event.register(EntityUnknown.class, new RenderUnknown());
         event.register(EntityWandPearl.class, new RenderSnowball(Item.enderPearl));
