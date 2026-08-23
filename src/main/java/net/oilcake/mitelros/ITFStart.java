@@ -2,7 +2,6 @@ package net.oilcake.mitelros;
 
 import fi.dy.masa.malilib.config.ConfigManager;
 import net.fabricmc.api.ModInitializer;
-import net.oilcake.mitelros.compat.waila.WailaCompat;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.event.ITFEventFML;
 import net.oilcake.mitelros.event.ITFEventRIC;
@@ -27,6 +26,5 @@ public class ITFStart implements ModInitializer {
         ConfigManager.getInstance().registerConfig(ITFConfig.getInstance());
         ITFNetwork.init();
         ModResourceManager.addResourcePackDomain(ResourceDomain);
-        if (ModReference.hasMod(ModReference.WAILA)) WailaCompat.register();
     }
 }

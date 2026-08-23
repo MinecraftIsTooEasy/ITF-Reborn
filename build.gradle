@@ -23,6 +23,8 @@ base {
 }
 
 repositories {
+    mavenCentral()
+    mavenLocal()
     // Add repositories to retrieve artifacts from in here.
     // Only declare repositories required by this project because Loom provides
     // the repositories needed for Minecraft and its libraries automatically.
@@ -36,8 +38,6 @@ repositories {
         name = "ModdedMITE"
         url = "https://maven.limingzxc.top/repository/maven-public/"
     }
-    mavenCentral()
-    mavenLocal()
 }
 
 configurations {

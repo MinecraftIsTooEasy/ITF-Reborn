@@ -12,6 +12,10 @@ public class EntityLichShadow extends EntitySkeleton {
 
     private int num_evasions;
 
+    public int getNumEvasions() {
+        return this.num_evasions;
+    }
+
     protected void dropFewItems(boolean recently_hit_by_player, DamageSource damage_source) {
         int looting = damage_source.getLootingModifier();
         int num_drops = this.rand.nextInt(3 + looting) - 1;

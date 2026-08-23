@@ -51,6 +51,9 @@
     ],
     "shop": [
       "net.oilcake.mitelros.compat.ShopPluginImpl"
+    ],
+    "waila": [
+      "net.oilcake.mitelros.compat.waila.WailaPlugin"
     ]
   },
   "mixins": [

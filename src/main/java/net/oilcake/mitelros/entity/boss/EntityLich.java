@@ -32,6 +32,10 @@ public class EntityLich extends EntityBoneLord implements IBossDisplayData {
 
     private boolean attack_mode = true;
 
+    public int getNumEvasions() {
+        return this.num_evasions;
+    }
+
     public EntityLich(World par1World) {
         super(par1World);
         if (par1World != null && onServer())
