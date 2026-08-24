@@ -30,6 +30,7 @@
     "block.BlockMobSpawnerMixin",
     "block.BlockOreMixin",
     "block.BlockPortalMixin",
+    "block.BlockSaplingMixin",
     "block.BlockStemMixin",
     "block.BlockTorchMixin",
     "block.IMixinBlock",
