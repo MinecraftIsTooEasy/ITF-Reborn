@@ -22,7 +22,8 @@ public class MetalRecycle {
 
     public static boolean canApply(Item item) {
         Class<? extends Item> clazz = item.getClass();
-        return MetalRecycle.tools.contains(clazz) || MetalRecycle.armors.contains(clazz);
+        return (item instanceof ItemHorseArmor || item == Item.cauldron) && item.getRepairItem() != null
+                || MetalRecycle.tools.contains(clazz) || MetalRecycle.armors.contains(clazz);
     }
 
     private static void registerRecipeSafe(BiConsumer<Item, ItemStack> registry, Item item, ItemStack itemStack) {
@@ -38,7 +39,12 @@ public class MetalRecycle {
 
     @Nullable
     public static ItemStack recycleMetal(ItemStack itemStack) {
-        return recycleMetal(itemStack, (Item & IDamageableItem) itemStack.getItem());
+        Item item = itemStack.getItem();
+        if (item instanceof ItemHorseArmor || item == Item.cauldron) {
+            Item repairItem = item.getRepairItem();
+            return repairItem == null ? null : new ItemStack(repairItem, item == Item.cauldron ? 21 : 15);
+        }
+        return recycleMetal(itemStack, (Item & IDamageableItem) item);
     }
 
     @Nullable
