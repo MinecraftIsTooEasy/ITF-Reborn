@@ -10,7 +10,8 @@
     "conditional-mixin": "*"
   },
   "breaks": {
-    "baubles": "<1.1.1"
+    "baubles": "<1.1.1",
+    "waila": "<2.0.8"
   },
   "environment": "*",
   "description": "本模组是MITE-ITF移植到最新FML版本的分支, 移植基于FML1.4.0的ITF-R14.\n本模组需要ManyLib和RustedIronCore模组作为前置!",
@@ -57,9 +58,9 @@
     ]
   },
   "mixins": [
-    "MITEIsTooFalse.mixins.json"
+    "mite-itf-reborn.mixins.json"
   ],
-  "accessWidener": "MITEIsTooFalse.accesswidener",
+  "accessWidener": "mite-itf-reborn.accesswidener",
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/EntityPlayer": [
