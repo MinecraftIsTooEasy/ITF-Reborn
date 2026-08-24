@@ -101,7 +101,7 @@ public class ITFConfig extends SimpleConfigs {
         values.addAll(args);
         values.addAll(misc);
 
-        Instance = new ITFConfig(ITFStart.MOD_ID, null, values);
+        Instance = new ITFConfig(ITFStart.LEGACY_CONFIG_NAME, null, values);
 
         Difficulty.ultimateDifficulty = Difficulty.calculateUltimateDifficulty();
 

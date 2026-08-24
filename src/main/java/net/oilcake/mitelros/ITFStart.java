@@ -11,8 +11,9 @@ import net.xiaoyu233.fml.ModResourceManager;
 import net.xiaoyu233.fml.reload.event.MITEEvents;
 
 public class ITFStart implements ModInitializer {
-    public static final String MOD_ID = "MITE-ITF-Reborn";
-    public static final String MOD_Version = FishModLoader.getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
+    public static final String LEGACY_CONFIG_NAME = "MITE-ITF-Reborn";
+    public static final String MOD_ID = "mite-itf-reborn";
+    public static final String MOD_VERSION = FishModLoader.getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
     public static final String NameSpace = "ITF Reborn";
     public static final String NameSpaceCompact = "ITF";
     public static final String ResourceDomain = "miteitfrb";
