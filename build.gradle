@@ -49,10 +49,9 @@ dependencies {
     // Use implementation for required mods, compileOnly for optional integrations,
     // and localRuntime for mods needed only in the development environment.
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    fml "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
-    implementation "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
+    fml "com.github.MinecraftIsTooEasy:FishModLoader:${project.fml_version}"
+    implementation "com.github.MinecraftIsTooEasy:FishModLoader:${project.fml_version}"
 
     // these are necessary for running
     implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.1"
