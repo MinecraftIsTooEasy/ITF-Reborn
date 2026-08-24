@@ -86,7 +86,7 @@ dependencies {
 def fmlResolvedFile = configurations.fml.singleFile
 
 loom {
-    accessWidenerPath = file("src/main/resources/MITEIsTooFalse.accesswidener")
+    accessWidenerPath = file("src/main/resources/mite-itf-reborn.accesswidener")
     mergedMinecraftJar()
     setFML(fmlResolvedFile)
     dependencies.add("mappings", fmlMCPMappings())

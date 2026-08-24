@@ -6,16 +6,15 @@ import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.event.ITFEventFML;
 import net.oilcake.mitelros.event.ITFEventRIC;
 import net.oilcake.mitelros.network.ITFNetwork;
+import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.fml.ModResourceManager;
 import net.xiaoyu233.fml.reload.event.MITEEvents;
 
 public class ITFStart implements ModInitializer {
     public static final String MOD_ID = "MITE-ITF-Reborn";
-    public static final String MOD_Version = "17.2.13";
+    public static final String MOD_Version = FishModLoader.getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
     public static final String NameSpace = "ITF Reborn";
     public static final String NameSpaceCompact = "ITF";
-    public static final String NameSpaceCompactWithColon = "ITF:";
-    public static final String NameSpaceCompactWithUnderScore = "ITF_";
     public static final String ResourceDomain = "miteitfrb";
     public static final String ResourceDomainColon = "miteitfrb:";
 
