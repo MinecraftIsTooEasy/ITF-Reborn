@@ -13,7 +13,8 @@
     "client.gui.GuiRepairMixin",
     "client.gui.InventoryEffectRendererMixin",
     "client.render.ItemRendererMixin",
-    "client.render.RenderBlocksMixin"
+    "client.render.RenderBlocksMixin",
+    "client.render.RenderGlobalMixin"
   ],
   "mixins": [
     "block.BlockAnvilMixin",

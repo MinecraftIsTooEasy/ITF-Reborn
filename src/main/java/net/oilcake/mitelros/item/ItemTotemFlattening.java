@@ -8,6 +8,10 @@ public class ItemTotemFlattening extends ItemTotem {
         super(id, Material.dirt, "totem");
     }
 
+    public static int getRange() {
+        return ITFConfig.TagTotemBlessing.getBooleanValue() ? 14 : 7;
+    }
+
     @Override
     public boolean canTrigger(World world, EntityPlayer player) {
         return player.worldObj.isOverworld() && player.getBlockPosY() >= 60;
@@ -15,7 +19,7 @@ public class ItemTotemFlattening extends ItemTotem {
 
     @Override
     public void specifiedEffect(EntityPlayer player) {
-        this.flattenEffect(player, player.worldObj, player.getBlockPosX(), player.getBlockPosY(), player.getBlockPosZ(), ITFConfig.TagTotemBlessing.getBooleanValue() ? 14 : 7);
+        this.flattenEffect(player, player.worldObj, player.getBlockPosX(), player.getBlockPosY(), player.getBlockPosZ(), getRange());
     }
 
     private void flattenEffect(EntityPlayer player, World world, int startX, int y, int startZ, int range) {
