@@ -52,7 +52,7 @@ public abstract class ContainerEnchantmentMixin extends Container {
     @Shadow
     public int[] enchantLevels;
 
-    @Inject(method = "onCraftMatrixChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/ContainerEnchantment;detectAndSendChanges()V"))
+    @Inject(method = "onCraftMatrixChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/ContainerEnchantment;detectAndSendChanges()V", shift = At.Shift.AFTER))
     private void sendPredicatePacket(IInventory par1IInventory, CallbackInfo ci) {
         if (this.world.isRemote || ModReference.hasMod(ModReference.ENCHANT_DIVINE)) return;
         ItemStack itemStack = this.tableInventory.getStackInSlot(0);

@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ContainerRepair.class)
 public abstract class ContainerRepairMixin extends Container implements ITFContainerRepair {
@@ -35,13 +36,20 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     }
 
     @Override
-    public void itf$onTakeOutput(EntityPlayer player, ItemStack stack) {
+    public void itf$onTakeOutput(EntityPlayer player) {
         if (!AnvilSystem.isActive()) return;
         if (this.world.isRemote) return;
         int xpDifference = this.xpDifference;
         if (xpDifference == 0) return;
         player.addExperience(xpDifference);
         this.xpDifference = 0;
+    }
+
+    @Inject(method = "transferStackInSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/Slot;onSlotChange(Lnet/minecraft/ItemStack;Lnet/minecraft/ItemStack;)V"))
+    private void itf$onShiftClickOutput(EntityPlayer par1EntityPlayer, int par2, CallbackInfoReturnable<ItemStack> cir) {
+        if (par2 == ContainerRepair.SLOT_INDEX_OUTPUT) {
+            this.itf$onTakeOutput(par1EntityPlayer);
+        }
     }
 
     public ContainerRepairMixin(EntityPlayer player) {

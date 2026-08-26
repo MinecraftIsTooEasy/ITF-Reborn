@@ -21,6 +21,6 @@ public abstract class ContainerRepairINNER2Mixin extends Slot {
 
     @Inject(method = "onPickupFromSlot", at = @At("HEAD"))
     private void modifyXP(EntityPlayer player, ItemStack stack, CallbackInfo ci) {
-        ((ITFContainerRepair) this.repairContainer).itf$onTakeOutput(player, stack);
+        ((ITFContainerRepair) this.repairContainer).itf$onTakeOutput(player);
     }
 }
