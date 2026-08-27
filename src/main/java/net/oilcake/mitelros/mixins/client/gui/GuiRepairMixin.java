@@ -21,20 +21,25 @@ public abstract class GuiRepairMixin extends GuiContainer {
 
     @Inject(method = "drawScreen", at = @At("TAIL"))
     private void itfRepair(int mouse_x, int mouse_y, float par3, CallbackInfo ci) {
-        if (!AnvilSystem.isActive()) return;
+        ITFContainerRepair itfRepair = (ITFContainerRepair) this.repairContainer;
+        if (!itfRepair.itf$isAnvilSystemActive()) return;
         ItemStack itemStack = this.repairContainer.getSlot(1).getStack();
         if (itemStack == null) return;
         if (itemStack.itemID != Item.enchantedBook.itemID && itemStack.itemID != Item.bottleOfDisenchanting.itemID)
             return;
         if (this.isMouseOverSlot(this.repairContainer.getSlot(2), mouse_x, mouse_y)) {
-            AnvilStatus anvilStatus = ((ITFContainerRepair) this.repairContainer).itf$getAnvilStatus();
+            AnvilStatus anvilStatus = itfRepair.itf$getAnvilStatus();
+            int xpDifference = itfRepair.itf$getXPDifference();
             String text = switch (anvilStatus) {
                 case NoAvailableEnchantment -> I18n.getString("gui.repair.no_available_enchantment");
                 case EnchantmentConflict -> I18n.getString("gui.repair.enchantment_conflict");
                 case Satisfied ->
-                        AnvilSystem.getString(this.repairContainer.player, ((ITFContainerRepair) this.repairContainer).itf$getXPDifference());
+                        AnvilSystem.getString(this.repairContainer.player, xpDifference);
                 case LackExp ->
-                        I18n.getStringParams("gui.repair.lack_xp", this.repairContainer.player.getExperienceLevel(-((ITFContainerRepair) this.repairContainer).itf$getXPDifference()));
+                        I18n.getStringParams("gui.repair.lack_xp", -xpDifference,
+                                this.repairContainer.player.getExperienceLevel(-xpDifference),
+                                this.repairContainer.player.experience,
+                                this.repairContainer.player.getExperienceLevel());
             };
             this.drawCreativeTabHoveringText(text, mouse_x, mouse_y);
         }

@@ -78,7 +78,7 @@ dependencies {
     localRuntime "org.moddedmite:waila:2.0.8"
     localRuntime "com.github.MinecraftIsTooEasy:MixinConflictHelper:1.0.0"
     localRuntime "com.github.MinecraftIsTooEasy:PinIn-Lib:1.6.0"
-    localRuntime "com.github.MinecraftIsTooEasy:ExtraGui:1.3.6"
+    localRuntime "com.github.MinecraftIsTooEasy:ExtraGui:1.3.7"
     localRuntime "com.github.MinecraftIsTooEasy:Gson:2.10.1"
     localRuntime "com.github.MinecraftIsTooEasy:FastUtil:8.5.12"
 }

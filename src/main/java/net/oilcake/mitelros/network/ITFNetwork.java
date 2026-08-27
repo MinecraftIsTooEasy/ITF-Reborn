@@ -19,6 +19,7 @@ public class ITFNetwork {
     public static final ResourceLocation UpdateITFStatus = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateITFStatus");
     public static final ResourceLocation UpdateCurses = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateCurses");
     public static final ResourceLocation OpenWindow = new ResourceLocation(ITFStart.NameSpaceCompact, "OpenWindow");
+    public static final ResourceLocation AnvilData = new ResourceLocation(ITFStart.NameSpaceCompact, "AnvilData");
 
     public static void sendToClient(ServerPlayer player, Packet packet) {
         Network.sendToClient(player, packet);
@@ -43,6 +44,7 @@ public class ITFNetwork {
         PacketReader.registerClientPacketReader(UpdateITFStatus, S2CUpdateITFStatus::new);
         PacketReader.registerClientPacketReader(UpdateCurses, S2CUpdateCurses::new);
         PacketReader.registerClientPacketReader(OpenWindow, S2COpenWindow::new);
+        PacketReader.registerClientPacketReader(AnvilData, S2CAnvilData::new);
     }
 
     private static void initServer() {

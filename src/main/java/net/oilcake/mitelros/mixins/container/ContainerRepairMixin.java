@@ -8,6 +8,8 @@ import net.minecraft.*;
 import net.oilcake.mitelros.feat.anvil.AnvilStatus;
 import net.oilcake.mitelros.feat.anvil.AnvilSystem;
 import net.oilcake.mitelros.mixin.interfaces.ITFContainerRepair;
+import net.oilcake.mitelros.network.ITFNetwork;
+import net.oilcake.mitelros.network.packets.S2CAnvilData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,28 +23,49 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     @Shadow
     private IInventory inputSlots;
     @Unique
-    private int xpDifference;
+    private int itf$xpDifference;
     @Unique
-    private AnvilStatus anvilStatus = AnvilStatus.EnchantmentConflict;
+    private AnvilStatus itf$anvilStatus = AnvilStatus.EnchantmentConflict;
+    @Unique
+    private boolean itf$hasSyncedAnvilData;
+    @Unique
+    private boolean itf$syncedAnvilSystemActive;
+    @Unique
+    private int itf$syncedXPDifference;
+    @Unique
+    private AnvilStatus itf$syncedAnvilStatus = AnvilStatus.EnchantmentConflict;
+
+    @Override
+    public boolean itf$isAnvilSystemActive() {
+        return this.world.isRemote && this.itf$hasSyncedAnvilData ? this.itf$syncedAnvilSystemActive : AnvilSystem.isActive();
+    }
 
     @Override
     public int itf$getXPDifference() {
-        return this.xpDifference;
+        return this.world.isRemote && this.itf$hasSyncedAnvilData ? this.itf$syncedXPDifference : this.itf$xpDifference;
     }
 
     @Override
     public AnvilStatus itf$getAnvilStatus() {
-        return this.anvilStatus;
+        return this.world.isRemote && this.itf$hasSyncedAnvilData ? this.itf$syncedAnvilStatus : this.itf$anvilStatus;
+    }
+
+    @Override
+    public void itf$setAnvilData(boolean active, int xpDifference, AnvilStatus anvilStatus) {
+        this.itf$hasSyncedAnvilData = true;
+        this.itf$syncedAnvilSystemActive = active;
+        this.itf$syncedXPDifference = xpDifference;
+        this.itf$syncedAnvilStatus = anvilStatus;
     }
 
     @Override
     public void itf$onTakeOutput(EntityPlayer player) {
         if (!AnvilSystem.isActive()) return;
         if (this.world.isRemote) return;
-        int xpDifference = this.xpDifference;
+        int xpDifference = this.itf$xpDifference;
         if (xpDifference == 0) return;
         player.addExperience(xpDifference);
-        this.xpDifference = 0;
+        this.itf$xpDifference = 0;
     }
 
     @Inject(method = "transferStackInSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/Slot;onSlotChange(Lnet/minecraft/ItemStack;Lnet/minecraft/ItemStack;)V"))
@@ -59,9 +82,27 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     @Inject(method = "updateRepairOutput", at = @At("HEAD"))
     private void resetAnvilStatus(CallbackInfo ci) {
         if (AnvilSystem.isActive()) {
-            this.xpDifference = 0;
-            this.anvilStatus = AnvilStatus.EnchantmentConflict;
+            this.itf$xpDifference = 0;
+            this.itf$anvilStatus = AnvilStatus.EnchantmentConflict;
         }
+    }
+
+    @Inject(method = "updateRepairOutput", at = @At("RETURN"))
+    private void itf$syncAnvilData(CallbackInfo ci) {
+        if (this.world.isRemote) return;
+        boolean active = AnvilSystem.isActive();
+        if (this.itf$hasSyncedAnvilData
+                && this.itf$syncedAnvilSystemActive == active
+                && this.itf$syncedXPDifference == this.itf$xpDifference
+                && this.itf$syncedAnvilStatus == this.itf$anvilStatus) {
+            return;
+        }
+        ITFNetwork.sendToClient((ServerPlayer) this.player,
+                new S2CAnvilData(this.windowId, active, this.itf$xpDifference, this.itf$anvilStatus));
+        this.itf$hasSyncedAnvilData = true;
+        this.itf$syncedAnvilSystemActive = active;
+        this.itf$syncedXPDifference = this.itf$xpDifference;
+        this.itf$syncedAnvilStatus = this.itf$anvilStatus;
     }
 
     @WrapOperation(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;isEnchantable()Z"))
@@ -81,22 +122,22 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     private boolean itfValidEnchantment(boolean original, @Local NBTTagList enchantmentsOfBook) {
         if (!AnvilSystem.isActive()) return original;
         if (!original) {
-            this.anvilStatus = AnvilStatus.NoAvailableEnchantment;
+            this.itf$anvilStatus = AnvilStatus.NoAvailableEnchantment;
             return false;
         }
         int xpDifference = AnvilSystem.calcXPDiffOnEnchanting(this.inputSlots.getStackInSlot(0), enchantmentsOfBook);
-        this.xpDifference = xpDifference;// TODO this always >0?
+        this.itf$xpDifference = xpDifference;
         boolean needsXP = xpDifference < 0;
         boolean rewardsXP = xpDifference > 0;
         if (rewardsXP) {
-            this.anvilStatus = AnvilStatus.Satisfied;
+            this.itf$anvilStatus = AnvilStatus.Satisfied;
             return true;
         } else if (needsXP) {
             boolean enoughXP = this.player.experience + xpDifference >= 0;
-            this.anvilStatus = enoughXP ? AnvilStatus.Satisfied : AnvilStatus.LackExp;
+            this.itf$anvilStatus = enoughXP ? AnvilStatus.Satisfied : AnvilStatus.LackExp;
             return enoughXP;
         } else {
-            this.anvilStatus = AnvilStatus.EnchantmentConflict;
+            this.itf$anvilStatus = AnvilStatus.EnchantmentConflict;
             return false;
         }
     }
@@ -112,8 +153,8 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     @Inject(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;clearEnchantTagList()V"))
     private void rewardXP(CallbackInfo ci) {
         if (AnvilSystem.isActive()) {
-            this.xpDifference = AnvilSystem.calcXPDiffOnDisenchanting(this.inputSlots.getStackInSlot(0));
-            this.anvilStatus = AnvilStatus.Satisfied;
+            this.itf$xpDifference = AnvilSystem.calcXPDiffOnDisenchanting(this.inputSlots.getStackInSlot(0));
+            this.itf$anvilStatus = AnvilStatus.Satisfied;
         }
     }
 
