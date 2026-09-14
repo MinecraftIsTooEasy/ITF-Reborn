@@ -158,14 +158,14 @@ tile.torch_off.name=熄灭火把
 tile.sulphur.name=硫磺块
 tile.uru_beacon.name=乌鲁金属信标
 
-tile.flowers/.luminescent_herb.name=荧光草
-tile.flowers/.azure_bluet.name=茜草花
-tile.flowers/.cornflower.name=矢车菊
-tile.flowers/.lily_of_the_valley.name=铃兰
-tile.flowers/.pink_tulip.name=郁金香
-tile.flowers/.white_tulip.name=郁金香
-tile.flowers/.red_tulip.name=郁金香
-tile.flowers/.agave.name=龙舌兰
+tile.flowers/luminescent_herb.name=荧光草
+tile.flowers/azure_bluet.name=茜草花
+tile.flowers/cornflower.name=矢车菊
+tile.flowers/lily_of_the_valley.name=铃兰
+tile.flowers/pink_tulip.name=郁金香
+tile.flowers/white_tulip.name=郁金香
+tile.flowers/red_tulip.name=郁金香
+tile.flowers/agave.name=龙舌兰
 
 item.armor/tungsten_helmet.name=钨钢头盔
 item.armor/tungsten_chestplate.name=钨钢胸甲

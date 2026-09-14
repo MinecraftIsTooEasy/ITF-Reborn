@@ -1,7 +1,6 @@
 package net.oilcake.mitelros.mixins.block;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.block.BlockFlowerExtend;
 import net.oilcake.mitelros.feat.OreMiningHooks;
 import net.oilcake.mitelros.registry.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockMixin {
     @Inject(method = "<clinit>()V", at = @At("TAIL"))
     private static void injectClinit(CallbackInfo callback) {
-        Item.itemsList[Blocks.flowerextend.blockID] = (new ItemMultiTextureTile(Blocks.flowerextend, BlockFlowerExtend.types)).setUnlocalizedName("flowers");
         Item.itemsList[Blocks.tungstenRuneStone.blockID] = new ItemRunestone(Blocks.tungstenRuneStone).setUnlocalizedName("runestone");
         Block.pumpkinLantern.setLightValue(0.9375f);
     }

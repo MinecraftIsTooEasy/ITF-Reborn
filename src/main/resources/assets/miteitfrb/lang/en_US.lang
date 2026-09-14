@@ -158,14 +158,14 @@ tile.torch_off.name=Extinguished Torch
 tile.sulphur.name=Sulphur Block
 tile.uru_beacon.name=Uru Beacon
 
-tile.flowers/.luminescent_herb.name=Luminescent Herb
-tile.flowers/.azure_bluet.name=Azure Bluet
-tile.flowers/.cornflower.name=Cornflower
-tile.flowers/.lily_of_the_valley.name=Lily of the Valley
-tile.flowers/.pink_tulip.name=Pink Tulip
-tile.flowers/.white_tulip.name=White Tulip
-tile.flowers/.red_tulip.name=Red Tulip
-tile.flowers/.agave.name=Agave
+tile.flowers/luminescent_herb.name=Luminescent Herb
+tile.flowers/azure_bluet.name=Azure Bluet
+tile.flowers/cornflower.name=Cornflower
+tile.flowers/lily_of_the_valley.name=Lily of the Valley
+tile.flowers/pink_tulip.name=Pink Tulip
+tile.flowers/white_tulip.name=White Tulip
+tile.flowers/red_tulip.name=Red Tulip
+tile.flowers/agave.name=Agave
 
 item.armor/tungsten_helmet.name=Tungsten Helmet
 item.armor/tungsten_chestplate.name=Tungsten Chestplate

@@ -22,7 +22,7 @@ public class BiomeDecorationRegistry implements Consumer<BiomeDecorationRegister
                 .setChance(256)
                 .setHeightSupplier(BiomeDecorationHandler.HeightSupplier.SURFACE);
 
-        event.register(Dimension.OVERWORLD, new WorldGenFlowersExtend(Blocks.flowerextend.blockID))
+        event.register(Dimension.OVERWORLD, new WorldGenFlowersExtend(Blocks.flowers))
                 .setFrequency(context -> getFlowerFrequency(context.biome()));
 
         event.register(Dimension.OVERWORLD, new WorldGenEmerald())

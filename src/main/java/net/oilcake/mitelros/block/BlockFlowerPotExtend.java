@@ -18,7 +18,7 @@ public class BlockFlowerPotExtend extends BlockFlowerPot {
 
     @Override
     public boolean isValidMetadata(int metadata) {
-        return (metadata != 15 && Blocks.flowerextend.isValidMetadata(metadata));
+        return (metadata != 15 && FlowerCollection.isValidMetadata(metadata));
     }
 
     @Override
@@ -32,10 +32,6 @@ public class BlockFlowerPotExtend extends BlockFlowerPot {
     }
 
     public static ItemStack getPlantForMeta(int metadata) {
-        return (metadata == 15) ? null : new ItemStack(Blocks.flowerextend, 1, metadata);
-    }
-
-    public static int getMetaForPlant(ItemStack item_stack) {
-        return (item_stack.itemID == Blocks.flowerextend.blockID) ? item_stack.getItemSubtype() : 0;
+        return (metadata == 15) ? null : new ItemStack(Blocks.flowers.pick(metadata), 1);
     }
 }

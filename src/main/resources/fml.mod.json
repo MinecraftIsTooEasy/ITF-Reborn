@@ -6,7 +6,7 @@
   "depends": {
     "fishmodloader": ">=3.4.1",
     "many-lib": ">=2.3.0",
-    "rusted_iron_core": ">=1.5.7",
+    "rusted_iron_core": ">=1.5.8",
     "conditional-mixin": "*"
   },
   "breaks": {

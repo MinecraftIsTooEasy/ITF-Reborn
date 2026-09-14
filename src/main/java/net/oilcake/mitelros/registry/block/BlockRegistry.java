@@ -37,7 +37,7 @@ public class BlockRegistry extends Blocks implements Runnable {
         register("block/tungsten_block", blockTungsten);
         register("bars/tungsten_bars", fenceTungsten);
         register("door/door_tungsten", doorTungsten, false);
-        register("flowers/", flowerextend);
+        flowers.forEach(x -> register("flowers/" + x.getRegistryName(), x));
         register("block_enchant_enhancer", blockEnchantEnhancer);
         register("ore/uru_ore", oreUru);
         register("beetroot", beetroots, false, false);

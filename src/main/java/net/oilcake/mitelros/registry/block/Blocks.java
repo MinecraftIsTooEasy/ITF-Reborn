@@ -57,7 +57,7 @@ public class Blocks {
 
     public static final BlockAnvil anvilTungsten = new ITFAnvil(getNextBlockID(), Materials.tungsten);
 
-    public static final BlockFlowerExtend flowerextend = new BlockFlowerExtend(getNextBlockID());
+    public static final FlowerCollection<BlockFlowerExtend> flowers = FlowerCollection.create(Blocks::getNextBlockID);
 
     public static final Block blockEnchantEnhancer = (new BlockEnchantEnhancer(getNextBlockID())).setHardness(8.0F).setResistance(20.0F).setStepSound(Block.soundStoneFootstep);
 
@@ -158,16 +158,16 @@ public class Blocks {
     }
 
     public static void shapelessRecipe(CraftingRecipeRegisterEvent register) {
-        register.registerShapelessRecipe(new ItemStack(Items.glowberries, 1), true, new ItemStack(flowerextend, 1, 0));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowerextend, 1, 1));
-//        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 4), true, new ItemStack(flowerextend, 1, 2));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowerextend, 1, 3));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 9), true, new ItemStack(flowerextend, 1, 4));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowerextend, 1, 5));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 1), true, new ItemStack(flowerextend, 1, 6));
-        register.registerShapelessRecipe(new ItemStack(Items.agave, 1, 1), true, new ItemStack(flowerextend, 1, 7));
+        register.registerShapelessRecipe(new ItemStack(Items.glowberries, 1), true, new ItemStack(flowers.pick(0), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(1), 1));
+        // lapis lazui
+//        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 4), true, new ItemStack(flowerextend.pick(2), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(3), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 9), true, new ItemStack(flowers.pick(4), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(5), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 1), true, new ItemStack(flowers.pick(6), 1));
+        register.registerShapelessRecipe(new ItemStack(Items.agave, 1, 1), true, new ItemStack(flowers.pick(7), 1));
 
-//        register.registerShapelessRecipe(new ItemStack(Items.glowberries, 1), true, new ItemStack(luminescentHerb, 1));
         for (int i = 0; i <= 4; i++) {
             register.registerShapelessRecipe(new ItemStack(Item.stick, 1), true, new ItemStack(Blocks.torchWoodIdle, i), new ItemStack(Blocks.torchWoodExtinguished, 4 - i));
         }

@@ -26,7 +26,7 @@ public class RWGChunkGeneratorMixin {
     @Shadow
     private World worldObj;
     @Unique
-    private final WorldGenerator flowerExtend = new WorldGenFlowersExtend(Blocks.flowerextend.blockID);
+    private final WorldGenerator flowerExtend = new WorldGenFlowersExtend(Blocks.flowers);
 
     @Inject(method = "populate", at = @At(value = "FIELD", target = "Lrwg/config/ConfigRWG;generateEmeralds:Z"))
     private void addFlowerGen(IChunkProvider ichunkprovider, int i, int j, CallbackInfo ci) {
