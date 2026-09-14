@@ -18,7 +18,7 @@ public class BlockFlowerPotExtend extends BlockFlowerPot {
 
     @Override
     public boolean isValidMetadata(int metadata) {
-        return (metadata != 15 && FlowerCollection.isValidMetadata(metadata));
+        return (metadata != 15 && FlowerCollection.isValidType(metadata));
     }
 
     @Override

@@ -158,15 +158,15 @@ public class Blocks {
     }
 
     public static void shapelessRecipe(CraftingRecipeRegisterEvent register) {
-        register.registerShapelessRecipe(new ItemStack(Items.glowberries, 1), true, new ItemStack(flowers.pick(0), 1));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(1), 1));
+        register.registerShapelessRecipe(new ItemStack(Items.glowberries, 1), true, new ItemStack(flowers.luminescent_herb(), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.azure_bluet(), 1));
         // lapis lazui
-//        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 4), true, new ItemStack(flowerextend.pick(2), 1));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(3), 1));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 9), true, new ItemStack(flowers.pick(4), 1));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.pick(5), 1));
-        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 1), true, new ItemStack(flowers.pick(6), 1));
-        register.registerShapelessRecipe(new ItemStack(Items.agave, 1, 1), true, new ItemStack(flowers.pick(7), 1));
+//        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 4), true, new ItemStack(flowers.cornflower(), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.lily_of_the_valley(), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 9), true, new ItemStack(flowers.pink_tulip(), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 7), true, new ItemStack(flowers.white_tulip(), 1));
+        register.registerShapelessRecipe(new ItemStack(Item.dyePowder, 1, 1), true, new ItemStack(flowers.red_tulip(), 1));
+        register.registerShapelessRecipe(new ItemStack(Items.agave, 1, 1), true, new ItemStack(flowers.agave(), 1));
 
         for (int i = 0; i <= 4; i++) {
             register.registerShapelessRecipe(new ItemStack(Item.stick, 1), true, new ItemStack(Blocks.torchWoodIdle, i), new ItemStack(Blocks.torchWoodExtinguished, 4 - i));

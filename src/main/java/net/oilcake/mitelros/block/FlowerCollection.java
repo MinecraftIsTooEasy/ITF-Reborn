@@ -4,6 +4,7 @@ import net.minecraft.Block;
 
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
+import java.util.stream.Stream;
 
 public record FlowerCollection<T extends Block>(
         T luminescent_herb,
@@ -18,8 +19,8 @@ public record FlowerCollection<T extends Block>(
 
     public static final int TYPE_NUMBER = 8;
 
-    public static boolean isValidMetadata(int metadata) {
-        return metadata >= 0 && metadata < TYPE_NUMBER;
+    public static boolean isValidType(int type) {
+        return type >= 0 && type < TYPE_NUMBER;
     }
 
     public static FlowerCollection<BlockFlowerExtend> create(IntSupplier idSupplier) {
@@ -35,6 +36,19 @@ public record FlowerCollection<T extends Block>(
         );
     }
 
+    public Stream<T> stream() {
+        return Stream.of(
+                this.luminescent_herb,
+                this.azure_bluet,
+                this.cornflower,
+                this.lily_of_the_valley,
+                this.pink_tulip,
+                this.white_tulip,
+                this.red_tulip,
+                this.agave
+        );
+    }
+
     public void forEach(Consumer<T> consumer) {
         consumer.accept(this.luminescent_herb);
         consumer.accept(this.azure_bluet);
@@ -46,8 +60,8 @@ public record FlowerCollection<T extends Block>(
         consumer.accept(this.agave);
     }
 
-    public T pick(int metadata) {
-        return switch (metadata) {
+    public T pick(int type) {
+        return switch (type) {
             case 0 -> (this.luminescent_herb);
             case 1 -> (this.azure_bluet);
             case 2 -> (this.cornflower);

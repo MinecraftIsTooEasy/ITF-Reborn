@@ -3,13 +3,13 @@ package net.oilcake.mitelros.block;
 import moddedmite.rustedironcore.api.util.FabricUtil;
 import net.minecraft.*;
 import net.oilcake.mitelros.registry.block.Blocks;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Random;
 
 public class BlockFlowerExtend extends BlockFlower {
     private final String registryName;
-
-    private static final int[] candidates = new int[FlowerCollection.TYPE_NUMBER];
 
     public BlockFlowerExtend(int id, String name) {
         super(id, Material.plants);
@@ -34,32 +34,33 @@ public class BlockFlowerExtend extends BlockFlower {
         setBlockBoundsForCurrentThread((0.5F - width), 0.0D, (0.5F - width), (0.5F + width), 0.75D, (0.5F + width));
     }
 
-    public static int getRandomSubtypeForBiome(Random random, BiomeGenBase biome) {
+    @Nullable
+    public static Block getRandomTypeForBiome(Random random, BiomeGenBase biome) {
         if (random.nextInt(2) == 0) {
-            return 7;
+            return Blocks.flowers.agave();
         }
-        int num_candidates = 0;
-        for (int i = 0; i < FlowerCollection.TYPE_NUMBER; i++) {
-            if (Blocks.flowers.pick(i).isBiomeSuitable(biome, i)) {
-                candidates[num_candidates++] = i;
-            }
-        }
-        return (num_candidates == 0) ? -1 : candidates[random.nextInt(num_candidates)];
+
+        List<BlockFlowerExtend> candidates = Blocks.flowers.stream().filter(
+                x -> x.isBiomeSuitable(biome, 0)
+        ).toList();
+
+        return (candidates.isEmpty()) ? null : candidates.get(random.nextInt(candidates.size()));
     }
 
-    public static int getRandomSubtypeThatCanOccurAt(World world, int x, int y, int z) {
+    @Nullable
+    public static Block getRandomTypeThatCanOccurAt(World world, int x, int y, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-        int subtype = getRandomSubtypeForBiome(world.rand, biome);
-        if (subtype < 0) {
-            return -1;
+        Block block = getRandomTypeForBiome(world.rand, biome);
+        if (block == null) {
+            return null;
         }
-        while (!Blocks.flowers.pick(subtype).canOccurAt(world, x, y, z, subtype)) {
-            subtype = getRandomSubtypeForBiome(world.rand, biome);
-            if (subtype < 0) {
-                return -1;
+        while (!block.canOccurAt(world, x, y, z, 0)) {
+            block = getRandomTypeForBiome(world.rand, biome);
+            if (block == null) {
+                return null;
             }
         }
-        return subtype;
+        return block;
     }
 
     @SuppressWarnings("RedundantIfStatement")

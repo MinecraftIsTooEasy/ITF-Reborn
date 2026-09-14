@@ -16,7 +16,7 @@ public class WorldGenFlowersExtend extends WorldGenerator {
 
     @Override
     public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5) {
-        BlockFlowerExtend flower = this.flowers.pick((par2Random.nextInt(8)));
+        BlockFlowerExtend flower = this.flowers.pick((par2Random.nextInt(FlowerCollection.TYPE_NUMBER)));
         int attempts = 64;
         for (int var6 = 0; var6 < attempts; var6++) {
             int var8 = par4 + par2Random.nextInt(4) - par2Random.nextInt(4);
