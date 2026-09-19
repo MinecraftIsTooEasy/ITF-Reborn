@@ -9,7 +9,7 @@ public class GuiInGameDrawer {
     public static void drawWater(Gui gui, Minecraft mc, int par1, int par2) {
         int var12 = par1 / 2 + 91;
         FoodStats foodStats = mc.thePlayer.getFoodStats();
-        mc.getTextureManager().bindTexture(Textures.icons_itf);
+        mc.getTextureManager().bindTexture(Textures.ICONS);
         mc.mcProfiler.endStartSection("water");
         int waterLimit = ((ITFFoodStats) mc.thePlayer.getFoodStats()).itf$GetWaterLimit();
         int water = ((ITFFoodStats) foodStats).itf$GetWater();

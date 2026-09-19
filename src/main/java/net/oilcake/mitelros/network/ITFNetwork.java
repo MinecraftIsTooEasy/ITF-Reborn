@@ -10,16 +10,16 @@ import net.oilcake.mitelros.network.packets.*;
 import net.xiaoyu233.fml.FishModLoader;
 
 public class ITFNetwork {
-    public static final ResourceLocation BossInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "BossInfo");
-    public static final ResourceLocation SetGlowing = new ResourceLocation(ITFStart.NameSpaceCompact, "SetGlowing");
-    public static final ResourceLocation DecreaseWater = new ResourceLocation(ITFStart.NameSpaceCompact, "DecreaseWater");
-    public static final ResourceLocation LearnCurseEffect = new ResourceLocation(ITFStart.NameSpaceCompact, "LearnCurseEffect");
-    public static final ResourceLocation EnchantmentSeed = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentSeed");
-    public static final ResourceLocation EnchantmentReserverInfo = new ResourceLocation(ITFStart.NameSpaceCompact, "EnchantmentReserverInfo");
-    public static final ResourceLocation UpdateITFStatus = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateITFStatus");
-    public static final ResourceLocation UpdateCurses = new ResourceLocation(ITFStart.NameSpaceCompact, "UpdateCurses");
-    public static final ResourceLocation OpenWindow = new ResourceLocation(ITFStart.NameSpaceCompact, "OpenWindow");
-    public static final ResourceLocation AnvilData = new ResourceLocation(ITFStart.NameSpaceCompact, "AnvilData");
+    public static final ResourceLocation BossInfo = ITFStart.identifier("BossInfo");
+    public static final ResourceLocation SetGlowing = ITFStart.identifier("SetGlowing");
+    public static final ResourceLocation DecreaseWater = ITFStart.identifier("DecreaseWater");
+    public static final ResourceLocation LearnCurseEffect = ITFStart.identifier("LearnCurseEffect");
+    public static final ResourceLocation EnchantmentSeed = ITFStart.identifier("EnchantmentSeed");
+    public static final ResourceLocation EnchantmentReserverInfo = ITFStart.identifier("EnchantmentReserverInfo");
+    public static final ResourceLocation UpdateITFStatus = ITFStart.identifier("UpdateITFStatus");
+    public static final ResourceLocation UpdateCurses = ITFStart.identifier("UpdateCurses");
+    public static final ResourceLocation OpenWindow = ITFStart.identifier("OpenWindow");
+    public static final ResourceLocation AnvilData = ITFStart.identifier("AnvilData");
 
     public static void sendToClient(ServerPlayer player, Packet packet) {
         Network.sendToClient(player, packet);

@@ -41,7 +41,7 @@ public abstract class EmiFoodRecipeMixin {
             )
     )
     private void addWater(WidgetHolder widgets, CallbackInfo ci) {
-        this.drawFoodValueBar(widgets, this.water, 16, 16 + 9, 16 + 18, 54, Textures.icons_itf);
+        this.drawFoodValueBar(widgets, this.water, 16, 16 + 9, 16 + 18, 54, Textures.ICONS);
     }
 
     @ModifyReturnValue(method = "getVisibleRowCount", at = @At("RETURN"))

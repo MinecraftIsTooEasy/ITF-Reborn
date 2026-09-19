@@ -57,6 +57,7 @@ public class ITFConfig extends SimpleConfigs {
     public static final ConfigInteger TotemKnowledgeLimit = new ConfigInteger("智识图腾经验上限", 30000, 1, Integer.MAX_VALUE, false, null);
     public static final ConfigBoolean CancelItemRockUse = new ConfigBoolean("禁止右键使用宝石", true);
     public static final ConfigInteger EnchantReserverLossMultiplier = new ConfigInteger("附魔回流底座破坏损耗", 20, 0, 100, false, null);
+    public static final ConfigBoolean TreasureAndCurseOnEnchantTable = new ConfigBoolean("宝藏和诅咒在附魔台出现", false);
 
 
     //misc
@@ -91,7 +92,16 @@ public class ITFConfig extends SimpleConfigs {
         challenge.addAll(luck);
 
         experimental = List.of(TagCreaturesV2, FinalChallenge);
-        args = List.of(AnvilXPMultiplier, AnvilXPMultiplierInit, AnvilXPMultiplierReward, AnvilXPMultiplierTreasure, TotemKnowledgeLimit, CancelItemRockUse, EnchantReserverLossMultiplier);
+        args = List.of(
+                AnvilXPMultiplier,
+                AnvilXPMultiplierInit,
+                AnvilXPMultiplierReward,
+                AnvilXPMultiplierTreasure,
+                TotemKnowledgeLimit,
+                CancelItemRockUse,
+                EnchantReserverLossMultiplier,
+                TreasureAndCurseOnEnchantTable
+                );
         misc = List.of(ITFAnvilSystem, ITFBiomeMode, OreCompat, Statement);
 
 

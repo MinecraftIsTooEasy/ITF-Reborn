@@ -23,7 +23,7 @@ public class ArmorModelListener implements IArmorModelListener {
         String path = String.format("textures/models/armor/%s_layer_%d.png", itemArmor.getTextureFilenamePrefix(), slotIndex == 2 ? 2 : 1);
         ResourceLocation identifier = this.ITF_TEXTURE_MAP.get(path);
         if (identifier == null) {
-            identifier = new ResourceLocation(ITFStart.ResourceDomain, path);
+            identifier = ITFStart.identifier(path);
             this.ITF_TEXTURE_MAP.put(path, identifier);
         }
         return identifier;

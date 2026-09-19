@@ -8,6 +8,7 @@ import net.minecraft.Enchantment;
 import net.minecraft.EnchantmentHelper;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
+import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.mixin.interfaces.ITFEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,13 +26,11 @@ public class EnchantmentHelperMixin {
 
     @WrapOperation(method = "mapEnchantmentData", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;canEnchantItem(Lnet/minecraft/Item;)Z"))
     private static boolean removeTreasureAndCurse(Enchantment enchantment, Item item, Operation<Boolean> original) {
-        if (((ITFEnchantment) enchantment).isCurse() || ((ITFEnchantment) enchantment).isTreasure()) {
+        if (!ITFConfig.TreasureAndCurseOnEnchantTable.getBooleanValue() && (((ITFEnchantment) enchantment).isCurse() || ((ITFEnchantment) enchantment).isTreasure())) {
             return false;
-        }
-        if (item == Item.book) {
-            return true;
         } else {
             return original.call(enchantment, item);
         }
     }
+
 }

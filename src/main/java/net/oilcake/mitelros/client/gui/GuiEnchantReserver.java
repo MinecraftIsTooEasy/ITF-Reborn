@@ -1,16 +1,14 @@
 package net.oilcake.mitelros.client.gui;
 
 import net.minecraft.*;
-import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.block.entity.TileEntityEnchantReserver;
+import net.oilcake.mitelros.client.texture.Textures;
 import net.oilcake.mitelros.container.ContainerEnchantReserver;
 import net.oilcake.mitelros.inventory.EnchantReserverInventory;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 public class GuiEnchantReserver extends GuiContainer {
-    private static final ResourceLocation ENCHANT_RESERVER_TEXTURE = new ResourceLocation(ITFStart.ResourceDomain, "textures/gui/container/enchant_reserver.png");
-
     private final TileEntityEnchantReserver tileEntityEnchantReserver = new TileEntityEnchantReserver();
 
     public GuiEnchantReserver(EntityPlayer player, int x, int y, int z, EnchantReserverInventory slots) {
@@ -58,7 +56,7 @@ public class GuiEnchantReserver extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float v, int i, int i1) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         drawDefaultBackground();
-        this.mc.getTextureManager().bindTexture(ENCHANT_RESERVER_TEXTURE);
+        this.mc.getTextureManager().bindTexture(Textures.ENCHANT_RESERVER_TEXTURE);
         int var4 = (this.width - this.xSize) / 2;
         int var5 = (this.height - this.ySize) / 2;
         int var6 = this.guiLeft;

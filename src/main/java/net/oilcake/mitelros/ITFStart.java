@@ -2,6 +2,7 @@ package net.oilcake.mitelros;
 
 import fi.dy.masa.malilib.config.ConfigManager;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.ResourceLocation;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.event.ITFEventFML;
 import net.oilcake.mitelros.event.ITFEventRIC;
@@ -15,7 +16,6 @@ public class ITFStart implements ModInitializer {
     public static final String MOD_ID = "mite-itf-reborn";
     public static final String MOD_VERSION = FishModLoader.getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
     public static final String NameSpace = "ITF Reborn";
-    public static final String NameSpaceCompact = "ITF";
     public static final String ResourceDomain = "miteitfrb";
     public static final String ResourceDomainColon = "miteitfrb:";
 
@@ -26,5 +26,9 @@ public class ITFStart implements ModInitializer {
         ConfigManager.getInstance().registerConfig(ITFConfig.getInstance());
         ITFNetwork.init();
         ModResourceManager.addResourcePackDomain(ResourceDomain);
+    }
+
+    public static ResourceLocation identifier(String path) {
+        return new ResourceLocation(ResourceDomain, path);
     }
 }

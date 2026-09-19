@@ -21,7 +21,6 @@ public class BlockRegistry extends Blocks implements Runnable {
         registerAnvil("tungsten_anvil", anvilTungsten);
         register("blastfurnace_stone_idle", blastFurnaceStoneIdle);
         register("blastfurnace_obsidian_idle", blastFurnaceObsidianIdle);
-        register("blastfurnace_obsidian_idle", blastFurnaceObsidianIdle);
         register("blastfurnace_netherrack_idle", blastFurnaceNetherrackIdle);
         register("blastfurnace_stone_burning", blastFurnaceStoneBurning, false);
         register("blastfurnace_obsidian_burning", blastFurnaceObsidianBurning, false);

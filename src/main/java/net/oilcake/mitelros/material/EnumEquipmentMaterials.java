@@ -3,7 +3,6 @@ package net.oilcake.mitelros.material;
 import com.chocohead.mm.api.ClassTinkerers;
 import net.minecraft.EnumEquipmentMaterial;
 import net.minecraft.EnumQuality;
-import net.oilcake.mitelros.ITFStart;
 import net.xiaoyu233.fml.util.EnumExtends;
 
 public enum EnumEquipmentMaterials {
@@ -19,14 +18,14 @@ public enum EnumEquipmentMaterials {
     ICE_CHUNK(0.5F, 10, EnumQuality.fine, "ice_chunk"),
     ;
 
-    public final String EnumName;
+    public final String enumName;
     public final float durability;
     public final int enchantability;
     public final EnumQuality max_quality;
     public final String name;
 
     EnumEquipmentMaterials(float durability, int enchantability, EnumQuality max_quality, String material_name) {
-        this.EnumName = ITFStart.NameSpaceCompact + "_" + this.name();
+        this.enumName = "ITF_" + this.name();// all uppercase
         this.durability = durability;
         this.enchantability = enchantability;
         this.max_quality = max_quality;
@@ -35,11 +34,11 @@ public enum EnumEquipmentMaterials {
 
     public static void register() {
         for (EnumEquipmentMaterials arg : values()) {
-            EnumExtends.EQUIPMENT_MATERIAL.addEnum(arg.EnumName, () -> new Object[]{arg.durability, arg.enchantability, arg.max_quality, arg.name});
+            EnumExtends.EQUIPMENT_MATERIAL.addEnum(arg.enumName, () -> new Object[]{arg.durability, arg.enchantability, arg.max_quality, arg.name});
         }
     }
 
     public EnumEquipmentMaterial get() {
-        return ClassTinkerers.getEnum(EnumEquipmentMaterial.class, this.EnumName);
+        return ClassTinkerers.getEnum(EnumEquipmentMaterial.class, this.enumName);
     }
 }
