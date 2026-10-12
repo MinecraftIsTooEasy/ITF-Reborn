@@ -18,7 +18,7 @@ public class ItemWine extends Item {
     @Override
     public void onItemUseFinish(ItemStack item_stack, World world, EntityPlayer player) {
         if (player.onServer()) {
-            ITFEntityPlayer.cast(player).itf$GetDrunkManager().setHasDrunk(true);
+            ITFEntityPlayer.cast(player).itf$getPlayerExtension().getDrunkManager().setHasDrunk(true);
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
             player.addPotionEffect(new PotionEffect(PotionExtend.thirsty.id, 2560, 0));
             ITFEntityPlayer.cast(player).itf$AddWater(ITFApi.getItemWater(this));

@@ -36,7 +36,7 @@ public class MiscManager {
     }
 
     public static MiscManager getInstance(EntityPlayer player) {
-        return ITFEntityPlayer.cast(player).itf_GetMiscManager();
+        return ITFEntityPlayer.cast(player).itf$getPlayerExtension().getMiscManager();
     }
 
     public float getNickelArmorCoverage() {
