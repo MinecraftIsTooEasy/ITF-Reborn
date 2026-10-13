@@ -1,17 +1,20 @@
 package net.oilcake.mitelros.status;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.Curse;
 import net.minecraft.EntityPlayer;
+import net.minecraft.EntityWitch;
 import net.minecraft.ServerPlayer;
+import net.oilcake.mitelros.config.ITFConfig;
+import net.oilcake.mitelros.mixin.interfaces.ITFEntityPlayer;
 import net.oilcake.mitelros.network.ITFNetwork;
 import net.oilcake.mitelros.network.packets.C2SLearnCurseEffect;
 import net.oilcake.mitelros.network.packets.S2CUpdateCurses;
 import net.oilcake.mitelros.util.CurseExtend;
+import org.spongepowered.asm.mixin.Unique;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CurseManager {
     private final EntityPlayer player;
@@ -157,5 +160,102 @@ public class CurseManager {
             }
         }
         return true;
+    }
+
+    @Environment(EnvType.SERVER)
+    public void serverTick() {
+        if (ITFConfig.TagRejection.isEnable()) {
+            List<Curse> playerCurses = this.getPersistedCurses();
+            int targetCurseCount = ITFConfig.TagRejection.getIntegerValue();
+            if (playerCurses.size() < targetCurseCount) {
+                EntityWitch temp = new EntityWitch(this.player.worldObj);
+                Set<Integer> added = new HashSet<>();
+                for (Curse c : playerCurses) {
+                    added.add(c.id);
+                    this.learnPersistedCurseEffect(c.id);
+                }
+                int existingCurseCount = playerCurses.size();
+                int cursesToAdd = targetCurseCount - existingCurseCount;
+                Random rand = new Random(this.getCurseSeed(existingCurseCount));
+                for (int i = 0; i < cursesToAdd; i++) {
+                    Curse randomCurse = this.getRandomAvailableCurse(rand, added);
+                    if (randomCurse == null) {
+                        break;
+                    }
+                    Curse persistedCurse = this.createPersistedCurse(temp, randomCurse, existingCurseCount + i);
+                    this.player.worldObj.getWorldInfo().getCurses().add(persistedCurse);
+                    playerCurses.add(persistedCurse);
+                    added.add(randomCurse.id);
+                }
+                ((ITFEntityPlayer) this).itf$SetActiveCurses(this.getRealizedCurses());
+            }
+        }
+    }
+
+    private List<Curse> getPersistedCurses() {
+        List<Curse> playerCurses = new ArrayList<>();
+        for (Curse curse : (List<Curse>) this.player.worldObj.getWorldInfo().getCurses()) {
+            if (curse.cursed_player_username.equals(this.player.getEntityName())) {
+                playerCurses.add(curse);
+            }
+        }
+        return playerCurses;
+    }
+
+
+    @Unique
+    private List<Curse> getRealizedCurses() {
+        List<Curse> playerCurses = new ArrayList<>();
+        for (Curse curse : this.getPersistedCurses()) {
+            if (curse.has_been_realized) {
+                playerCurses.add(curse);
+            }
+        }
+        return playerCurses;
+    }
+
+    @Unique
+    private Curse getRandomAvailableCurse(Random rand, Set<Integer> excludedCurseIds) {
+        List<Curse> availableCurses = new ArrayList<>();
+        for (Curse curse : Curse.cursesList) {
+            if (curse != null && !excludedCurseIds.contains(curse.id)) {
+                availableCurses.add(curse);
+            }
+        }
+        if (availableCurses.isEmpty()) {
+            return null;
+        }
+        return availableCurses.get(rand.nextInt(availableCurses.size()));
+    }
+
+    private Curse createPersistedCurse(EntityWitch cursingWitch, Curse curse, int timeOffset) {
+        Curse persistedCurse = new Curse(
+                this.player.getEntityName(),
+                cursingWitch.getUniqueID(),
+                curse,
+                this.player.worldObj.getTotalWorldTime() + timeOffset,
+                false,
+                true
+        );
+        persistedCurse.effect_has_already_been_learned = true;
+        return persistedCurse;
+    }
+
+    private void learnPersistedCurseEffect(int curseId) {
+        for (Curse curse : (List<Curse>) this.player.worldObj.getWorldInfo().getCurses()) {
+            if (curse.cursed_player_username.equals(this.player.getEntityName()) && curse.id == curseId) {
+                curse.effect_known = true;
+                curse.effect_has_already_been_learned = true;
+            }
+        }
+    }
+
+    private long getCurseSeed(int existingCurseCount) {
+        long seed = this.player.worldObj.getSeed();
+        seed ^= ((long) this.player.getEntityName().hashCode()) << 32;
+        seed ^= this.player.worldObj.getWorldInfo().getWorldCreationTime();
+        seed ^= this.player.worldObj.getTotalWorldTime();
+        seed ^= ((long) existingCurseCount) * 0x9E3779B97F4A7C15L;
+        return seed;
     }
 }

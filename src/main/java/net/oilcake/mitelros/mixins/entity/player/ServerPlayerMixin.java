@@ -65,107 +65,12 @@ public abstract class ServerPlayerMixin extends EntityPlayer implements ICraftin
 
     @Inject(method = "onUpdateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/FoodStats;getHunger()F"))
     private void inject(CallbackInfo ci) {
-        if (ITFConfig.TagRejection.isEnable()) {
-            List<Curse> playerCurses = this.itf$getPersistedCurses();
-            int targetCurseCount = ITFConfig.TagRejection.getIntegerValue();
-            if (playerCurses.size() < targetCurseCount) {
-                EntityWitch temp = new EntityWitch(this.worldObj);
-                Set<Integer> added = new HashSet<>();
-                for (Curse c : playerCurses) {
-                    added.add(c.id);
-                    this.itf$LearnPersistedCurseEffect(c.id);
-                }
-                int existingCurseCount = playerCurses.size();
-                int cursesToAdd = targetCurseCount - existingCurseCount;
-                Random rand = new Random(this.itf$getCurseSeed(existingCurseCount));
-                for (int i = 0; i < cursesToAdd; i++) {
-                    Curse randomCurse = this.itf$getRandomAvailableCurse(rand, added);
-                    if (randomCurse == null) {
-                        break;
-                    }
-                    Curse persistedCurse = this.itf$CreatePersistedCurse(temp, randomCurse, existingCurseCount + i);
-                    this.worldObj.getWorldInfo().getCurses().add(persistedCurse);
-                    playerCurses.add(persistedCurse);
-                    added.add(randomCurse.id);
-                }
-                ((ITFEntityPlayer) this).itf$SetActiveCurses(this.itf$getRealizedCurses());
-            }
-        }
+        ITFEntityPlayer.cast(this).itf$getPlayerExtension().getCurseManager().serverTick();
         int water = this.itf$GetWater();
         if (water != this.last_water) {
             ITFNetwork.sendToClient(this.getAsEntityPlayerMP(), new S2CUpdateITFStatus(water));
             this.last_water = water;
         }
-    }
-
-    @Unique
-    private List<Curse> itf$getPersistedCurses() {
-        List<Curse> playerCurses = new ArrayList<>();
-        for (Curse curse : (List<Curse>) this.worldObj.getWorldInfo().getCurses()) {
-            if (curse.cursed_player_username.equals(this.getEntityName())) {
-                playerCurses.add(curse);
-            }
-        }
-        return playerCurses;
-    }
-
-    @Unique
-    private List<Curse> itf$getRealizedCurses() {
-        List<Curse> playerCurses = new ArrayList<>();
-        for (Curse curse : this.itf$getPersistedCurses()) {
-            if (curse.has_been_realized) {
-                playerCurses.add(curse);
-            }
-        }
-        return playerCurses;
-    }
-
-    @Unique
-    private Curse itf$getRandomAvailableCurse(Random rand, Set<Integer> excludedCurseIds) {
-        List<Curse> availableCurses = new ArrayList<>();
-        for (Curse curse : Curse.cursesList) {
-            if (curse != null && !excludedCurseIds.contains(curse.id)) {
-                availableCurses.add(curse);
-            }
-        }
-        if (availableCurses.isEmpty()) {
-            return null;
-        }
-        return availableCurses.get(rand.nextInt(availableCurses.size()));
-    }
-
-    @Unique
-    private Curse itf$CreatePersistedCurse(EntityWitch cursingWitch, Curse curse, int timeOffset) {
-        Curse persistedCurse = new Curse(
-                this.getEntityName(),
-                cursingWitch.getUniqueID(),
-                curse,
-                this.worldObj.getTotalWorldTime() + timeOffset,
-                false,
-                true
-        );
-        persistedCurse.effect_has_already_been_learned = true;
-        return persistedCurse;
-    }
-
-    @Unique
-    private void itf$LearnPersistedCurseEffect(int curseId) {
-        for (Curse curse : (List<Curse>) this.worldObj.getWorldInfo().getCurses()) {
-            if (curse.cursed_player_username.equals(this.getEntityName()) && curse.id == curseId) {
-                curse.effect_known = true;
-                curse.effect_has_already_been_learned = true;
-            }
-        }
-    }
-
-    @Unique
-    private long itf$getCurseSeed(int existingCurseCount) {
-        long seed = this.worldObj.getSeed();
-        seed ^= ((long) this.getEntityName().hashCode()) << 32;
-        seed ^= this.worldObj.getWorldInfo().getWorldCreationTime();
-        seed ^= this.worldObj.getTotalWorldTime();
-        seed ^= ((long) existingCurseCount) * 0x9E3779B97F4A7C15L;
-        return seed;
     }
 
     @Override
