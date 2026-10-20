@@ -192,7 +192,7 @@ public class TradingListener implements Consumer<TradingRegisterEvent> {
                 })
                 .addEntry((recipeList, villager, rand) -> {
                     if (rand.nextFloat() < villager.adjustProbability(0.15F))
-                        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(Items.cake.itemID, 1, 0)));
+                        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 4), new ItemStack(Item.cake.itemID, 1, 0)));
                 })
                 .addEntry((recipeList, villager, rand) -> {
                     if (rand.nextFloat() < villager.adjustProbability(0.9F))
@@ -266,7 +266,7 @@ public class TradingListener implements Consumer<TradingRegisterEvent> {
                 })
                 .addEntry((recipeList, villager, rand) -> {
                     if (rand.nextFloat() < villager.adjustProbability(0.3F))
-                        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 2), new ItemStack(Items.fishingRodCopper, 1, 0)));
+                        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 2), new ItemStack(Item.fishingRodCopper, 1, 0)));
                 })
                 .addEntry((recipeList, villager, rand) -> {
                     if (rand.nextFloat() < villager.adjustProbability(0.2F))
@@ -483,7 +483,7 @@ public class TradingListener implements Consumer<TradingRegisterEvent> {
                 .sellEntry(Item.legsLeather.itemID, 0.3F)
                 .addEntry((recipeList, villager, rand) -> {
                     if (rand.nextFloat() < villager.adjustProbability(0.8F))
-                        recipeList.add(new MerchantRecipe(new ItemStack(Items.leather, 14 + rand.nextInt(3)), new ItemStack(Item.emerald.itemID, 1, 0)));
+                        recipeList.add(new MerchantRecipe(new ItemStack(Item.leather, 14 + rand.nextInt(3)), new ItemStack(Item.emerald.itemID, 1, 0)));
                 });
 
     }

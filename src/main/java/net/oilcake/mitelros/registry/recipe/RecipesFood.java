@@ -4,6 +4,8 @@ import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
 import net.oilcake.mitelros.registry.item.Items;
 
+import static net.minecraft.Item.bowlWater;
+
 public class RecipesFood extends Items {
 
     public static Item getWaterBowlForCooking() {
@@ -129,7 +131,7 @@ public class RecipesFood extends Items {
         for (ItemBucket waterBucket : water_buckets) {
             int i1;
             for (i1 = 1; i1 <= 4; i1++) {
-                register.registerShapelessRecipe(new ItemStack(Item.bowlWater, i1), true, waterBucket, new ItemStack(Item.bowlEmpty, i1)).difficulty(25);
+                register.registerShapelessRecipe(new ItemStack(bowlWater, i1), true, waterBucket, new ItemStack(Item.bowlEmpty, i1)).difficulty(25);
                 register.registerShapelessRecipe(new ItemStack(clayBowlWater, i1), true, waterBucket, new ItemStack(clayBowlEmpty, i1)).difficulty(25);
             }
             register.registerShapelessRecipe(new ItemStack(waterBucket), true, waterBucket.getEmptyVessel(), new ItemStack(bowlWater, 4)).difficulty(25);

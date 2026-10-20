@@ -31,6 +31,7 @@ public class ItemRegistry extends Items implements Runnable {
 
     @Override
     public void run() {
+        register("book_written", guide, false);
         register("armor/nickel_helmet", nickelHelmet);
         register("armor/nickel_chestplate", nickelChestplate);
         register("armor/nickel_leggings", nickelLeggings);

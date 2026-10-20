@@ -74,7 +74,7 @@ public class ITFLootTables {
     public static final Supplier<WeightedRandomChestContent[]> dungeonOverworldExtra = () -> new WeightedRandomChestContent[]{
             new WeightedRandomChestContent(Items.beetroot.itemID, 0, 1, 1, 5),
             new WeightedRandomChestContent(Items.morningStarCopper.itemID, 0, 1, 1, 1),
-            new WeightedRandomChestContent(Items.warHammerRustedIron.itemID, 0, 1, 1, 2),
+            new WeightedRandomChestContent(Item.warHammerRustedIron.itemID, 0, 1, 1, 2),
             new WeightedRandomChestContent(Items.morningStarRustedIron.itemID, 0, 1, 1, 2),
             new WeightedRandomChestContent(Items.ignitionRustedIron.itemID, 0, 1, 1, 1),
     };

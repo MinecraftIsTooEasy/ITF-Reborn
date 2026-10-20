@@ -15,7 +15,9 @@ import net.oilcake.mitelros.util.ITFLootTables;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.fml.util.ReflectHelper;
 
-public class Items extends Item {
+import static net.minecraft.Item.*;
+
+public class Items {
     public static final ItemArmor nickelHelmet = new ItemHelmet(getNextItemID(), Materials.nickel, false);
 
     public static final ItemArmor nickelChestplate = new ItemCuirass(getNextItemID(), Materials.nickel, false);

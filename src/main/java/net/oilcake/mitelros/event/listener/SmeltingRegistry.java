@@ -10,6 +10,7 @@ import net.oilcake.mitelros.registry.item.Items;
 
 import java.util.function.Consumer;
 
+import static net.minecraft.Item.*;
 import static net.oilcake.mitelros.registry.block.Blocks.*;
 import static net.oilcake.mitelros.registry.item.Items.*;
 

@@ -7,6 +7,8 @@ import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.ItemUtil;
 
+import static net.minecraft.Item.*;
+
 public class RecipesArmor extends Items {
     public static void registerArmorRecipe(CraftingRecipeRegisterEvent register) {
         registerArmorRecipe(register, wolf_fur, Materials.wolf_fur, false);
