@@ -11,7 +11,6 @@ import net.minecraft.ItemStack;
 import net.minecraft.ScaledResolution;
 import net.oilcake.mitelros.ModReference;
 import net.oilcake.mitelros.feat.EnchantPrediction;
-import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.mixin.interfaces.ITFGuiEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,9 +26,6 @@ import java.util.List;
 public abstract class GuiEnchantmentMixin extends GuiContainer implements ITFGuiEnchantment {
     @Shadow
     private ContainerEnchantment containerEnchantment;
-
-    @Shadow
-    ItemStack theItemStack;
 
     @Unique
     private int[] info;
@@ -52,13 +48,18 @@ public abstract class GuiEnchantmentMixin extends GuiContainer implements ITFGui
     }
 
     @Override
-    public void itf$SetEnchantmentSeed(long seed) {
-        if (this.theItemStack == null) {
+    public void itf$SetEnchantmentInfo(int[] info) {
+        if (info == null) {
             this.info = null;
             return;
         }
-        boolean extended = this.theItemStack.getMaterialForRepairs() == Materials.uru;
-        this.info = EnchantPrediction.predict(seed, this.theItemStack, this.containerEnchantment.enchantLevels, extended);
+        for (int index = 0; index < info.length; index += 2) {
+            if (info[index] >= 0) {
+                this.info = info.clone();
+                return;
+            }
+        }
+        this.info = null;
     }
 
     @Override

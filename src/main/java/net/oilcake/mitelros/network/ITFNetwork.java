@@ -14,7 +14,7 @@ public class ITFNetwork {
     public static final ResourceLocation SetGlowing = ITFStart.identifier("SetGlowing");
     public static final ResourceLocation DecreaseWater = ITFStart.identifier("DecreaseWater");
     public static final ResourceLocation LearnCurseEffect = ITFStart.identifier("LearnCurseEffect");
-    public static final ResourceLocation EnchantmentSeed = ITFStart.identifier("EnchantmentSeed");
+    public static final ResourceLocation EnchantmentPrediction = ITFStart.identifier("EnchantmentPrediction");
     public static final ResourceLocation EnchantmentReserverInfo = ITFStart.identifier("EnchantmentReserverInfo");
     public static final ResourceLocation UpdateITFStatus = ITFStart.identifier("UpdateITFStatus");
     public static final ResourceLocation UpdateCurses = ITFStart.identifier("UpdateCurses");
@@ -39,7 +39,7 @@ public class ITFNetwork {
     private static void initClient() {
         PacketReader.registerClientPacketReader(BossInfo, S2CBossInfo::new);
         PacketReader.registerClientPacketReader(SetGlowing, S2CSetGlowing::new);
-        PacketReader.registerClientPacketReader(EnchantmentSeed, S2CEnchantmentSeed::new);
+        PacketReader.registerClientPacketReader(EnchantmentPrediction, S2CEnchantmentPrediction::new);
         PacketReader.registerClientPacketReader(EnchantmentReserverInfo, S2CEnchantReserverInfo::new);
         PacketReader.registerClientPacketReader(UpdateITFStatus, S2CUpdateITFStatus::new);
         PacketReader.registerClientPacketReader(UpdateCurses, S2CUpdateCurses::new);

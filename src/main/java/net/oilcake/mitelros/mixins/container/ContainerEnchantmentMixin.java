@@ -2,10 +2,11 @@ package net.oilcake.mitelros.mixins.container;
 
 import net.minecraft.*;
 import net.oilcake.mitelros.ModReference;
+import net.oilcake.mitelros.feat.EnchantPrediction;
 import net.oilcake.mitelros.item.ItemGoldenAppleLegend;
 import net.oilcake.mitelros.material.Materials;
 import net.oilcake.mitelros.network.ITFNetwork;
-import net.oilcake.mitelros.network.packets.S2CEnchantmentSeed;
+import net.oilcake.mitelros.network.packets.S2CEnchantmentPrediction;
 import net.oilcake.mitelros.registry.block.Blocks;
 import net.oilcake.mitelros.registry.item.Items;
 import net.oilcake.mitelros.util.AchievementExtend;
@@ -24,7 +25,7 @@ import java.util.Random;
 @Mixin(ContainerEnchantment.class)
 public abstract class ContainerEnchantmentMixin extends Container {
     @Unique
-    private final Random itf$randomForSeeds = new Random();
+    private final Random itf$predictionRandom = new Random();
 
     @Shadow
     public IInventory tableInventory;
@@ -53,17 +54,27 @@ public abstract class ContainerEnchantmentMixin extends Container {
     public int[] enchantLevels;
 
     @Inject(method = "onCraftMatrixChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/ContainerEnchantment;detectAndSendChanges()V", shift = At.Shift.AFTER))
-    private void sendPredicatePacket(IInventory par1IInventory, CallbackInfo ci) {
+    private void itf$updateEnchantmentPrediction(IInventory par1IInventory, CallbackInfo ci) {
         if (this.world.isRemote || ModReference.hasMod(ModReference.ENCHANT_DIVINE)) return;
         ItemStack itemStack = this.tableInventory.getStackInSlot(0);
         if (itemStack == null || ItemPotion.isBottleOfWater(itemStack) || ItemAppleGold.isUnenchantedGoldenApple(itemStack)) {
+            this.itf$sendEnchantmentPrediction(null);
             return;
         }
         boolean predicated = (this.world.getBlock(this.posX, this.posY - 1, this.posZ) == Blocks.blockEnchantPredicator) || this.world.getBlock(this.posX, this.posY, this.posZ) == Blocks.magicTable;
-        if (!predicated) return;
-        long seed = this.itf$randomForSeeds.nextLong();
-        ITFNetwork.sendToClient((ServerPlayer) this.player, new S2CEnchantmentSeed(seed));
+        if (!predicated) {
+            this.itf$sendEnchantmentPrediction(null);
+            return;
+        }
+        long seed = this.itf$predictionRandom.nextLong();
+        boolean extended = itemStack.getMaterialForRepairs() == Materials.uru;
+        this.itf$sendEnchantmentPrediction(EnchantPrediction.predict(seed, itemStack, this.enchantLevels, extended));
         this.rand.setSeed(seed);
+    }
+
+    @Unique
+    private void itf$sendEnchantmentPrediction(int[] info) {
+        ITFNetwork.sendToClient((ServerPlayer) this.player, new S2CEnchantmentPrediction(this.windowId, info));
     }
 
     @Inject(method = "enchantItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemAppleGold;isUnenchantedGoldenApple(Lnet/minecraft/ItemStack;)Z"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
