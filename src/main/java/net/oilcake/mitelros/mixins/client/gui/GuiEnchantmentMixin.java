@@ -55,7 +55,9 @@ public abstract class GuiEnchantmentMixin extends GuiContainer implements ITFGui
         }
         for (int index = 0; index < info.length; index += 2) {
             if (info[index] >= 0) {
-                this.info = info.clone();
+                int[] copiedInfo = new int[info.length];
+                System.arraycopy(info, 0, copiedInfo, 0, info.length);
+                this.info = copiedInfo;
                 return;
             }
         }
