@@ -1,15 +1,9 @@
 package net.oilcake.mitelros;
 
-import fi.dy.masa.malilib.config.ConfigManager;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.ResourceLocation;
-import net.oilcake.mitelros.config.ITFConfig;
-import net.oilcake.mitelros.event.ITFEventFML;
-import net.oilcake.mitelros.event.ITFEventRIC;
-import net.oilcake.mitelros.network.ITFNetwork;
+import net.oilcake.mitelros.registry.Bootstrap;
 import net.xiaoyu233.fml.FishModLoader;
-import net.xiaoyu233.fml.ModResourceManager;
-import net.xiaoyu233.fml.reload.event.MITEEvents;
 
 public class ITFStart implements ModInitializer {
     public static final String LEGACY_CONFIG_NAME = "MITE-ITF-Reborn";
@@ -21,11 +15,7 @@ public class ITFStart implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        MITEEvents.MITE_EVENT_BUS.register(new ITFEventFML());
-        ITFEventRIC.register();
-        ConfigManager.getInstance().registerConfig(ITFConfig.getInstance());
-        ITFNetwork.init();
-        ModResourceManager.addResourcePackDomain(ResourceDomain);
+        Bootstrap.bootstrap();
     }
 
     public static ResourceLocation identifier(String path) {

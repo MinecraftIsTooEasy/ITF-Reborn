@@ -68,56 +68,11 @@ public class ITFEventFML {
     }
 
     @Subscribe
-    public void onItemRegister(ItemRegistryEvent event) {
-        new ItemRegistry(event).run();
-        new BlockRegistry(event).run();
-    }
-
-    @Subscribe
     public void onCommandRegister(CommandRegisterEvent event) {
         event.register(new CommandHunger());
         event.register(new CommandSetStatus());
         event.register(new CommandStatus());
         event.register(new CommandGenerate());
-    }
-
-    @Subscribe
-    public void onAchievementRegister(AchievementRegistryEvent event) {
-        AchievementExtend.registerAchievements();
-    }
-
-    @Subscribe
-    public void onEnchantmentRegister(EnchantmentRegistryEvent event) {
-        Enchantments.registerEnchantments(event);
-    }
-
-    @Subscribe
-    public void onEntityRegister(EntityRegisterEvent event) {
-        event.register(EntityWitherBoneLord.class, NameSpace, "EntityWitherBoneLord", 541, 1314564, 13003008);
-        event.register(EntityClusterSpider.class, NameSpace, "EntityClusterSpider", 542, 15474675, 5051227);
-        event.register(EntityWitherBodyguard.class, NameSpace, "EntityWitherBodyguard", 543, 1314564, 7039851);
-        event.register(EntitySpiderKing.class, NameSpace, "EntitySpiderKing", 544, 3419431, 15790120);
-        event.register(EntityStray.class, NameSpace, "EntityStray", 545, 10862020, 871004);
-        event.register(EntityHusk.class, NameSpace, "EntityHusk", 546, 9798412, 3940871);
-        event.register(EntityPigmanLord.class, NameSpace, "EntityPigManlord", 547, 15373203, 5066061);
-        event.register(EntityLich.class, NameSpace, "EntityLich", 548, 13422277, 14008320);
-        event.register(EntityLichShadow.class, NameSpace, "EntityLichShadow", 549, 13422277, 7699821);
-        event.register(EntityStalkerCreeper.class, NameSpace, "EntityStalkerCreeper", 550, 10921638, 0);
-        event.register(EntityWandFireBall.class, NameSpace, "EntityWandFireBall", 551);
-        event.register(EntityWandIceBall.class, NameSpace, "EntityWandIceBall", 552);
-        event.register(EntityWandShockWave.class, NameSpace, "EntityWandShockWave", 553);
-        event.register(EntityZombieLord.class, NameSpace, "EntityZombieLord?", 554, 44975, 7969893);
-        event.register(EntityRetinueZombie.class, NameSpace, "EntityZombieRetinue", 555, 44975, 7969893);
-        event.register(EntityBoneBodyguard.class, NameSpace, "EntityBoneBodyguard", 556, 12698049, 4802889);
-        event.register(EntityGhost.class, NameSpace, "EntityGhost", 557, 9539985, 6629376);
-        event.register(EntityEvil.class, NameSpace, "EntityEvil", 558, 9539985, 14008320);
-        event.register(EntityUndeadGuard.class, NameSpace, "EntityUndeadGuard", 559, 12698049, 4802889);
-        event.register(EntityPigmanGuard.class, NameSpace, "EntityPigManGuard", 560, 15373203, 5066061);
-        event.register(EntityCastleGuard.class, NameSpace, "EntityCastleGuard", 561, 0x565656, 0x999999);
-        event.register(EntityLongdeadSentry.class, NameSpace, "EntityLongdeadSentry", 563, 13422277, 7699821);
-        event.register(EntityWandSlimeBall.class, NameSpace, "EntityWandSlimeBall", 564);
-        event.register(EntityWandPearl.class, NameSpace, "EntityPearlITF", 565);
-        event.register(EntityUnknown.class, NameSpace, "null", 1895);
     }
 
     @Subscribe
@@ -139,13 +94,6 @@ public class ITFEventFML {
         event.register(EntityWandSlimeBall.class, new RenderSnowball(Item.slimeBall));
         event.register(EntityUnknown.class, new RenderUnknown());
         event.register(EntityWandPearl.class, new RenderSnowball(Item.enderPearl));
-    }
-
-    @Subscribe
-    public void onTileEntityRegister(TileEntityRegisterEvent event) {
-        event.register(TileEntityEnchantReserver.class, "EnchantReserver");
-        event.register(TileEntityObserver.class, "Observer");
-        event.register(TileEntityReceiver.class, "Receiver");
     }
 
     @Subscribe

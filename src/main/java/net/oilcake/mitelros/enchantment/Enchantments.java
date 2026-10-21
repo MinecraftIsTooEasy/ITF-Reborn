@@ -2,7 +2,6 @@ package net.oilcake.mitelros.enchantment;
 
 import net.minecraft.Enchantment;
 import net.minecraft.EnumRarity;
-import net.xiaoyu233.fml.reload.event.EnchantmentRegistryEvent;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 
 public class Enchantments {
@@ -22,7 +21,7 @@ public class Enchantments {
     public static final Enchantment enchantmentSunlightMending = new EnchantmentMending(getNextEnchantmentID(), EnumRarity.epic, 20);
     public static final Enchantment enchantmentMoonlightMending = new EnchantmentMending(getNextEnchantmentID(), EnumRarity.epic, 20);
 
-    public static void registerEnchantments(EnchantmentRegistryEvent event) {
+    public static void registerEnchantments() {
         // this calls the static part of the class
     }
 }

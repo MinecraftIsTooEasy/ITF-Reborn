@@ -1,22 +1,15 @@
 package net.oilcake.mitelros.registry.block;
 
-import net.minecraft.Block;
-import net.minecraft.BlockAnvil;
+import net.minecraft.*;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.registry.item.ItemRegistry;
-import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
+import net.xiaoyu233.fml.api.block.IBlock;
+import net.xiaoyu233.fml.api.item.IItem;
 
-import static net.oilcake.mitelros.ITFStart.NameSpace;
+import java.util.function.Function;
 
-public class BlockRegistry extends Blocks implements Runnable {
-    private final ItemRegistryEvent event;
-
-    public BlockRegistry(ItemRegistryEvent event) {
-        this.event = event;
-    }
-
-    @Override
-    public void run() {
+public class BlockRegistry extends Blocks {
+    public static void run() {
         registerAnvil("nickel_anvil", anvilNickel);
         registerAnvil("tungsten_anvil", anvilTungsten);
         register("blastfurnace_stone_idle", blastFurnaceStoneIdle);
@@ -60,27 +53,44 @@ public class BlockRegistry extends Blocks implements Runnable {
         tungstenRuneStone.setUnlocalizedName("runestone");
     }
 
-    private void register(String texture, Block block) {
+    private static void register(String texture, Block block) {
         register(texture, block, true);
     }
 
-    private void register(String texture, Block block, boolean show) {
+    private static void register(String texture, Block block, boolean show) {
         register(texture, block, true, show);
     }
 
-    private void register(String texture, Block block, boolean withDomain, boolean show) {
-        String translationKey = texture;
-        if (withDomain) texture = ITFStart.ResourceDomainColon + texture;
-        event.registerItemBlock(NameSpace, texture, translationKey, block);
+    private static void register(String texture, Block block, boolean withDomain, boolean show) {
+        ResourceLocation texturePath;
+        if (withDomain) {
+            texturePath = ITFStart.identifier(texture);
+        } else {
+            texturePath = new ResourceLocation(texture);
+        }
+        ResourceLocation identifier = ITFStart.identifier(texture);
+        registerBlock(block, identifier, texturePath);
         if (show) {
             block.setCreativeTab(ItemRegistry.ITFBlock);
         }
     }
 
-    private void registerAnvil(String texture, BlockAnvil block) {
-        String translationKey = texture;
-        texture = ITFStart.ResourceDomainColon + texture;
-        event.registerAnvil(NameSpace, texture, translationKey, block);
+    private static void registerAnvil(String texture, BlockAnvil block) {
+        registerBlock(block, ITFStart.identifier(texture), ITFStart.identifier(texture), ItemAnvilBlock::new);
         block.setCreativeTab(ItemRegistry.ITFBlock);
+    }
+
+    private static void registerBlock(Block block, ResourceLocation id, ResourceLocation texture) {
+        registerBlock(block, id, texture, ItemBlock::new);
+    }
+
+    private static <T extends Block> void registerBlock(T block, ResourceLocation id, ResourceLocation texture, Function<T, Item> factory) {
+        block.setUnlocalizedName(id.getResourcePath());
+//        block.setUnlocalizedName(id.getResourceDomain() + "." + id.getResourcePath());// TODO
+        ((IBlock) block).setNamespace(id.getResourceDomain());
+        ((IBlock) block).setBlockTextureName(texture.toString());
+        Item item = factory.apply(block).setUnlocalizedName(id.toString());
+        ((IItem) item).setNamespace(id.getResourceDomain());
+        item.setMaxStackSize(block.getItemStackLimit());
     }
 }

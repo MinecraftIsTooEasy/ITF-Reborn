@@ -1,15 +1,15 @@
 package net.oilcake.mitelros.registry.item;
 
 import huix.glacier.api.extension.creativetab.GlacierCreativeTabs;
+import moddedmite.rustedironcore.api.RicRegistry;
 import net.minecraft.CreativeTabs;
 import net.minecraft.Item;
+import net.minecraft.ResourceLocation;
 import net.oilcake.mitelros.ITFStart;
 import net.oilcake.mitelros.registry.block.Blocks;
-import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
+import net.xiaoyu233.fml.api.item.IItem;
 
-import static net.oilcake.mitelros.ITFStart.NameSpace;
-
-public class ItemRegistry extends Items implements Runnable {
+public class ItemRegistry extends Items {
     public static final CreativeTabs ITFItem = new GlacierCreativeTabs("itf_reborn.item") {
         @Override
         public int getTabIconItemIndex() {
@@ -23,14 +23,7 @@ public class ItemRegistry extends Items implements Runnable {
         }
     };
 
-    private final ItemRegistryEvent event;
-
-    public ItemRegistry(ItemRegistryEvent event) {
-        this.event = event;
-    }
-
-    @Override
-    public void run() {
+    public static void run() {
         register("book_written", guide, false);
         register("armor/nickel_helmet", nickelHelmet);
         register("armor/nickel_chestplate", nickelChestplate);
@@ -267,14 +260,30 @@ public class ItemRegistry extends Items implements Runnable {
         fishingRodTungsten.setCreativeTab(ITFItem);
     }
 
-    private Item register(String texture, Item item) {
+    private static Item register(String texture, Item item) {
         return register(texture, item, true);
     }
 
-    private Item register(String texture, Item item, boolean withDomain) {
-        String translationKey = texture;
-        if (withDomain) texture = ITFStart.ResourceDomainColon + texture;
-        return event.register(NameSpace, texture, translationKey, item, ITFItem);
+    private static Item register(String texture, Item item, boolean withDomain) {
+        ResourceLocation texturePath;
+        if (withDomain) {
+            texturePath = ITFStart.identifier(texture);
+        } else {
+            texturePath = new ResourceLocation(texture);
+        }
+
+        item.setCreativeTab(ITFItem);
+
+        registerItem(item, ITFStart.identifier(texture), texturePath);
+
+        return item;
+    }
+
+    public static void registerItem(Item item, ResourceLocation id, ResourceLocation texture) {
+        item.setUnlocalizedName(id.getResourcePath());// TODO change langs
+//        item.setUnlocalizedName(id.getResourceDomain() + "." + id.getResourcePath());
+        ((IItem) item).setNamespace(id.getResourceDomain());
+        ((IItem) item).setItemTextureName(texture.toString());
     }
 
 }
