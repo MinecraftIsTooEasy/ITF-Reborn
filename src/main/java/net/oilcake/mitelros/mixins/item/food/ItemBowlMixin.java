@@ -2,7 +2,7 @@ package net.oilcake.mitelros.mixins.item.food;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.oilcake.mitelros.feat.FoodWater;
+import net.oilcake.mitelros.event.Hooks;
 import net.oilcake.mitelros.util.WaterHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,12 +18,7 @@ public abstract class ItemBowlMixin extends ItemVessel {
 
     @Inject(method = "onItemUseFinish", at = @At("HEAD"))
     private void itfDrink(ItemStack item_stack, World world, EntityPlayer player, CallbackInfo ci) {
-        if (player.onServer()) {
-            FoodWater.onWaterDrunk(item_stack.getItem(), player);
-            if (!contains(Material.water) && !contains(Material.milk)) {
-                player.itf$GetFeastManager().update(this);
-            }
-        }
+        Hooks.onBowlUse((ItemBowl) (Object) this, item_stack, player);
     }
 
     @ModifyArg(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;convertOneOfHeldItem(Lnet/minecraft/ItemStack;)V", ordinal = 0))
