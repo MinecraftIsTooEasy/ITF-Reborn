@@ -72,8 +72,10 @@ dependencies {
 
     // useful mods
 //    localRuntime "org.moddedmite:enchantdivine:1.0.3"
-    localRuntime "com.github.MinecraftIsTooEasy:ModernMITE:3.7.5"
-    localRuntime "com.github.MinecraftIsTooEasy:OMMC:1.4.2"
+    localRuntime "com.github.MinecraftIsTooEasy:EMI:1.1.26"
+    localRuntime "org.moddedmite:modern-mite:3.7.8"
+    localRuntime "org.moddedmite:ommc:1.4.5"
+    localRuntime "org.moddedmite:wise-inventory:1.0.5"
     localRuntime "com.github.MinecraftIsTooEasy:Neodymium:1.1.1"
     localRuntime "org.moddedmite:waila:2.0.8"
     localRuntime "com.github.MinecraftIsTooEasy:MixinConflictHelper:1.0.0"

@@ -47,7 +47,7 @@ public class BlockRegistry extends Blocks {
         register("crafting_table", nickelWorkBench);
         register("crafting_table", tungstenWorkBench);
         register("beacon", uruBeacon, false, true);
-        register("obsidian", tungstenRuneStone, false, true);
+        registerRunestone("tungsten_runestone", tungstenRuneStone);
 
         uruBeacon.setUnlocalizedName("uru_beacon");
         tungstenRuneStone.setUnlocalizedName("runestone");
@@ -77,6 +77,11 @@ public class BlockRegistry extends Blocks {
 
     private static void registerAnvil(String texture, BlockAnvil block) {
         registerBlock(block, ITFStart.identifier(texture), ITFStart.identifier(texture), ItemAnvilBlock::new);
+        block.setCreativeTab(ItemRegistry.ITFBlock);
+    }
+
+    private static void registerRunestone(String id, BlockRunestone block) {
+        registerBlock(block, ITFStart.identifier(id), new ResourceLocation("minecraft", "obsidian"), ItemRunestone::new);
         block.setCreativeTab(ItemRegistry.ITFBlock);
     }
 

@@ -36,10 +36,6 @@ public abstract class ItemMixin {
 //        System.out.println("-----------------");
     }// TODO why null item call, is that fml?
 
-    @WrapOperation(method = "doesSubtypeMatterForProduct(Lnet/minecraft/ItemStack;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/Minecraft;setErrorMessage(Ljava/lang/String;)V"))
-    public void removeErrorInfo(String text, Operation<Void> original) {// TODO fix flowerextend recipes
-    }
-
     @Inject(method = "getReachBonus(Lnet/minecraft/Block;I)F", at = @At("HEAD"), cancellable = true)
     private void alwaysBonus(Block block, int metadata, CallbackInfoReturnable<Float> cir) {
         cir.setReturnValue(this.reach_bonus);
