@@ -4,6 +4,7 @@ import net.minecraft.*;
 import net.oilcake.mitelros.config.ITFConfig;
 import net.oilcake.mitelros.mixin.interfaces.ITFEnchantment;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AnvilSystem {
@@ -13,40 +14,38 @@ public class AnvilSystem {
 
     public static int calcXPDiffOnEnchanting(ItemStack item_stack_in_first_slot, NBTTagList enchantmentsOfBook) {
         int xpDifference = 0;
-        Map<?, ?> enchantmentOnItem = EnchantmentHelper.getEnchantmentsMap(item_stack_in_first_slot);
+        Map<Enchantment, Integer> enchantmentOnItem = getEnchantments(item_stack_in_first_slot);
         int xpMultiplier = enchantmentOnItem.isEmpty() ? ITFConfig.AnvilXPMultiplierInit.getIntegerValue() : ITFConfig.AnvilXPMultiplier.getIntegerValue();// if not enchanted, we take less
-        for (int i = 0; i < enchantmentsOfBook.tagCount(); ++i) {
-            NBTTagCompound tag = (NBTTagCompound) enchantmentsOfBook.tagAt(i);
-            int id = tag.getShort("id");
-            int bookLevel = tag.getShort("lvl");
-            Enchantment enchantment = Enchantment.enchantmentsList[id];
-            if (enchantmentOnItem.containsKey(id)) {
-                int originalLevel = (int) enchantmentOnItem.get(id);
+
+        for (Map.Entry<Enchantment, Integer> entry : asEnchantments(enchantmentsOfBook).entrySet()) {
+            Enchantment enchantment = entry.getKey();
+            int bookLevel = entry.getValue();
+            if (enchantmentOnItem.containsKey(enchantment)) {
+                int originalLevel = enchantmentOnItem.get(enchantment);
                 if (bookLevel > originalLevel) {
-                    xpDifference -= calculateEquivalentLevel(id, bookLevel) * xpMultiplier;
+                    xpDifference -= calculateEquivalentLevel(enchantment, bookLevel) * xpMultiplier;
                 } else if (bookLevel == originalLevel) {
                     if (bookLevel < enchantment.getNumLevels()) {
-                        xpDifference -= calculateEquivalentLevel(id, bookLevel + 1) * xpMultiplier;
+                        xpDifference -= calculateEquivalentLevel(enchantment, bookLevel + 1) * xpMultiplier;
                     }
                 }
             } else if (enchantment.canEnchantItem(item_stack_in_first_slot.getItem()) && canApplyTogether(enchantmentOnItem, enchantment)) {
-                xpDifference -= calculateEquivalentLevel(id, bookLevel) * xpMultiplier;
+                xpDifference -= calculateEquivalentLevel(enchantment, bookLevel) * xpMultiplier;
             }
         }
         return xpDifference;
     }
 
     public static int calcXPDiffOnDisenchanting(ItemStack item_stack_in_first_slot) {
-        Map mapBefore = EnchantmentHelper.getEnchantmentsMap(item_stack_in_first_slot);
+        Map<Enchantment, Integer> mapBefore = getEnchantments(item_stack_in_first_slot);
         int xpDifference = 0;
-        for (Object o : mapBefore.keySet()) {
-            xpDifference += AnvilSystem.calculateEquivalentLevel((int) o, (int) mapBefore.get(o)) * ITFConfig.AnvilXPMultiplierReward.getIntegerValue();
+        for (Map.Entry<Enchantment, Integer> entry : mapBefore.entrySet()) {
+            xpDifference += AnvilSystem.calculateEquivalentLevel(entry.getKey(), entry.getValue()) * ITFConfig.AnvilXPMultiplierReward.getIntegerValue();
         }
         return xpDifference;
     }
 
-    public static int calculateEquivalentLevel(int id, int level) {
-        Enchantment enchantment = Enchantment.get(id);
+    public static int calculateEquivalentLevel(Enchantment enchantment, int level) {
         if (((ITFEnchantment) enchantment).isCurse()) return 0;
         int original = enchantment.hasLevels() ?
                 enchantment.getMinEnchantmentLevelsCost(level) :
@@ -54,9 +53,12 @@ public class AnvilSystem {
         return original * (((ITFEnchantment) enchantment).isTreasure() ? 2 * ITFConfig.AnvilXPMultiplierTreasure.getIntegerValue() : 2);
     }
 
-    public static boolean canApplyTogether(Map enchantmentMap, Enchantment enchantment) {
-        for (Object o : enchantmentMap.keySet()) {
-            Enchantment enchantmentInMap = Enchantment.get((int) o);
+    public static boolean canApplyTogether(ItemStack stack, Enchantment enchantment) {
+        return canApplyTogether(getEnchantments(stack), enchantment);
+    }
+
+    public static boolean canApplyTogether(Map<Enchantment, Integer> enchantmentMap, Enchantment enchantment) {
+        for (Enchantment enchantmentInMap : enchantmentMap.keySet()) {
             if (enchantmentInMap.effectId == enchantment.effectId) continue;
             if (!enchantmentInMap.canApplyTogether(enchantment)) return false;
         }
@@ -77,4 +79,28 @@ public class AnvilSystem {
         return EnumChatFormatting.YELLOW + text;
     }
 
+    private static Map<Enchantment, Integer> asEnchantments(NBTTagList nbtTagList) {
+        LinkedHashMap<Enchantment, Integer> map = new LinkedHashMap<>();
+        for (int i = 0; i < nbtTagList.tagCount(); ++i) {
+            NBTTagCompound tag = (NBTTagCompound) nbtTagList.tagAt(i);
+            int id = tag.getShort("id");
+            int lvl = tag.getShort("lvl");
+            Enchantment enchantment = Enchantment.get(id);
+            if (enchantment != null) map.put(enchantment, lvl);
+        }
+        return map;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<Enchantment, Integer> getEnchantments(ItemStack stack) {
+        LinkedHashMap<Enchantment, Integer> map = new LinkedHashMap<>();
+        Map<Integer, Integer> rawMap = EnchantmentHelper.getEnchantmentsMap(stack);
+        rawMap.forEach(
+                (id, level) -> {
+                    Enchantment enchantment = Enchantment.get(id);
+                    if (enchantment != null) map.put(enchantment, level);
+                }
+        );
+        return map;
+    }
 }

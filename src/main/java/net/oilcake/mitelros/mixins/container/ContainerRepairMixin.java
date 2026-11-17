@@ -145,7 +145,7 @@ public abstract class ContainerRepairMixin extends Container implements ITFConta
     @ModifyExpressionValue(method = "updateRepairOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;canEnchantItem(Lnet/minecraft/Item;)Z"))
     private boolean checkConflict(boolean original, @Local Enchantment enchantment) {
         if (AnvilSystem.isActive()) {
-            return original && AnvilSystem.canApplyTogether(EnchantmentHelper.getEnchantmentsMap(this.inputSlots.getStackInSlot(0)), enchantment);
+            return original && AnvilSystem.canApplyTogether(this.inputSlots.getStackInSlot(0), enchantment);
         }
         return original;
     }
