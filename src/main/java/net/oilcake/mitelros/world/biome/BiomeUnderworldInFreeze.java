@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BiomeUnderworldInFreeze extends BiomeGenUnderworld {
+
     public BiomeUnderworldInFreeze(int id) {
         super(id);
         removeEntityFromSpawnableLists(EntitySkeleton.class);
@@ -65,7 +66,9 @@ public class BiomeUnderworldInFreeze extends BiomeGenUnderworld {
         }
     }
 
+    @Override
     public void decorate(World par1World, Random par2Random, int par3, int par4) {
+        if (!par1World.isUnderworld()) return;
         placeMycelium(par1World, par3, par4);
         super.decorate(par1World, par2Random, par3, par4);
         if (par2Random.nextInt(4095) == 0) {
